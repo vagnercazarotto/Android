@@ -1,1 +1,10 @@
-http://labs.udacity.com/android-visualizer/#/android/
+http://labs.udacity.com/android-visualizer/#/android/view-groups
+http://labs.udacity.com/android-visualizer/#/android/linear-layout
+http://labs.udacity.com/android-visualizer/#/android/match-parent
+http://labs.udacity.com/android-visualizer/#/android/equal-space-children
+http://labs.udacity.com/android-visualizer/#/android/linear-layout-weight
+http://labs.udacity.com/android-visualizer/#/android/relative-layout-align-to-parent
+http://labs.udacity.com/android-visualizer/#/android/relative-layout-list-item
+http://labs.udacity.com/android-visualizer/#/android/padding-and-margin
+
+
