@@ -22,7 +22,14 @@ public class MainActivity extends ActionBarActivity {
      * This method is called when the order button is clicked.
      */
     public void submitOrder(View view) {
-        display_value(quantity * 5);
+        String priceMessage  = "Thank You !!";
+        if(quantity == 0){
+            display_value(0);
+            displayMessage("");
+        } else {
+            display_value(quantity * 3.75);
+            displayMessage(priceMessage);
+        }
     }
     /**
      * This method displays the given quantity value on the screen.
@@ -36,6 +43,12 @@ public class MainActivity extends ActionBarActivity {
     private void display_value(double number) {
         TextView priceTextView = (TextView) findViewById(R.id.price_text_view);
         priceTextView.setText(NumberFormat.getCurrencyInstance().format(number));
+
+    }
+
+    private void displayMessage(String string){
+        TextView messageTextView = (TextView) findViewById(R.id.message_text_view);
+        messageTextView.setText(string);
     }
 
     ///////////////// OK,now i'll create function for increment and decrement
