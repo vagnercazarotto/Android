@@ -10,7 +10,8 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
-     private int scoreTeamA = 0;
+    private int scoreTeamA = 0;
+    private int scoreTeamB = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,13 +22,12 @@ public class MainActivity extends AppCompatActivity {
 
     public boolean onCreateOptionsMen(Menu menu) {
         // This add items to the action bar if it is present
-         //  getMenuInflater().inflate(R.menu,menu_main, menu);
+        //  getMenuInflater().inflate(R.menu,menu_main, menu);
         return true;
     }
 
 
-
-    public boolean onOptionsSelected(MenuItem item){
+    public boolean onOptionsSelected(MenuItem item) {
         // handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml
@@ -35,33 +35,53 @@ public class MainActivity extends AppCompatActivity {
 
         // no inspection simplifiableIfStatment
         //if (id == R.id.action_setting) {
-         //   return true;
+        //   return true;
         //}
         return super.onContextItemSelected(item);
-        }
+    }
 
 
-        // Displays the given score for team A
-    public void displayForTeamA (int score){
+    // Displays the given score for team A
+    public void displayForTeamA(int score) {
         TextView scoreView = (TextView) findViewById(R.id.team_a_score);
         scoreView.setText(String.valueOf(score));
     }
 
-    public void addThreeForTeamA(View v){
+    public void addThreeForTeamA(View v) {
         scoreTeamA = scoreTeamA + 3;
         displayForTeamA(scoreTeamA);
     }
 
-    public void addTwoForTeamA(View v){
+    public void addTwoForTeamA(View v) {
         scoreTeamA = scoreTeamA + 2;
         displayForTeamA(scoreTeamA);
     }
 
-    public void addOneForTeamA(View v){
+    public void addOneForTeamA(View v) {
         scoreTeamA = scoreTeamA + 1;
         displayForTeamA(scoreTeamA);
     }
 
+    // Displays the given score for team B
+    public void displayForTeamB(int score) {
+        TextView scoreView = (TextView) findViewById(R.id.team_b_score);
+        scoreView.setText(String.valueOf(score));
+    }
+
+    public void addThreeForTeamB(View v) {
+        scoreTeamB = scoreTeamB + 3;
+        displayForTeamB(scoreTeamB);
+    }
+
+    public void addTwoForTeamB(View v) {
+        scoreTeamB = scoreTeamB + 2;
+        displayForTeamB(scoreTeamB);
+    }
+
+    public void addOneForTeamB(View v) {
+        scoreTeamB = scoreTeamB + 1;
+        displayForTeamB(scoreTeamB);
+    }
 
 
 }
