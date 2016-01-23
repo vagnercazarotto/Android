@@ -55,15 +55,22 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:layout_marginTop="16dp"
-        android:text="price:"
+        android:text="order summary:"
         android:textAllCaps="true" />
 
     <TextView
         android:id="@+id/price_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="0"
+        android:text=""
         android:textColor="@android:color/black"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/ticket"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ticket:"
         android:textSize="16sp" />
 
     <TextView
