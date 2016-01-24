@@ -1,5 +1,7 @@
 package com.tkcode.justjava;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -18,6 +20,7 @@ public class MainActivity extends ActionBarActivity {
     private boolean clickBoxA = false;
     private boolean clickBoxB = false;
     private boolean clickBoxC = false;
+    private String name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +54,24 @@ public class MainActivity extends ActionBarActivity {
      */
 
     private double calculatePrice(){
-        double price = quantity * 3.75;
+        double tempPrice = 0;
+        CheckBox clickButtonA = (CheckBox) findViewById(R.id.clickBoxA);
+        clickBoxA = clickButtonA.isChecked();
+        CheckBox clickButtonB = (CheckBox) findViewById(R.id.clickBoxB);
+        clickBoxB = clickButtonB.isChecked();
+        CheckBox clickButtonC = (CheckBox) findViewById(R.id.clickBoxC);
+        clickBoxC = clickButtonC.isChecked();
+        if(clickBoxA == true){
+                tempPrice = tempPrice + 3.75;
+        }
+        if(clickBoxB == true){
+                tempPrice = tempPrice + 3.75;
+        }
+        if(clickBoxC == true){
+                tempPrice = tempPrice + 3.75;
+        }
+
+        double price = quantity * tempPrice;
         return price;
     }
 
@@ -70,7 +90,15 @@ public class MainActivity extends ActionBarActivity {
     private void displayMessage(String string) {
         TextView messageTextView = (TextView) findViewById(R.id.message_text_view);
         messageTextView.setText(string);
+
     }
+
+    private String getDisplayMessage() {
+        TextView messageTextView = (TextView) findViewById(R.id.message_text_view);
+        String stringlocal =(String) messageTextView.getText();
+        return stringlocal;
+    }
+
 
     ///////////////// OK,now i'll create function for increment and decrement
     public void incrementButton(View view) {
@@ -114,5 +142,17 @@ public class MainActivity extends ActionBarActivity {
         }
         return priceMessage;
     }
+
+    public void orderMail(View v){
+        Intent intent = new Intent(Intent.ACTION_SENDTO);
+        intent.setData(Uri.parse("mailto:"));
+        name = readName();
+        intent.putExtra(Intent.EXTRA_SUBJECT,"Just Java order for " + name);
+        intent.putExtra(Intent.EXTRA_TEXT,getDisplayMessage());
+        if(intent.resolveActivity(getPackageManager()) != null){
+            startActivity(intent);
+        }
+    }
+
 
 }

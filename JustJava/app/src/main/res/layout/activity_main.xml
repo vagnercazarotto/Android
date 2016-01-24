@@ -16,10 +16,10 @@
 
         <EditText
             android:id="@+id/nameField"
-            android:hint="Your Name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textCapWords"/>
+            android:hint="Your Name"
+            android:inputType="textCapWords" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -126,13 +126,31 @@
             android:textColor="@android:color/black"
             android:textSize="16sp" />
 
-        <Button
-            android:id="@+id/button"
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:onClick="submitOrder"
-            android:text="Order" />
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:onClick="submitOrder"
+                android:text="Order" />
+
+            <Button
+                android:id="@+id/buttonMail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                android:onClick="orderMail"
+                android:text="Order by Email" />
+
+        </LinearLayout>
+
 
     </LinearLayout>
 
