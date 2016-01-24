@@ -5,6 +5,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import java.text.NumberFormat;
@@ -14,7 +15,9 @@ import java.text.NumberFormat;
  */
 public class MainActivity extends ActionBarActivity {
     private int quantity = 0;
-    private boolean clickBox = false;
+    private boolean clickBoxA = false;
+    private boolean clickBoxB = false;
+    private boolean clickBoxC = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,16 +29,20 @@ public class MainActivity extends ActionBarActivity {
      * This method is called when the order button is clicked.
      */
     public void submitOrder(View view) {
-        CheckBox clickButton = (CheckBox) findViewById(R.id.clickBox);
-        clickBox = clickButton.isChecked();
-        Log.v("MainActivity","Has whipped cream " + clickBox);
+        CheckBox clickButtonA = (CheckBox) findViewById(R.id.clickBoxA);
+        clickBoxA = clickButtonA.isChecked();
+        CheckBox clickButtonB = (CheckBox) findViewById(R.id.clickBoxB);
+        clickBoxB = clickButtonB.isChecked();
+        CheckBox clickButtonC = (CheckBox) findViewById(R.id.clickBoxC);
+        clickBoxC = clickButtonC.isChecked();
+        Log.v("MainActivity", "Has whipped cream " + clickBoxA);
         double price = calculatePrice();
         if (quantity == 0) {
             //display_value(0);
             displayMessage("");
         } else {
             //display_value(cal);
-            displayMessage(createOrderSummary(price,clickBox));
+            displayMessage(createOrderSummary(price,clickBoxA,clickBoxB,clickBoxC));
         }
     }
 
@@ -75,16 +82,36 @@ public class MainActivity extends ActionBarActivity {
     public void decrementButton(View view) {
         if (quantity > 0) {
             quantity = quantity - 1;
-            display_value(quantity);
+            display(quantity);
+            display_value(calculatePrice());
         }
     }
 
-    private String createOrderSummary(Double price,Boolean bol) {
-        String priceMessage = "Name: Kaptain Knual";
-        priceMessage = priceMessage + "\nCheck Box " + bol;
-        priceMessage = priceMessage + "\nQuantity: " + quantity;
-        priceMessage = priceMessage + "\nTotal: $" + price;
-        priceMessage = priceMessage + "\nTank You!";
+    private String readName(){
+        EditText text = (EditText) findViewById(R.id.nameField);
+        String name = text.getText().toString();
+        return name;
+    }
+
+    private String createOrderSummary(Double price,Boolean A,boolean B,boolean C) {
+        String priceMessage = "Name: " + readName();
+        if(A || B || C == true){
+            priceMessage = priceMessage + "\nItem List: ";
+        }
+        if(A == true){
+            priceMessage = priceMessage + "\nWhipped Cream";
+        }
+        if(B == true){
+            priceMessage = priceMessage + "\nChocolate";
+        }
+        if(C == true){
+            priceMessage = priceMessage + "\nBlack Coffee";
+        }
+        if(A || B || C == true){
+            priceMessage = priceMessage + "\nQuantity: " + quantity;
+            priceMessage = priceMessage + "\nTotal: $" + price;
+            priceMessage = priceMessage + "\nTank You!";
+        }
         return priceMessage;
     }
 
