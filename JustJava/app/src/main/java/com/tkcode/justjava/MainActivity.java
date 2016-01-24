@@ -2,7 +2,9 @@ package com.tkcode.justjava;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import java.text.NumberFormat;
@@ -12,6 +14,7 @@ import java.text.NumberFormat;
  */
 public class MainActivity extends ActionBarActivity {
     private int quantity = 0;
+    private boolean clickBox = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,13 +26,16 @@ public class MainActivity extends ActionBarActivity {
      * This method is called when the order button is clicked.
      */
     public void submitOrder(View view) {
+        CheckBox clickButton = (CheckBox) findViewById(R.id.clickBox);
+        clickBox = clickButton.isChecked();
+        Log.v("MainActivity","Has whipped cream " + clickBox);
         double price = calculatePrice();
         if (quantity == 0) {
             //display_value(0);
             displayMessage("");
         } else {
             //display_value(cal);
-            displayMessage(createOrderSummary(price));
+            displayMessage(createOrderSummary(price,clickBox));
         }
     }
 
@@ -73,10 +79,11 @@ public class MainActivity extends ActionBarActivity {
         }
     }
 
-    private String createOrderSummary(Double price) {
+    private String createOrderSummary(Double price,Boolean bol) {
         String priceMessage = "Name: Kaptain Knual";
+        priceMessage = priceMessage + "\nCheck Box " + bol;
         priceMessage = priceMessage + "\nQuantity: " + quantity;
-        priceMessage = priceMessage +  "\nTotal: $" + price;
+        priceMessage = priceMessage + "\nTotal: $" + price;
         priceMessage = priceMessage + "\nTank You!";
         return priceMessage;
     }
