@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -28,6 +31,33 @@ public class ForecastFragment extends Fragment {
     public ForecastFragment() {
     }
 
+    /////////////////////////////////////////////////////////
+    /// for add and inflate the menu, you need to override some methods
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true); // Activate the menu
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu,MenuInflater inflater) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        inflater.inflate(R.menu.forecastfragment,menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        //alter for the buttom refresh
+        if (id == R.id.action_refresh) {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    /////////////////////////////////////////////////////////
+
     // Declare variables
     ArrayAdapter<String> mForecastAdapter;
 
@@ -35,11 +65,10 @@ public class ForecastFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
 
         // Now create some dummie data
-        String[] forecastArray = {
+        String[] data = {
                 "25/01 today Sunny",
                 "269/01 today Sunny",
                 "27/01 today Sunny",
@@ -48,7 +77,7 @@ public class ForecastFragment extends Fragment {
                 "30/01 today Sunny"
         };
         // And convert as list
-        List<String> weekForecast = new ArrayList<String>(Arrays.asList(forecastArray));
+        List<String> weekForecast = new ArrayList<String>(Arrays.asList(data));
 
 
         // The ArrayAdapter will take data from a source (like our dummy forecast) and
@@ -58,6 +87,9 @@ public class ForecastFragment extends Fragment {
                 R.layout.list_item_forecast,  // id of text view
                 R.id.list_item_forecast_textview, // id for populate
                 weekForecast); // A converted list
+
+
+        View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
         // Get the reference to list view on activity_main.xml
         // then set the adpter to the view
