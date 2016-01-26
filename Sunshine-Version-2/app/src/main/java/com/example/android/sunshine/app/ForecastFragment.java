@@ -323,8 +323,18 @@ public class ForecastFragment extends Fragment {
             return null;
         }
 
+        @Override
+        protected void onPostExecute(String[] result){
+            // Override this method for populate the Adapter with fresh Data from JSON API
+            if(result != null){
+                mForecastAdapter.clear();
+                for(String dayForecastStr:result){
+                    mForecastAdapter.add(dayForecastStr);
+                }
+            }
 
+        }
+        
     }
-
 
 }
