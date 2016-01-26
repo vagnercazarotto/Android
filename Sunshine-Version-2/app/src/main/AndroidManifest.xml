@@ -27,6 +27,18 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.android.sunshine.app.MainActivity" />
         </activity>
+
+        <!-- Add a new Activity -->
+        <!-- Declare parent so when you press the back buttom the Parent Activity is called  -->
+        <activity
+            android:name=".SettingsActivity"
+            android:label="@string/title_activity_settings"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.android.sunshine.app.MainActivity" />
+        </activity>
+
     </application>
 
 </manifest>

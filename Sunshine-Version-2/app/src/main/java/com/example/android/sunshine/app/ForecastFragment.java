@@ -63,9 +63,9 @@ public class ForecastFragment extends Fragment {
             // Build a URL from the postal code to consult the weather
             FetchWeatherTask weatherTask = new FetchWeatherTask();
             weatherTask.execute("94043");
-
             return true;
         }
+
         return super.onOptionsItemSelected(item);
     }
 

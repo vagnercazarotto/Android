@@ -1,5 +1,6 @@
 package com.example.android.sunshine.app;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -35,6 +36,10 @@ public class MainActivity extends ActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            // When the Menu Item is selected, we create a new explicit Intent
+            // to the SettingsActivity Class and we call Start Activity
+            // Obs: we don't call Start Activity for results because we're not expecting a result from the Activity
+            startActivity(new Intent(this,SettingsActivity.class));
             return true;
         }
 
