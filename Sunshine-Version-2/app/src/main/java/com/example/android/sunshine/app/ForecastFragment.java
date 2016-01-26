@@ -1,5 +1,6 @@
 package com.example.android.sunshine.app;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -15,7 +16,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -115,7 +115,15 @@ public class ForecastFragment extends Fragment {
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 // this is for display the TOAST
                 String forecast = mForecastAdapter.getItem(position);
-                Toast.makeText(getActivity(),forecast,Toast.LENGTH_SHORT).show();
+                /// Toast.makeText(getActivity(),forecast,Toast.LENGTH_SHORT).show();
+                // Now I'll replace the Toas Method for a Intent*
+                // we can use an intent extra, but we can use any string for the for the key.
+                // Obs: we can't change the key when we receive the data.
+                // we obtain the data calling get item on the Adapter
+                Intent intent = new Intent(getActivity(),DetailActivity.class)
+                        .putExtra(Intent.EXTRA_TEXT,forecast);
+                // then we just start the Activity!!
+                startActivity(intent);
             }
         });
 
