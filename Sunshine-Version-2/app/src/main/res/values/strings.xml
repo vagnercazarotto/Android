@@ -24,7 +24,7 @@
     <!-- Label for the location preference [CHAR LIMIT=30] -->
     <string name="pref_location_label">Location</string>
     <!-- Default postal code for location preference [CHAR LIMIT=NONE] -->
-    <string name="pre_location_default" translatable="false">ne48tp</string>
+    <string name="pref_location_default" translatable="false">ne48tp</string>
     <string name="pref_sync">pref_sync</string>
     <string name="pref_sync_summ">pref_sync_summ</string>
 

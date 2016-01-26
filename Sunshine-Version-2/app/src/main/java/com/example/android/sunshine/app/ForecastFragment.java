@@ -1,9 +1,11 @@
 package com.example.android.sunshine.app;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.text.format.Time;
 import android.util.Log;
@@ -60,9 +62,8 @@ public class ForecastFragment extends Fragment {
         int id = item.getItemId();
         //alter for the buttom refresh
         if (id == R.id.action_refresh) {
-            // Build a URL from the postal code to consult the weather
-            FetchWeatherTask weatherTask = new FetchWeatherTask();
-            weatherTask.execute("94043");
+            // call the method for update the weather
+            updateWeather();
             return true;
         }
 
@@ -74,7 +75,25 @@ public class ForecastFragment extends Fragment {
     // Declare variables
     ArrayAdapter<String> mForecastAdapter;
 
+    ////////////////////////////////
+    // New function for consult the weather from the stored settings ( Local )
+    private void updateWeather() {
+        FetchWeatherTask weatherTask = new FetchWeatherTask();
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        String location = prefs.getString(getString(R.string.pref_location_key),
+                getString(R.string.pref_location_default));
+        weatherTask.execute(location);
+    }
 
+    // Override the onStart method for call updateWeather
+    // when the refresh happens
+    @Override
+    public void onStart(){
+        super.onStart();
+        updateWeather();
+    }
+
+    ////////////////////////////////
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -99,8 +118,8 @@ public class ForecastFragment extends Fragment {
                 getActivity(),// this activity
                 R.layout.list_item_forecast,  // id of text view
                 R.id.list_item_forecast_textview, // id for populate
-                weekForecast); // A converted list
-
+                new ArrayList<String>());
+        // now we should pass a Empty Array to the Adapter
 
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
@@ -256,10 +275,6 @@ public class ForecastFragment extends Fragment {
                 // http://openweathermap.org/API#forecast
 
                 // http://openweathermap.org/API#forecast
-                // we will exclude this soon.
-                URL url = new URL("http://api.openweathermap.org/data/2.5/forecast/daily?q=94043&mode=json&units=metrica&cnt=7&APPID=36116643d79e40468b18defba69090aa");
-
-
 
 
                 final String FORECAST_BASE_URL = "http://api.openweathermap.org/data/2.5/forecast/daily?";
@@ -279,6 +294,7 @@ public class ForecastFragment extends Fragment {
 
                 // Now parse into log
 
+                URL url = new URL(buildUri.toString());
                 Log.v(LOG_TAG,"Built URI" + buildUri.toString());
 
                 /////////////////////////////////
