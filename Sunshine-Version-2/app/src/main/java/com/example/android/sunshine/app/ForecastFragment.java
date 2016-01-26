@@ -4,6 +4,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.format.Time;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -14,12 +15,17 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -108,14 +114,103 @@ public class ForecastFragment extends Fragment {
 
     ////// Implement class for the http request in background
     //
-    //
-    public class FetchWeatherTask extends AsyncTask<String, Void, Void> {
+    ///// OK remember you should observe and modify the return type in backgrund
+    public class FetchWeatherTask extends AsyncTask<String, Void, String[]> {
         private final String LOG_TAG = FetchWeatherTask.class.getSimpleName();
+        //////////////////////////////////
+        /////// Add functions for manipulate Json Object
+        /////// These functions should run in background ( asynctask )
+
+        private String getReadableDateString(Long time){
+            // So the API is returning timestamp, we need to convert to milliseconds for fix the date
+            SimpleDateFormat shortenedDateFormat = new SimpleDateFormat("EEE MMM dd");
+            return shortenedDateFormat.format(time);
+        }
+
+        private String formatHighLows(double high,double low){
+            //Build a String High / low to show
+            long roundedHigh = Math.round(high);
+            long roundedLow = Math.round(low);
+            String highLowStr = roundedHigh + "/" + roundedLow;
+            return highLowStr;
+        }
+
+        private String[] getWeatherDataFromJson(String forecastJsonStr, int numDays) throws JSONException{
+            // Take a initial string from json and filter the data we will use.
+
+            // These are the names of the JSON objects that need to be extracted.
+            final String OWM_LIST = "list";
+            final String OWM_WEATHER = "weather";
+            final String OWM_TEMPERATURE = "temp";
+            final String OWM_MAX = "max";
+            final String OWM_MIN = "min";
+            final String OWM_DESCRIPTION = "main";
+
+            // Constructor takes the JSON and convert it into a Object hierarchy
+            JSONObject forecastJson = new JSONObject(forecastJsonStr);
+            JSONArray weatherArray = forecastJson.getJSONArray(OWM_LIST);
+
+            // API returns daily forecasts based upon the local time of the city.
+            // for note: the first day is always the current day !!
+
+            Time dayTime = new Time();
+            dayTime.setToNow();
+
+            // we need to fix the local day to start working
+            int julianStartDay = Time.getJulianDay(System.currentTimeMillis(),dayTime.gmtoff);
+
+            // we work exclusively in UTC
+            dayTime = new Time();
+
+            String[] resultStrs = new String[numDays];
+            for(int i = 0; i < weatherArray.length();i++){
+                // Using the format "Day , description , hi/low"
+                String day;
+                String description;
+                String highAndLow;
+
+                // get the JSON object who represents the day
+                JSONObject dayForecast = weatherArray.getJSONObject(i);
+
+                // we should convert dateTime in something human-readable
+                // because most people won't read "1400356800" and say "OK is friday"
+                long dateTime;
+                dateTime = dayTime.setJulianDay(julianStartDay + i);
+                day = getReadableDateString(dateTime);
+
+                // get this , description is in a child array called "weather", which is 1 element long.
+                JSONObject weatherObject = dayForecast.getJSONArray(OWM_WEATHER).getJSONObject(0);
+                description = weatherObject.getString(OWM_DESCRIPTION);
+
+                JSONObject temperatureObject = dayForecast.getJSONObject(OWM_TEMPERATURE);
+                double high = temperatureObject.getDouble(OWM_MAX);
+                double low = temperatureObject.getDouble(OWM_MIN);
+
+                highAndLow = formatHighLows(high,low);
+
+
+                // Now build a Array of results
+                resultStrs[i] = day + " - " + description + " - " + highAndLow;
+            }
+
+            /// Activate this for debug Jason Parser
+            for(String s: resultStrs){
+                Log.v(LOG_TAG," Forecast Entry: " + s);
+            }
+
+            // Now return a Array of results
+            return resultStrs;
+        }
+
+
+
+
+        //////////////////////////////////
 
         //remember override class
 
         @Override
-        protected Void doInBackground(String... params) {
+        protected String[] doInBackground(String... params) {
 
 
             ///////////////////////////////////////////////////////////////////
@@ -129,18 +224,23 @@ public class ForecastFragment extends Fragment {
             // Will contain the raw JSON response as a string.
             String forecastJsonStr = null;
 
+            /////////////////////////////////
+            ///// Build a URL contructor
+            String format = "json";
+            String units = "metric";
+            String APPID = "36116643d79e40468b18defba69090aa";
+            int numDays = 7;
+
             try {
                 // Construct the URL for the OpenWeatherMap query
                 // Possible parameters are avaiable at OWM's forecast API page, at
                 // http://openweathermap.org/API#forecast
+
+                // http://openweathermap.org/API#forecast
+                // we will exclude this soon.
                 URL url = new URL("http://api.openweathermap.org/data/2.5/forecast/daily?q=94043&mode=json&units=metrica&cnt=7&APPID=36116643d79e40468b18defba69090aa");
 
-                /////////////////////////////////
-                ///// Build a URL contructor
-                String format = "json";
-                String units = "metric";
-                String APPID = "36116643d79e40468b18defba69090aa";
-                int numDays = 7;
+
 
 
                 final String FORECAST_BASE_URL = "http://api.openweathermap.org/data/2.5/forecast/daily?";
@@ -212,8 +312,14 @@ public class ForecastFragment extends Fragment {
                 }
             }
             //////////////////////////////////////////////////////////////////////
-
-
+            // Ok Activate Jason interaction
+            try{
+                return getWeatherDataFromJson(forecastJsonStr,numDays);
+            }catch (JSONException e){
+                Log.e(LOG_TAG,e.getMessage(),e);
+                e.printStackTrace();
+            }
+            //////////////////////////////////////////////////////////////////////
             return null;
         }
 
