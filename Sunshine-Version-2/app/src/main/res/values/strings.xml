@@ -38,6 +38,10 @@
     <string name="pref_units_imperial" translatable="false">imperial</string>
 
 
+    <!--  New String for the Map intent Solution -->
+    <string name="action_map">Action Map</string>
+
+
 
 </resources>
 
