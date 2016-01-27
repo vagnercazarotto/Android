@@ -3,9 +3,13 @@ package com.example.android.sunshine.app;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.ShareActionProvider;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,12 +31,7 @@ public class DetailActivity extends ActionBarActivity {
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.detail, menu);
-        return true;
-    }
+
 
 
     @Override
@@ -56,8 +55,17 @@ public class DetailActivity extends ActionBarActivity {
     }
 
     public static class DetailFragment extends Fragment {
+        //// Let's add a log Tag, a string for the share hashtag and take the forecast
+        //// string and make it a member variable
+        private static final String LOG_TAG = DetailFragment.class.getSimpleName();
+        private static final String FORECAST_SHARE_HASHTAG = "#SunshineApp";
+        private String mForecastStr;
 
-        public DetailFragment() {
+        public DetailFragment(){
+            /// We have to add the menu to the fragment. To do this, we have to set a flag
+            /// that this fragment has an option menu at all. Otherwise, it won't actually call
+            /// the onCreate option menu member function.
+            setHasOptionsMenu(true);
         }
 
         @Override
@@ -67,13 +75,54 @@ public class DetailActivity extends ActionBarActivity {
 
             // So, if we add an intent here, we can read that intent back to display in the text view
             Intent intent = getActivity().getIntent();
+
+            //// let's actually populate our member variable, and then finally, use it to set the text
             if(intent != null && intent.hasExtra(Intent.EXTRA_TEXT)){
-                String forecastStr = intent.getStringExtra(Intent.EXTRA_TEXT);
-                ((TextView) rootView.findViewById(R.id.detail_text)).setText(forecastStr);
+                 mForecastStr = intent.getStringExtra(Intent.EXTRA_TEXT);
+                ((TextView) rootView.findViewById(R.id.detail_text)).setText(mForecastStr);
             }
 
             return rootView;
         }
+
+        @Override
+        public void onCreateOptionsMenu(Menu menu,MenuInflater inflater) {
+            // Inflate the menu; this adds items to the action bar if it is present.
+            inflater.inflate(R.menu.detailfragment,menu);
+
+            // Find the share item and start a Menu item
+            MenuItem menuItem = menu.findItem(R.id.action_share);
+
+            // Get the provider (ShareActionProvider)
+            ShareActionProvider mShareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(menuItem);
+
+            // You'll want to update this. Attach an intent to this ShareActionProvider. You can update this any time,
+            // like when the user selects a new piece of data they might like to share.
+            if (mShareActionProvider != null){
+                mShareActionProvider.setShareIntent(createShareForecastIntent());
+            } else {
+                Log.d(LOG_TAG,"Share Action Provider is null?");
+            }
+        }
+
+
+        //////////////////////////////////////
+        //// Ok, now we'll create a Share Intent, this intent uses ACTION_SEND
+        private Intent createShareForecastIntent(){
+            Intent shareIntent = new Intent(Intent.ACTION_SEND);
+            //// this FLAG_RESET is somewhat important, it prevents the activity we're sharing
+            //// to from being placed onto the activity stack. the thing is if we don't have this flag,
+            //// is when you click on the icon to return the application later, you end up in another application !!
+            //// Now it'll actually return you to your application instead.
+            shareIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+            //// So now we set the type "test/plain", to let Android know we're going to be sharing plain text.
+            shareIntent.setType("text/plain");
+            ////  And then whe ahre our forecast string, plus our hashtag.
+            shareIntent.putExtra(Intent.EXTRA_TEXT,mForecastStr + FORECAST_SHARE_HASHTAG);
+            return shareIntent;
+        }
+
+
     }
 
 }

@@ -41,6 +41,9 @@
     <!--  New String for the Map intent Solution -->
     <string name="action_map">Action Map</string>
 
+    <!--  New String for the Share intent Solution -->
+    <string name="action_share">Share</string>
+
 
 
 </resources>
