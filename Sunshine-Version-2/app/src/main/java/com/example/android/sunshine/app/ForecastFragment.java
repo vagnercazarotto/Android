@@ -165,8 +165,19 @@ public class ForecastFragment extends Fragment {
             return shortenedDateFormat.format(time);
         }
 
-        private String formatHighLows(double high,double low){
-            //Build a String High / low to show
+        private String formatHighLows(double high,double low,String unitType){
+            // Build a String High / low to show
+            // Modify this method for consult user preferences and return the string to the display
+            // Obs: data is fetched in Celsius by default.
+            /////////////////////////////////////////
+            if (unitType.equals(getString(R.string.pref_units_imperial))){
+                high = (high * 1.8) + 32;
+                low = (low * 1.8) + 32;
+            } else if (!unitType.equals(getString(R.string.pref_units_metric))){
+                // for log purpose
+                Log.d(LOG_TAG,"Unit type not found: " + unitType);
+            }
+            ////////////////////////////////////////
             long roundedHigh = Math.round(high);
             long roundedLow = Math.round(low);
             String highLowStr = roundedHigh + "/" + roundedLow;
@@ -201,6 +212,11 @@ public class ForecastFragment extends Fragment {
             dayTime = new Time();
 
             String[] resultStrs = new String[numDays];
+            //////////////////////////////////////////////
+            // So Data is in Celsius by default, if the user want se in Fahrenheit we'll convert the values here
+            SharedPreferences sharePrefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+            String unitType = sharePrefs.getString(getString(R.string.pref_units_key),getString(R.string.pref_units_metric));
+            //////////////////////////////////////////////
             for(int i = 0; i < weatherArray.length();i++){
                 // Using the format "Day , description , hi/low"
                 String day;
@@ -224,7 +240,9 @@ public class ForecastFragment extends Fragment {
                 double high = temperatureObject.getDouble(OWM_MAX);
                 double low = temperatureObject.getDouble(OWM_MIN);
 
-                highAndLow = formatHighLows(high,low);
+
+                /// pass the unitType for work with the user preferences
+                highAndLow = formatHighLows(high,low,unitType);
 
 
                 // Now build a Array of results
