@@ -25,10 +25,10 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context=".MainActivity">
 
-    <!--  Add ID to TextView for the main method identify the view  -->
 
-    <TextView
-        android:id="@+id/dictionary_text_view"
+    <!-- Change the textView to ListView, so we can use with the Cursor Adapter -->
+    <ListView
+        android:id="@+id/dictionary_list_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         />
