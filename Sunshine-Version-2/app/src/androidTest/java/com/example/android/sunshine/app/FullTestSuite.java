@@ -21,6 +21,13 @@ import junit.framework.Test;
 import junit.framework.TestSuite;
 
 public class FullTestSuite extends TestSuite {
+    ////////////////////////////////////
+    /// The FulltestSuite class contains code to include all of the Java test classes in its
+    /// package into a suite of tests the JUnit will run, This allows us to easily add additional tests
+    /// by just adding additional Java class files to our test directory
+    /// You'll likely have a class like this in each test project you make, they aren1t typically project specific.
+    /// So you can literally just copy this file.
+
     public static Test suite() {
         return new TestSuiteBuilder(FullTestSuite.class)
                 .includeAllPackagesUnderHere().build();

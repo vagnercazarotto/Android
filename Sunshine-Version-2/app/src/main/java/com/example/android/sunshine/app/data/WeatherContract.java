@@ -39,8 +39,18 @@ public class WeatherContract {
         done for WeatherEntry)
      */
     public static final class LocationEntry implements BaseColumns {
+        //// table name
         public static final String TABLE_NAME = "location";
 
+        /////////////////////////////////////////
+        //// the rest of this inner class lists the columns we're going to use to store our data
+        //// That String is what we'll send to openweathermap as the location query
+        public static final String COLUMN_LOCATION_SETTING = "location_setting";
+        //// Human readable location string, provided by the API, Because "Newcastle" is more recognizable than "ne48tp".
+        public static final String COLUMN_CITY_NAME = "city_name";
+        //// For open the Intent MAP, we need to store the coordinates positions
+        public static final String COLUMN_COORD_LAT = "coord_lat";
+        public static final String COLUMN_COORD_LONG = "coord_log";
     }
 
     /* Inner class that defines the table contents of the weather table */
