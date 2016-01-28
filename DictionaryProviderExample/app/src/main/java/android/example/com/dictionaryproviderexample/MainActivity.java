@@ -15,9 +15,11 @@
  */
 package android.example.com.dictionaryproviderexample;
 
+import android.content.ContentResolver;
+import android.database.Cursor;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.provider.UserDictionary.Words;
+import android.support.v7.app.ActionBarActivity;
 import android.widget.TextView;
 
 /**
@@ -33,5 +35,38 @@ public class MainActivity extends ActionBarActivity {
         //////////////////////////////////
         /// Get the TextView whith will be populated with the Dictionary ContentProvider data.
         TextView dictTextView = (TextView) findViewById(R.id.dictionary_text_view);
+
+        /// Get the ContentResolver which will send a message to the ContentProvider
+        ContentResolver resolver = getContentResolver();
+
+        /// Get a Cursor containing all of the rows in the Words table
+        Cursor cursor = resolver.query(Words.CONTENT_URI,null,null,null,null);
+
+        //////////////////////////////////
+        /// Now use the Cursor to insert into TextView
+
+        ///Surround the cursor in a try statement so that the finally block will eventually execute
+        try{
+            dictTextView.setText("The UserDictionary contais ");
+
+
+            /// Get the index of the column containing the actual words, using
+            /// UserDictionary.Words.WORD, which is the header of the word column.
+            int wordColumn = cursor.getColumnIndex(Words.WORD);
+
+            /// Iterates through all returned rows in the cursor
+
+            while (cursor.moveToNext()){
+                /// Use that index to extract the String value of the word
+                /// at the current row the cursor is on.
+                String word = cursor.getString(wordColumn);
+                dictTextView.append(("\n" + word));
+            }
+        } finally {
+            /// Remember always close your cursor to avoid memory leaks
+            cursor.close();
+        }
+
+
     }
 }
