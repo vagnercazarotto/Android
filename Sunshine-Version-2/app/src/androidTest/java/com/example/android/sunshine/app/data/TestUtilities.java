@@ -31,6 +31,13 @@ public class TestUtilities extends AndroidTestCase {
     }
 
     static void validateCurrentRecord(String error, Cursor valueCursor, ContentValues expectedValues) {
+        //////////////////////////////////////////////////
+        /// This method grabs the set of value pairs from the content values that we inserted and then
+        /// iterates through them, using cursor.getColumnIndex to get the index of each column in the record set by name.
+        /// We need the column index to get data from the cursor, note the projections are always return in order
+        /// So if we specify a projection, we can safely use the indexes from our projection array without having
+        /// to look then up like this.
+
         Set<Map.Entry<String, Object>> valueSet = expectedValues.valueSet();
         for (Map.Entry<String, Object> entry : valueSet) {
             String columnName = entry.getKey();

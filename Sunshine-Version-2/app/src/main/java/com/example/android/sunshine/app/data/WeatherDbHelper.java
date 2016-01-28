@@ -38,6 +38,17 @@ public class WeatherDbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
+        ////////////////////////  Add a new table
+        /// obs here, We make the location setting unique, because the ID of the existing location is
+        /// used as foreign key in our weather table, and therefore must not change.
+        final String SQL_CREATE_LOCATION_TABLE = "CREATE TABLE" + LocationEntry.TABLE_NAME + " (" +
+                LocationEntry._ID + " INTEGER PRIMARY KEY," +
+                LocationEntry.COLUMN_LOCATION_SETTING + " TEXT  UNIQYE NOT NULL," +
+                LocationEntry.COLUMN_CITY_NAME + " TEXT NOT NULL, " +
+                LocationEntry.COLUMN_COORD_LAT + " REAL NOT NULL" +
+                LocationEntry.COLUMN_COORD_LONG + " REAL NOT NULL" +
+                " );";
+
         final String SQL_CREATE_WEATHER_TABLE = "CREATE TABLE " + WeatherEntry.TABLE_NAME + " (" +
                 // Why AutoIncrement here, and not above?
                 // Unique keys will be auto-generated in either case.  But for weather
@@ -71,6 +82,7 @@ public class WeatherDbHelper extends SQLiteOpenHelper {
 
         sqLiteDatabase.execSQL(SQL_CREATE_WEATHER_TABLE);
     }
+
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
