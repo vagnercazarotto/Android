@@ -162,7 +162,7 @@ public class ForecastFragment extends Fragment {
         private String getReadableDateString(Long time){
             // So the API is returning timestamp, we need to convert to milliseconds for fix the date
             SimpleDateFormat shortenedDateFormat = new SimpleDateFormat("EEE MMM dd");
-            return shortenedDateFormat.format(time);
+            return shortenedDateFormat.format(Long.valueOf(time));
         }
 
         private String formatHighLows(double high,double low,String unitType){
