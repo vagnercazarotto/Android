@@ -361,6 +361,30 @@ public class WeatherProvider extends ContentProvider {
                 }
                 getContext().getContentResolver().notifyChange(uri, null);
                 return returnCount;
+
+
+            case LOCATION:
+                db.beginTransaction();
+                int returnCounter = 0;
+                try {
+                    for (ContentValues value : values) {
+                        normalizeDate(value);
+                        long _id = db.insert(WeatherContract.LocationEntry.TABLE_NAME, null, value);
+                        if (_id != -1) {
+                            returnCounter++;
+                        }
+                    }
+                    db.setTransactionSuccessful();
+                } finally {
+                    db.endTransaction();
+                }
+                getContext().getContentResolver().notifyChange(uri, null);
+                return returnCounter;
+
+
+
+
+
             default:
                 return super.bulkInsert(uri, values);
         }
