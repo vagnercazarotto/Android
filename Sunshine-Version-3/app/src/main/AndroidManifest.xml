@@ -37,11 +37,23 @@
         </activity>
 
         <!-- Our project needs know we're using Provider -->
+        <!-- you can make the provider usefull for other programs  -->
         <provider
             android:authorities="com.example.android.sunshine.app"
-            android:name=".data.WeatherProvider"/>
+            android:name=".data.WeatherProvider"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="com.example.android.LICENSE_TO_SQL"/>
+
+
 
 
     </application>
+
+    <permission
+        android:name="com.example.android.LICENSE_TO_SQL"
+        android:protectionLevel = "dangerous"
+        android:label="License to SQL" />
+
 
 </manifest>
