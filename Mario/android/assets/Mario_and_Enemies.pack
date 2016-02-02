@@ -1,0 +1,40 @@
+
+Mario_and_Enemies.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+Mario
+  rotate: false
+  xy: 1, 131
+  size: 416, 528
+  orig: 416, 528
+  offset: 0, 0
+  index: -1
+little_mario
+  rotate: false
+  xy: 421, 267
+  size: 221, 16
+  orig: 221, 16
+  offset: 0, 0
+  index: -1
+Items
+  rotate: false
+  xy: 419, 323
+  size: 576, 336
+  orig: 576, 336
+  offset: 0, 0
+  index: -1
+Mario_and_Enemies
+  rotate: false
+  xy: 419, 257
+  size: 512, 64
+  orig: 512, 64
+  offset: 0, 0
+  index: -1
+Enemies
+  rotate: false
+  xy: 1, 1
+  size: 808, 128
+  orig: 808, 128
+  offset: 0, 0
+  index: -1

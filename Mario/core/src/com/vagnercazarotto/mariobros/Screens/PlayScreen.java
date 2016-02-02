@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
@@ -26,6 +27,8 @@ public class PlayScreen implements Screen{
 
     // Ok now, we need to add a custom constructor because we're actually sending the game itself
     private MarioBros game;
+    private TextureAtlas atlas;
+
     // now we need to create the graphic camera for the game look similar in many cellphones
     private OrthographicCamera gamecam;
     private Viewport gamePort;
@@ -47,6 +50,10 @@ public class PlayScreen implements Screen{
 
 
     public PlayScreen(MarioBros game){
+        // Start Atlas
+        atlas = new TextureAtlas("Mario_and_Enemies.pack");
+
+
         this.game = game;
         // create cam used to follow mario through world
         gamecam = new OrthographicCamera();
@@ -69,7 +76,7 @@ public class PlayScreen implements Screen{
         new B2WorldCreator(world,map);
 
         // Create a temp Mario ; )
-        player = new Mario(world);
+        player = new Mario(world,this);
 
     }
 
@@ -97,6 +104,9 @@ public class PlayScreen implements Screen{
         // we need to define how many times we'll render the screen
         world.step(1/60f,6,2);
 
+        // Now update the Mario // renderer
+        player.update(dt);
+
         // Fix Camera in X axe, because we want camera jump like Mario
         gamecam.position.x = player.b2body.getPosition().x;
 
@@ -105,6 +115,11 @@ public class PlayScreen implements Screen{
         renderer.setView(gamecam);
     }
 
+
+    // New method
+    public TextureAtlas getAtlas(){
+        return atlas;
+    }
 
 
 
@@ -115,7 +130,7 @@ public class PlayScreen implements Screen{
 
     @Override
     public void render(float delta) {
-
+        //separate our update logic from render
         update(delta);
 
         // first thing , clear the screen
@@ -125,12 +140,18 @@ public class PlayScreen implements Screen{
         renderer.render();
 
         /// Renderer our Box2DDebugLines
-        b2dr.render(world,gamecam.combined);
+        b2dr.render(world, gamecam.combined);
 
+
+        game.batch.setProjectionMatrix(gamecam.combined);
+        game.batch.begin();
+        player.draw(game.batch);
+        game.batch.end();
 
         // this will show the our camera we're see HUD
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
         hud.stage.draw();
+
     }
 
     @Override
