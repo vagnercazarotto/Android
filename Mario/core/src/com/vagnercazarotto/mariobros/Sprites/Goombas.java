@@ -1,0 +1,15 @@
+package com.vagnercazarotto.mariobros.Sprites;
+
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.physics.box2d.World;
+
+/**
+ * Created by vagner on 02/02/2016.
+ */
+public class Goombas extends InteractijectveTileObject {
+    public Goombas(World world,TiledMap map,Rectangle bounds){
+
+        super(world, map, bounds);
+    }
+}

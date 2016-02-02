@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.FillViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.vagnercazarotto.mariobros.MarioBros;
@@ -17,7 +18,7 @@ import com.vagnercazarotto.mariobros.MarioBros;
  */
 // In this class we'll create our logic
 
-public class Hud {
+public class Hud implements Disposable{
     // when our game world news we want the HUD to stay there, so we're use a new camera and a new viewport
     // So it's stays locked there and the world can move around
     public Stage stage;
@@ -69,4 +70,8 @@ public class Hud {
 
     }
 
+    @Override
+    public void dispose() {
+        stage.dispose();
+    }
 }
