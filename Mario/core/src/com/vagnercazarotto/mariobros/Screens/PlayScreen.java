@@ -1,6 +1,7 @@
 package com.vagnercazarotto.mariobros.Screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -20,6 +21,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.vagnercazarotto.mariobros.MarioBros;
 import com.vagnercazarotto.mariobros.Scenes.Hud;
+import com.vagnercazarotto.mariobros.Sprites.Mario;
 
 /**
  * Created by vagner on 01/02/2016.
@@ -43,6 +45,9 @@ public class PlayScreen implements Screen{
     private World world;
     private Box2DDebugRenderer b2dr;
 
+    //sprites
+    private Mario player;
+
 
 
 
@@ -51,18 +56,18 @@ public class PlayScreen implements Screen{
         // create cam used to follow mario through world
         gamecam = new OrthographicCamera();
         // create a FitVIewPort to maintain virtual aspect radio
-        gamePort = new FitViewport(MarioBros.V_WIDTH,MarioBros.V_HEIGHT,gamecam);
+        gamePort = new FitViewport(MarioBros.V_WIDTH / MarioBros.PPM ,MarioBros.V_HEIGHT / MarioBros.PPM  ,gamecam);
         // create our game HUD for scores/timers/level info
         hud = new Hud(game.batch);
 
         // start rendering the map
         mapLoader = new TmxMapLoader();
         map = mapLoader.load("level1.tmx");
-        renderer = new OrthogonalTiledMapRenderer(map);
+        renderer = new OrthogonalTiledMapRenderer(map , 1/MarioBros.PPM );
         gamecam.position.set(gamePort.getWorldWidth()/2,gamePort.getWorldHeight()/2,0);
 
         // If you maintain the Object in sleep mod you don't need to calculate collisions
-        world = new World(new Vector2(0,0),true);
+        world = new World(new Vector2(0,-10),true);
         b2dr = new Box2DDebugRenderer();
 
         // we need to add some bodies to game screen
@@ -70,6 +75,9 @@ public class PlayScreen implements Screen{
         PolygonShape shape = new PolygonShape(); // define shapes for collisions
         FixtureDef fdef = new FixtureDef();
         Body body;
+
+        // Create a temp Mario ; )
+        player = new Mario(world);
 
         // we need to create a body for every object in the world
         // Ok for the logic here: get the layer and then select the field Ground (number 2),
@@ -80,11 +88,11 @@ public class PlayScreen implements Screen{
             com.badlogic.gdx.math.Rectangle rect = ((RectangleMapObject) object).getRectangle();
 
             bdef.type = BodyDef.BodyType.StaticBody;
-            bdef.position.set(rect.getX() + rect.getWidth() / 2, rect.getY() + rect.getHeight()/ 2);
+            bdef.position.set((rect.getX() + rect.getWidth() / 2)/ MarioBros.PPM , (rect.getY() + rect.getHeight()/ 2) / MarioBros.PPM);
 
             body = world.createBody(bdef);
 
-            shape.setAsBox(rect.getWidth()/2,rect.getHeight()/2);
+            shape.setAsBox(rect.getWidth()/2/ MarioBros.PPM ,rect.getHeight()/2/ MarioBros.PPM);
             fdef.shape = shape;
             body.createFixture(fdef);
         }
@@ -96,11 +104,11 @@ public class PlayScreen implements Screen{
             com.badlogic.gdx.math.Rectangle rect = ((RectangleMapObject) object).getRectangle();
 
             bdef.type = BodyDef.BodyType.StaticBody;
-            bdef.position.set(rect.getX() + rect.getWidth() / 2, rect.getY() + rect.getHeight()/ 2);
+            bdef.position.set((rect.getX() + rect.getWidth() / 2)/ MarioBros.PPM , (rect.getY() + rect.getHeight()/ 2) / MarioBros.PPM);
 
             body = world.createBody(bdef);
 
-            shape.setAsBox(rect.getWidth()/2,rect.getHeight()/2);
+            shape.setAsBox(rect.getWidth()/2/ MarioBros.PPM ,rect.getHeight()/2/ MarioBros.PPM);
             fdef.shape = shape;
             body.createFixture(fdef);
         }
@@ -112,11 +120,11 @@ public class PlayScreen implements Screen{
             com.badlogic.gdx.math.Rectangle rect = ((RectangleMapObject) object).getRectangle();
 
             bdef.type = BodyDef.BodyType.StaticBody;
-            bdef.position.set(rect.getX() + rect.getWidth() / 2, rect.getY() + rect.getHeight()/ 2);
+            bdef.position.set((rect.getX() + rect.getWidth() / 2)/ MarioBros.PPM , (rect.getY() + rect.getHeight()/ 2) / MarioBros.PPM);
 
             body = world.createBody(bdef);
 
-            shape.setAsBox(rect.getWidth()/2,rect.getHeight()/2);
+            shape.setAsBox(rect.getWidth()/2/ MarioBros.PPM ,rect.getHeight()/2/ MarioBros.PPM);
             fdef.shape = shape;
             body.createFixture(fdef);
         }
@@ -128,11 +136,11 @@ public class PlayScreen implements Screen{
             com.badlogic.gdx.math.Rectangle rect = ((RectangleMapObject) object).getRectangle();
 
             bdef.type = BodyDef.BodyType.StaticBody;
-            bdef.position.set(rect.getX() + rect.getWidth() / 2, rect.getY() + rect.getHeight()/ 2);
+            bdef.position.set((rect.getX() + rect.getWidth() / 2)/ MarioBros.PPM , (rect.getY() + rect.getHeight()/ 2) / MarioBros.PPM);
 
             body = world.createBody(bdef);
 
-            shape.setAsBox(rect.getWidth()/2,rect.getHeight()/2);
+            shape.setAsBox(rect.getWidth()/2/ MarioBros.PPM ,rect.getHeight()/2/ MarioBros.PPM);
             fdef.shape = shape;
             body.createFixture(fdef);
         }
@@ -143,11 +151,11 @@ public class PlayScreen implements Screen{
             com.badlogic.gdx.math.Rectangle rect = ((RectangleMapObject) object).getRectangle();
 
             bdef.type = BodyDef.BodyType.StaticBody;
-            bdef.position.set(rect.getX() + rect.getWidth() / 2, rect.getY() + rect.getHeight()/ 2);
+            bdef.position.set((rect.getX() + rect.getWidth() / 2)/ MarioBros.PPM , (rect.getY() + rect.getHeight()/ 2) / MarioBros.PPM);
 
             body = world.createBody(bdef);
 
-            shape.setAsBox(rect.getWidth()/2,rect.getHeight()/2);
+            shape.setAsBox(rect.getWidth()/2/ MarioBros.PPM ,rect.getHeight()/2/ MarioBros.PPM);
             fdef.shape = shape;
             body.createFixture(fdef);
         }
@@ -158,28 +166,44 @@ public class PlayScreen implements Screen{
             com.badlogic.gdx.math.Rectangle rect = ((RectangleMapObject) object).getRectangle();
 
             bdef.type = BodyDef.BodyType.StaticBody;
-            bdef.position.set(rect.getX() + rect.getWidth() / 2, rect.getY() + rect.getHeight()/ 2);
+            bdef.position.set((rect.getX() + rect.getWidth() / 2)/ MarioBros.PPM , (rect.getY() + rect.getHeight()/ 2) / MarioBros.PPM);
 
             body = world.createBody(bdef);
 
-            shape.setAsBox(rect.getWidth()/2,rect.getHeight()/2);
+            shape.setAsBox(rect.getWidth()/2/ MarioBros.PPM ,rect.getHeight()/2/ MarioBros.PPM);
             fdef.shape = shape;
             body.createFixture(fdef);
         }
-
 
     }
 
 
 
     public void handleInput(float dt){
-        // Check if any input happening
-        if (Gdx.input.isTouched())
-            gamecam.position.x +=100 * dt;
+        // Add control here
+        if (Gdx.input.isKeyJustPressed(com.badlogic.gdx.Input.Keys.UP)){
+            player.b2body.applyLinearImpulse(new Vector2(0,4f),player.b2body.getWorldCenter(),true);
+        }
+
+        if (Gdx.input.isKeyJustPressed(Input.Keys.RIGHT) && player.b2body.getLinearVelocity().x <= 2 ){
+            player.b2body.applyLinearImpulse(new Vector2(1f,0),player.b2body.getWorldCenter(),true);
+        }
+
+        if (Gdx.input.isKeyJustPressed(Input.Keys.LEFT) && player.b2body.getLinearVelocity().x >= -2 ){
+            player.b2body.applyLinearImpulse(new Vector2(-1f,0),player.b2body.getWorldCenter(),true);
+        }
+
     }
 
     public void update(float dt){
         handleInput(dt);
+
+        // we need to define how many times we'll render the screen
+        world.step(1/60f,6,2);
+
+        // Fix Camera in X axe, because we want camera jump like Mario
+        gamecam.position.x = player.b2body.getPosition().x;
+
         gamecam.update();
         // this only will render what our camera can see
         renderer.setView(gamecam);
@@ -199,7 +223,7 @@ public class PlayScreen implements Screen{
         update(delta);
 
         // first thing , clear the screen
-        Gdx.gl.glClearColor(1, 0, 0, 1);
+        Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         // clean the screen before
         renderer.render();

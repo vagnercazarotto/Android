@@ -9,6 +9,7 @@ public class MarioBros extends Game {
     // Use Scene2d.ui, it's provide a layout manager for widgets like actors, groups, drawing, events
     public static final int V_WIDTH = 400;
     public static final int V_HEIGHT= 208;
+	public static final float PPM = 100;
 
 	public SpriteBatch batch;
 	// Sprite is a container who holds all of our images, textures , etc.
