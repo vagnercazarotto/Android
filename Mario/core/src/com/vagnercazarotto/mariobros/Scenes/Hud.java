@@ -56,13 +56,13 @@ public class Hud {
         marioLabel = new Label("MARIO",new Label.LabelStyle(new BitmapFont(), Color.WHITE));
 
         // now we need to add in our label
-        table.add(marioLabel).expandX().padTop(10);
-        table.add(worldLabel).expandX().padTop(10);
-        table.add(timeLabel).expandX().padTop(10);
+        table.add(marioLabel).expandX().padBottom(10);
+        table.add(worldLabel).expandX().padBottom(10);
+        table.add(timeLabel).expandX().padBottom(10);
         table.row();
-        table.add(scoreLabel).expandX();
-        table.add(levelLabel).expandX();
-        table.add(countdownLabel).expand();
+        table.add(scoreLabel).padBottom(180);
+        table.add(levelLabel).expandX().padBottom(180);
+        table.add(countdownLabel).expand().padBottom(180);
 
         stage.addActor(table);
 
