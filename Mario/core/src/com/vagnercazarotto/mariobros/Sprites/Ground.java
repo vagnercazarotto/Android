@@ -12,4 +12,9 @@ public class Ground extends InteractijectveTileObject{
 
         super(world, map, bounds);
     }
+
+    @Override
+    public void onHeadHit() {
+
+    }
 }

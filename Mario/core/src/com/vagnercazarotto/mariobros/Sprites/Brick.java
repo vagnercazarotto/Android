@@ -1,5 +1,6 @@
 package com.vagnercazarotto.mariobros.Sprites;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.World;
@@ -12,5 +13,12 @@ public class Brick extends InteractijectveTileObject {
     public Brick(World world,TiledMap map,Rectangle bounds){
 
         super(world,map,bounds);
+        // we're setting the user data to object it self
+        fixture.setUserData(this);
+    }
+
+    @Override
+    public void onHeadHit() {
+        Gdx.app.log("Hit the brick","");
     }
 }

@@ -3,9 +3,11 @@ package com.vagnercazarotto.mariobros.Sprites;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
+import com.badlogic.gdx.physics.box2d.EdgeShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
@@ -71,6 +73,17 @@ public class Mario extends Sprite {
 
         fdef.shape = shape;  // define a shape
         b2body.createFixture(fdef);
+
+        // Now we'll create a sensor in head of mario,
+        // First create the head
+        EdgeShape head = new EdgeShape();
+        // Define the vector of head
+        head.set(new Vector2((float)(-2/MarioBros.PPM), 6/MarioBros.PPM),((new Vector2((float)2/MarioBros.PPM, 6/MarioBros.PPM))));
+        fdef.shape = head;
+        fdef.isSensor = true; // Define sensor , if is true it only work as sensor
+        b2body.createFixture(fdef).setUserData("head"); // Define a title for future consults (is this the mario head?)
+
+
     }
 
     // New method to fix the texture in Mario

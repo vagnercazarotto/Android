@@ -18,6 +18,7 @@ import com.vagnercazarotto.mariobros.MarioBros;
 import com.vagnercazarotto.mariobros.Scenes.Hud;
 import com.vagnercazarotto.mariobros.Sprites.Mario;
 import com.vagnercazarotto.mariobros.Tools.B2WorldCreator;
+import com.vagnercazarotto.mariobros.Tools.WorldContactListener;
 
 /**
  * Created by vagner on 01/02/2016.
@@ -75,8 +76,11 @@ public class PlayScreen implements Screen{
         //Reorganize the code
         new B2WorldCreator(world,map);
 
-        // Create a temp Mario ; )
+        // Create Mario ; )
         player = new Mario(world,this);
+
+        world.setContactListener(new WorldContactListener());
+
 
     }
 

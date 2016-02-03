@@ -12,4 +12,9 @@ public class Pipes extends InteractijectveTileObject {
 
         super(world, map, bounds);
     }
+
+    @Override
+    public void onHeadHit() {
+
+    }
 }

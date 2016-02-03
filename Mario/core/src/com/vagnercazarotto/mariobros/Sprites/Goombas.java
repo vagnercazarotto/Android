@@ -12,4 +12,9 @@ public class Goombas extends InteractijectveTileObject {
 
         super(world, map, bounds);
     }
+
+    @Override
+    public void onHeadHit() {
+        
+    }
 }
