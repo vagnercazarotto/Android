@@ -8,19 +8,20 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.vagnercazarotto.mariobros.MarioBros;
+import com.vagnercazarotto.mariobros.Screens.PlayScreen;
 import com.vagnercazarotto.mariobros.Sprites.Brick;
 import com.vagnercazarotto.mariobros.Sprites.Coin;
-import com.vagnercazarotto.mariobros.Sprites.Goombas;
-import com.vagnercazarotto.mariobros.Sprites.Ground;
-import com.vagnercazarotto.mariobros.Sprites.Pipes;
-import com.vagnercazarotto.mariobros.Sprites.Turtles;
 
 
 /**
  * Created by vagner on 02/02/2016.
  */
 public class B2WorldCreator {
-    public B2WorldCreator(World world,TiledMap map){
+    public B2WorldCreator(PlayScreen screen){
+        World world = screen.getWorld();
+        TiledMap map = screen.getMap();
+
         // we need to add some bodies to game screen
         BodyDef bdef = new BodyDef(); // definitions about body
         PolygonShape shape = new PolygonShape(); // define shapes for collisions
@@ -37,7 +38,36 @@ public class B2WorldCreator {
         // Create Ground - Layer 2
         for(MapObject object: map.getLayers().get(2).getObjects().getByType(RectangleMapObject.class)){
             com.badlogic.gdx.math.Rectangle rect = ((RectangleMapObject) object).getRectangle();
-            new Ground(world,map,rect);
+
+
+
+//            bdef.type = BodyDef.BodyType.StaticBody;
+//            bdef.position.set((float)((rect.getX() + rect.getWidth() / 2)/ MarioBros.PPM ),(float)((rect.getY() + rect.getHeight()/ 2) / MarioBros.PPM));
+//
+//            body = world.createBody(bdef);
+//
+//            shape.setAsBox((float)(rect.getWidth()/2/ MarioBros.PPM),(float)(rect.getHeight()/2/ MarioBros.PPM));
+//            fdef.shape = shape;
+//            // here we define collision
+//            fdef.filter.categoryBits = MarioBros.OBJECT_BIT;
+//            // we capture all the point of collision, bricks, pipes , etc.
+//            body.createFixture(fdef);
+
+
+
+            bdef.type = BodyDef.BodyType.StaticBody;
+            bdef.position.set((rect.getX() + rect.getWidth() / 2) / MarioBros.PPM, (rect.getY() + rect.getHeight() / 2) / MarioBros.PPM);
+
+            body = world.createBody(bdef);
+
+            shape.setAsBox(rect.getWidth() / 2 / MarioBros.PPM, rect.getHeight() / 2 / MarioBros.PPM);
+            fdef.shape = shape;
+            body.createFixture(fdef);
+
+
+
+
+            //new Ground(screen,rect);
         }
 
 
@@ -45,7 +75,32 @@ public class B2WorldCreator {
         // create Pipes - Layer 3
         for(MapObject object: map.getLayers().get(3).getObjects().getByType(RectangleMapObject.class)){
             com.badlogic.gdx.math.Rectangle rect = ((RectangleMapObject) object).getRectangle();
-            new Pipes(world,map,rect);
+//            bdef.type = BodyDef.BodyType.StaticBody;
+//            bdef.position.set((float)((rect.getX() + rect.getWidth() / 2)/ MarioBros.PPM ),(float)((rect.getY() + rect.getHeight()/ 2) / MarioBros.PPM));
+//
+//            body = world.createBody(bdef);
+//
+//            shape.setAsBox((float)(rect.getWidth()/2/ MarioBros.PPM),(float)(rect.getHeight()/2/ MarioBros.PPM));
+//            fdef.shape = shape;
+//            // here we define collision
+//            fdef.filter.categoryBits = MarioBros.OBJECT_BIT;
+//            // we capture all the point of collision, bricks, pipes , etc.
+//            body.createFixture(fdef);
+
+
+
+            bdef.type = BodyDef.BodyType.StaticBody;
+            bdef.position.set((rect.getX() + rect.getWidth() / 2) / MarioBros.PPM, (rect.getY() + rect.getHeight() / 2) / MarioBros.PPM);
+
+            body = world.createBody(bdef);
+
+            shape.setAsBox(rect.getWidth() / 2 / MarioBros.PPM, rect.getHeight() / 2 / MarioBros.PPM);
+            fdef.shape = shape;
+            body.createFixture(fdef);
+
+
+
+            //new Pipes(screen,rect);
         }
 
 
@@ -53,7 +108,23 @@ public class B2WorldCreator {
         // create Coins - Layer 4
         for(MapObject object: map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)){
             com.badlogic.gdx.math.Rectangle rect = ((RectangleMapObject) object).getRectangle();
-            new Coin(world,map,rect);
+
+//            bdef.type = BodyDef.BodyType.StaticBody;
+//            bdef.position.set((float)((rect.getX() + rect.getWidth() / 2)/ MarioBros.PPM ),(float)((rect.getY() + rect.getHeight()/ 2) / MarioBros.PPM));
+//
+//            body = world.createBody(bdef);
+//
+//            shape.setAsBox((float)(rect.getWidth()/2/ MarioBros.PPM),(float)(rect.getHeight()/2/ MarioBros.PPM));
+//            fdef.shape = shape;
+//            // here we define collision
+//            fdef.filter.categoryBits = MarioBros.OBJECT_BIT;
+//            // we capture all the point of collision, bricks, pipes , etc.
+//            body.createFixture(fdef);
+
+
+
+
+           new Coin(screen,rect);
         }
 
 
@@ -61,21 +132,62 @@ public class B2WorldCreator {
         // create Bricks - Layer 5
         for(MapObject object: map.getLayers().get(5).getObjects().getByType(RectangleMapObject.class)){
             com.badlogic.gdx.math.Rectangle rect = ((RectangleMapObject) object).getRectangle();
-            new Brick(world,map,rect);
+//            bdef.type = BodyDef.BodyType.StaticBody;
+//            bdef.position.set((float)((rect.getX() + rect.getWidth() / 2)/ MarioBros.PPM ),(float)((rect.getY() + rect.getHeight()/ 2) / MarioBros.PPM));
+//
+//            body = world.createBody(bdef);
+//
+//            shape.setAsBox((float)(rect.getWidth()/2/ MarioBros.PPM),(float)(rect.getHeight()/2/ MarioBros.PPM));
+//            fdef.shape = shape;
+//            // here we define collision
+//            fdef.filter.categoryBits = MarioBros.OBJECT_BIT;
+//            // we capture all the point of collision, bricks, pipes , etc.
+//            body.createFixture(fdef);
+
+
+            new Brick(screen,rect);
         }
 
 
         // create Goombas- Layer 6
         for(MapObject object: map.getLayers().get(6).getObjects().getByType(RectangleMapObject.class)){
             com.badlogic.gdx.math.Rectangle rect = ((RectangleMapObject) object).getRectangle();
-            new Goombas(world,map,rect);
+
+//            bdef.type = BodyDef.BodyType.StaticBody;
+//            bdef.position.set((float)((rect.getX() + rect.getWidth() / 2)/ MarioBros.PPM ),(float)((rect.getY() + rect.getHeight()/ 2) / MarioBros.PPM));
+//
+//            body = world.createBody(bdef);
+//
+//            shape.setAsBox((float)(rect.getWidth()/2/ MarioBros.PPM),(float)(rect.getHeight()/2/ MarioBros.PPM));
+//            fdef.shape = shape;
+//            // here we define collision
+//            fdef.filter.categoryBits = MarioBros.OBJECT_BIT;
+//            // we capture all the point of collision, bricks, pipes , etc.
+//            body.createFixture(fdef);
+
+            //new Goombas(screen,.32f,.32f);
         }
 
 
         // create Turtles- Layer 7
         for(MapObject object: map.getLayers().get(7).getObjects().getByType(RectangleMapObject.class)){
             com.badlogic.gdx.math.Rectangle rect = ((RectangleMapObject) object).getRectangle();
-            new Turtles(world,map,rect);
+
+//
+//            bdef.type = BodyDef.BodyType.StaticBody;
+//            bdef.position.set((float)((rect.getX() + rect.getWidth() / 2)/ MarioBros.PPM ),(float)((rect.getY() + rect.getHeight()/ 2) / MarioBros.PPM));
+//
+//            body = world.createBody(bdef);
+//
+//            shape.setAsBox((float)(rect.getWidth()/2/ MarioBros.PPM),(float)(rect.getHeight()/2/ MarioBros.PPM));
+//            fdef.shape = shape;
+//            // here we define collision
+//            fdef.filter.categoryBits = MarioBros.OBJECT_BIT;
+//            // we capture all the point of collision, bricks, pipes , etc.
+//            body.createFixture(fdef);
+
+
+           // new Turtles(screen,rect);
         }
     }
 

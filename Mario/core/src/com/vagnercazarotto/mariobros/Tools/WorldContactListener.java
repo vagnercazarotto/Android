@@ -18,6 +18,8 @@ public class WorldContactListener implements ContactListener {
         Fixture fixA = contact.getFixtureA();
         Fixture fixB = contact.getFixtureB();
 
+        //Gdx.app.log("Collision", MarioBros.bitToText(fixA.getFilterData().categoryBits) + " collides with " + MarioBros.bitToText(fixB.getFilterData().categoryBits));
+        int cDef = fixA.getFilterData().categoryBits | fixB.getFilterData().categoryBits;
         if (fixA.getUserData() == "head" || fixB.getUserData() == "head"){
             Fixture head = fixA.getUserData() == "head" ? fixA : fixB;
             Fixture object = head == fixA ? fixB : fixA;

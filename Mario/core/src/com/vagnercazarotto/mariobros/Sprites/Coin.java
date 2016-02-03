@@ -2,12 +2,11 @@ package com.vagnercazarotto.mariobros.Sprites;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileSet;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.physics.box2d.World;
 import com.vagnercazarotto.mariobros.MarioBros;
 import com.vagnercazarotto.mariobros.Scenes.Hud;
+import com.vagnercazarotto.mariobros.Screens.PlayScreen;
 
 
 /**
@@ -19,9 +18,9 @@ public class Coin extends InteractijectveTileObject {
     private final int BLANK_COIN = 28;
 
 
-    public Coin(World world,TiledMap map,Rectangle bounds){
+    public Coin(PlayScreen screen,Rectangle bounds){
 
-        super(world, map, bounds);
+        super(screen, bounds);
         // find the tile the find the icon
         tileSet = map.getTileSets().getTileSet("tileset_gutter");
         // we're setting the user data to object it self

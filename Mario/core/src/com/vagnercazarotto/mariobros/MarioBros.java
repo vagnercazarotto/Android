@@ -14,11 +14,13 @@ public class MarioBros extends Game {
     public static final int V_HEIGHT= 208;
 	public static final float PPM = 100;
 
-	public static final short DEFAULT_BIT = 1;
+	public static final short GROUND_BIT = 1;
 	public static final short MARIO_BIT = 2;
 	public static final short BRICK_BIT = 4;
 	public static final short COIN_BIT = 8;
 	public static final short DESTROYED_BIT = 16;
+    public static final short OBJECT_BIT = 32;
+    public static final short ENEMY_BIT = 64;
 
 	public SpriteBatch batch;
 	// Sprite is a container who holds all of our images, textures , etc.
@@ -55,4 +57,26 @@ public class MarioBros extends Game {
 		// delegate the render method to the screem
 		super.render();
 	}
+
+    public static String bitToText(short bit){
+        switch(bit){
+            case 1:
+                return "DEFAULT";
+            case 2:
+                return "MARIO";
+            case 4:
+                return "BRICK";
+            case 8:
+                return "COIN";
+            case 16:
+                return "DESTROYED";
+            case 32:
+                return "ENEMY";
+            case 64:
+                return "GROUND";
+            default:
+                return "DEFAULT";
+        }
+    }
+
 }

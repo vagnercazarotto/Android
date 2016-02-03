@@ -2,20 +2,19 @@ package com.vagnercazarotto.mariobros.Sprites;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.physics.box2d.World;
 import com.vagnercazarotto.mariobros.MarioBros;
 import com.vagnercazarotto.mariobros.Scenes.Hud;
+import com.vagnercazarotto.mariobros.Screens.PlayScreen;
 
 
 /**
  * Created by vagner on 02/02/2016.
  */
 public class Brick extends InteractijectveTileObject {
-    public Brick(World world,TiledMap map,Rectangle bounds){
+    public Brick(PlayScreen screen,Rectangle bounds){
 
-        super(world,map,bounds);
+        super(screen,bounds);
         // we're setting the user data to object it self
         fixture.setUserData(this);
         setCategoryFilter(MarioBros.BRICK_BIT);

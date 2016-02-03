@@ -3,6 +3,7 @@ package com.vagnercazarotto.mariobros.Sprites;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Filter;
@@ -11,6 +12,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.vagnercazarotto.mariobros.MarioBros;
+import com.vagnercazarotto.mariobros.Screens.PlayScreen;
 
 /**
  * Created by vagner on 02/02/2016.
@@ -24,9 +26,9 @@ public abstract class InteractijectveTileObject{
     protected Fixture fixture;
 
 
-    public InteractijectveTileObject(World world,TiledMap map,com.badlogic.gdx.math.Rectangle bounds){
-        this.world = world;
-        this.map = map;
+    public InteractijectveTileObject(PlayScreen screen,Rectangle bounds){
+        this.world = screen.getWorld();
+        this.map = screen.getMap();
         this.bounds = bounds;
 
 
@@ -41,6 +43,8 @@ public abstract class InteractijectveTileObject{
 
         shape.setAsBox((float)(bounds.getWidth()/2/ MarioBros.PPM),(float)(bounds.getHeight()/2/ MarioBros.PPM));
         fdef.shape = shape;
+        // here we define collision
+        fdef.filter.categoryBits = MarioBros.OBJECT_BIT;
         // we capture all the point of collision, bricks, pipes , etc.
         fixture = body.createFixture(fdef);
 

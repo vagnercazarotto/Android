@@ -1,16 +1,15 @@
 package com.vagnercazarotto.mariobros.Sprites;
 
-import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.physics.box2d.World;
+import com.vagnercazarotto.mariobros.Screens.PlayScreen;
 
 /**
  * Created by vagner on 02/02/2016.
  */
 public class Pipes extends InteractijectveTileObject {
-    public Pipes(World world,TiledMap map,Rectangle bounds){
+    public Pipes(PlayScreen screen,Rectangle bounds){
 
-        super(world, map, bounds);
+        super(screen, bounds);
     }
 
     @Override

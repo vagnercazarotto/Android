@@ -17,6 +17,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.vagnercazarotto.mariobros.MarioBros;
 import com.vagnercazarotto.mariobros.Scenes.Hud;
+import com.vagnercazarotto.mariobros.Sprites.Goombas;
 import com.vagnercazarotto.mariobros.Sprites.Mario;
 import com.vagnercazarotto.mariobros.Tools.B2WorldCreator;
 import com.vagnercazarotto.mariobros.Tools.WorldContactListener;
@@ -49,6 +50,9 @@ public class PlayScreen implements Screen{
     private Mario player;
     private Music music;
 
+    // Create a temp Enemy
+    private Goombas goombas;
+
 
 
 
@@ -76,16 +80,18 @@ public class PlayScreen implements Screen{
         b2dr = new Box2DDebugRenderer();
 
         //Reorganize the code
-        new B2WorldCreator(world,map);
+        new B2WorldCreator(this);
 
         // Create Mario ; )
-        player = new Mario(world,this);
+        player = new Mario(this);
 
         world.setContactListener(new WorldContactListener());
 
         music = MarioBros.manager.get("audio/music/mario_music.ogg",Music.class);
         music.setLooping(true);
         music.play();
+
+        goombas = new Goombas(this,.32f,.32f);
 
 
     }
@@ -125,6 +131,9 @@ public class PlayScreen implements Screen{
         gamecam.update();
         // this only will render what our camera can see
         renderer.setView(gamecam);
+
+        // Goomba needs to be update
+        goombas.update(dt);
     }
 
 
@@ -157,7 +166,10 @@ public class PlayScreen implements Screen{
 
         game.batch.setProjectionMatrix(gamecam.combined);
         game.batch.begin();
+        // we need to render Mario
         player.draw(game.batch);
+        // we need to render Goomba
+        goombas.draw(game.batch);
         game.batch.end();
 
         // this will show the our camera we're see HUD
@@ -196,4 +208,13 @@ public class PlayScreen implements Screen{
         b2dr.dispose();
         hud.dispose();
     }
+
+    public TiledMap getMap(){
+        return map;
+    }
+
+    public World getWorld(){
+        return world;
+    }
+
 }
