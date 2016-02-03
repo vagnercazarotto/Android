@@ -1,6 +1,9 @@
 package com.vagnercazarotto.mariobros;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.vagnercazarotto.mariobros.Screens.PlayScreen;
 
@@ -21,15 +24,35 @@ public class MarioBros extends Game {
 	// Sprite is a container who holds all of our images, textures , etc.
 	// And render in to the monitor
 
-	
+	/// WARNING: Using AssetManager in a static way cause issues, especially in Android, instead you may want to pass
+	/// around Assetmanager to those the classes that need it, We will use it in the static context to save time for now
+
+	public static AssetManager manager;
+
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
+		manager = new AssetManager();
+		manager.load("audio/music/mario_music.ogg", Music.class);
+		manager.load("audio/sounds/coin.wav", Sound.class);
+		manager.load("audio/sounds/bump.wav", Sound.class);
+		manager.load("audio/sounds/bbrick.wav", Sound.class);
+        manager.load("audio/sounds/think_i_do2.wav", Sound.class);
+		manager.load("audio/sounds/apollo_problem.wav", Sound.class);
+		manager.finishLoading();
 		setScreen(new PlayScreen(this)); // Start rendering, but you need to pass the this app
 	}
 
-	@Override
+    @Override
+    public void dispose() {
+        super.dispose();
+        manager.dispose();
+        batch.dispose();
+    }
+
+    @Override
 	public void render () {
-		super.render(); // delegate the render method to the screem
+		// delegate the render method to the screem
+		super.render();
 	}
 }
