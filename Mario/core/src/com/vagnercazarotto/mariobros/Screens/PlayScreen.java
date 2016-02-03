@@ -17,7 +17,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.vagnercazarotto.mariobros.MarioBros;
 import com.vagnercazarotto.mariobros.Scenes.Hud;
-import com.vagnercazarotto.mariobros.Sprites.Goombas;
+import com.vagnercazarotto.mariobros.Sprites.Enemy;
 import com.vagnercazarotto.mariobros.Sprites.Mario;
 import com.vagnercazarotto.mariobros.Tools.B2WorldCreator;
 import com.vagnercazarotto.mariobros.Tools.WorldContactListener;
@@ -45,14 +45,11 @@ public class PlayScreen implements Screen{
     // Box2d Variables
     private World world;
     private Box2DDebugRenderer b2dr;
+    private B2WorldCreator creator;
 
     //sprites
     private Mario player;
     private Music music;
-
-    // Create a temp Enemy
-    private Goombas goombas;
-
 
 
 
@@ -80,7 +77,7 @@ public class PlayScreen implements Screen{
         b2dr = new Box2DDebugRenderer();
 
         //Reorganize the code
-        new B2WorldCreator(this);
+        creator = new B2WorldCreator(this);
 
         // Create Mario ; )
         player = new Mario(this);
@@ -91,7 +88,6 @@ public class PlayScreen implements Screen{
         music.setLooping(true);
         music.play();
 
-        goombas = new Goombas(this,5.64f,.1f);
 
 
     }
@@ -118,10 +114,13 @@ public class PlayScreen implements Screen{
         handleInput(dt);
 
         // we need to define how many times we'll render the screen
-        world.step(1/60f,6,2);
+        world.step(1 / 60f, 6, 2);
 
         // Now update the Mario // renderer
         player.update(dt);
+        for(Enemy enemy:creator.getGoombas())
+                enemy.update(dt);
+
         // we need to pass a update into our hud
         hud.update(dt);
 
@@ -132,8 +131,6 @@ public class PlayScreen implements Screen{
         // this only will render what our camera can see
         renderer.setView(gamecam);
 
-        // Goomba needs to be update
-        goombas.update(dt);
     }
 
 
@@ -168,8 +165,8 @@ public class PlayScreen implements Screen{
         game.batch.begin();
         // we need to render Mario
         player.draw(game.batch);
-        // we need to render Goomba
-        goombas.draw(game.batch);
+        for(Enemy enemy:creator.getGoombas())
+            enemy.draw(game.batch);
         game.batch.end();
 
         // this will show the our camera we're see HUD

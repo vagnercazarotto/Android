@@ -8,16 +8,25 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Array;
 import com.vagnercazarotto.mariobros.MarioBros;
 import com.vagnercazarotto.mariobros.Screens.PlayScreen;
 import com.vagnercazarotto.mariobros.Sprites.Brick;
 import com.vagnercazarotto.mariobros.Sprites.Coin;
+import com.vagnercazarotto.mariobros.Sprites.Goombas;
 
 
 /**
  * Created by vagner on 02/02/2016.
  */
 public class B2WorldCreator {
+    public Array<Goombas> getGoombas() {
+        return goombas;
+    }
+
+    // Create a Array for Enemies
+    private Array<Goombas> goombas;
+
     public B2WorldCreator(PlayScreen screen){
         World world = screen.getWorld();
         TiledMap map = screen.getMap();
@@ -151,22 +160,10 @@ public class B2WorldCreator {
 
 
         // create Goombas- Layer 6
+        goombas = new Array<Goombas>();
         for(MapObject object: map.getLayers().get(6).getObjects().getByType(RectangleMapObject.class)){
             com.badlogic.gdx.math.Rectangle rect = ((RectangleMapObject) object).getRectangle();
-
-//            bdef.type = BodyDef.BodyType.StaticBody;
-//            bdef.position.set((float)((rect.getX() + rect.getWidth() / 2)/ MarioBros.PPM ),(float)((rect.getY() + rect.getHeight()/ 2) / MarioBros.PPM));
-//
-//            body = world.createBody(bdef);
-//
-//            shape.setAsBox((float)(rect.getWidth()/2/ MarioBros.PPM),(float)(rect.getHeight()/2/ MarioBros.PPM));
-//            fdef.shape = shape;
-//            // here we define collision
-//            fdef.filter.categoryBits = MarioBros.OBJECT_BIT;
-//            // we capture all the point of collision, bricks, pipes , etc.
-//            body.createFixture(fdef);
-
-            //new Goombas(screen,.32f,.32f);
+            goombas.add(new Goombas(screen,rect.getX()/MarioBros.PPM,rect.getY()/MarioBros.PPM));
         }
 
 
