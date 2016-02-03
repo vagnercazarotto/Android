@@ -110,6 +110,8 @@ public class PlayScreen implements Screen{
 
         // Now update the Mario // renderer
         player.update(dt);
+        // we need to pass a update into our hud
+        hud.update(dt);
 
         // Fix Camera in X axe, because we want camera jump like Mario
         gamecam.position.x = player.b2body.getPosition().x;

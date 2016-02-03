@@ -26,14 +26,14 @@ public class Hud implements Disposable{
 
     private Integer worldTimer;
     private float timeCount;
-    private Integer score;
+    private static Integer score;
 
-    Label countdownLabel;
-    Label scoreLabel;
-    Label timeLabel;
-    Label levelLabel;
-    Label worldLabel;
-    Label marioLabel;
+    private Label countdownLabel;
+    private static Label scoreLabel;
+    private Label timeLabel;
+    private Label levelLabel;
+    private Label worldLabel;
+    private Label marioLabel;
 
     // we'll create a constructor
     public Hud(SpriteBatch sb){
@@ -69,6 +69,21 @@ public class Hud implements Disposable{
 
 
     }
+
+    public void update(Float dt){
+        timeCount += dt;
+        if(timeCount >= 1){
+            worldTimer--;
+            countdownLabel.setText(String.format("%03d",worldTimer));
+            timeCount = 0;
+        }
+    }
+
+    public static void addScore(int value){
+        score += value;
+        scoreLabel.setText(String.format("%06d",score));
+    }
+
 
     @Override
     public void dispose() {
