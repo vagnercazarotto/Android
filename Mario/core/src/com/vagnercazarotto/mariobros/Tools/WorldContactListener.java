@@ -5,7 +5,9 @@ import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
+import com.vagnercazarotto.mariobros.Sprites.Enemy;
 import com.vagnercazarotto.mariobros.Sprites.InteractijectveTileObject;
+import com.vagnercazarotto.mariobros.MarioBros;
 
 /**
  * Created by vagner on 03/02/2016.
@@ -28,6 +30,15 @@ public class WorldContactListener implements ContactListener {
                 ((InteractijectveTileObject) object.getUserData()).onHeadHit();
             }
         }
+
+        switch (cDef){
+            case MarioBros.ENEMY_HEAD_BIT | MarioBros.MARIO_BIT:
+                if (fixA.getFilterData().categoryBits == MarioBros.ENEMY_HEAD_BIT)
+                    ((Enemy) fixA.getUserData()).hitOnHead();
+                else if (fixB.getFilterData().categoryBits == MarioBros.ENEMY_HEAD_BIT)
+                    ((Enemy) fixB.getUserData()).hitOnHead();
+        }
+
     }
 
 

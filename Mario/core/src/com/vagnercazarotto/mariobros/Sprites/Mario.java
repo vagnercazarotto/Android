@@ -73,7 +73,12 @@ public class Mario extends Sprite {
         // create a fixture that have a category bit as a Mario
         fdef.filter.categoryBits = MarioBros.MARIO_BIT;
         // we now what mario can colide
-        fdef.filter.maskBits = MarioBros.GROUND_BIT | MarioBros.COIN_BIT | MarioBros.BRICK_BIT | MarioBros.ENEMY_BIT |MarioBros.OBJECT_BIT;
+        fdef.filter.maskBits = MarioBros.GROUND_BIT |
+                MarioBros.COIN_BIT |
+                MarioBros.BRICK_BIT |
+                MarioBros.ENEMY_BIT |
+                MarioBros.OBJECT_BIT|
+                MarioBros.ENEMY_HEAD_BIT;
 
         fdef.shape = shape;  // define a shape
         b2body.createFixture(fdef);
