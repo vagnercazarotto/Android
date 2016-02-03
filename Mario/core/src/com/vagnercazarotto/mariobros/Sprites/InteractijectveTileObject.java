@@ -2,8 +2,10 @@ package com.vagnercazarotto.mariobros.Sprites;
 
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.Filter;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
@@ -39,12 +41,25 @@ public abstract class InteractijectveTileObject{
 
         shape.setAsBox((float)(bounds.getWidth()/2/ MarioBros.PPM),(float)(bounds.getHeight()/2/ MarioBros.PPM));
         fdef.shape = shape;
-        body.createFixture(fdef);
         // we capture all the point of collision, bricks, pipes , etc.
         fixture = body.createFixture(fdef);
 
     }
 
     public abstract void onHeadHit();
+    public void setCategoryFilter(short filterBit){
+        Filter filter = new Filter();
+        filter.categoryBits = filterBit;
+        fixture.setFilterData(filter);
+    }
+
+    public TiledMapTileLayer.Cell getCell(){
+        // get the layer
+        TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get(1);
+        // Ok, a little complex here,getCell needs integer values for X and Y, but we have changed the scales on mario so now we need to change
+        // again to restore values. First multiple for mario PPM then divide for 16
+        return layer.getCell((int)(body.getPosition().x * MarioBros.PPM /16),(int)(body.getPosition().y * MarioBros.PPM /16));
+    }
+
 
 }

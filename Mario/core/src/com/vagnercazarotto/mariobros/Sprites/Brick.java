@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.World;
+import com.vagnercazarotto.mariobros.MarioBros;
 
 
 /**
@@ -15,10 +16,13 @@ public class Brick extends InteractijectveTileObject {
         super(world,map,bounds);
         // we're setting the user data to object it self
         fixture.setUserData(this);
+        setCategoryFilter(MarioBros.BRICK_BIT);
     }
 
     @Override
     public void onHeadHit() {
-        Gdx.app.log("Hit the brick","");
+        Gdx.app.log("Brick","Collision");
+        setCategoryFilter(MarioBros.DESTROYED_BIT);
+        getCell().setTile(null);
     }
 }
