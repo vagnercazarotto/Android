@@ -1,6 +1,7 @@
 package com.vagnercazarotto.mariobros.Sprites;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -35,9 +36,10 @@ public class Goombas extends Enemy {
         // Add our frames to Animation
         walkAnimation = new Animation(0.4f,frames);
         stateTime = 0;
+        setBounds(getX(), getY(), 16 / MarioBros.PPM, 16 / MarioBros.PPM);
         destroyed = false;
         setToDestroy = false;
-        setBounds(getX(), getY(), 16 / MarioBros.PPM, 16 / MarioBros.PPM);
+
     }
 
     public void update(float dt){
@@ -45,13 +47,25 @@ public class Goombas extends Enemy {
         if (setToDestroy && !destroyed){
             world.destroyBody(b2body);
             destroyed = true;
-            setRegion(new TextureRegion(screen.getAtlas().findRegion("goomba"),32, 0, 16, 16));
+            setRegion(new TextureRegion(screen.getAtlas().findRegion("goomba"),33, 0, 16, 16));
+            // Now goomba is dead we need to clean the crime scene
+            // set the time in Zero
+            stateTime = 0;
         }
         else if (!destroyed){
-            setPosition(b2body.getPosition().x - getWidth() /2,b2body.getPosition().y - getHeight()/2);
+            b2body.setLinearVelocity(velocity);
+            setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
             setRegion(walkAnimation.getKeyFrame(stateTime, true)); // yes it's a loop animation
         }
     }
+
+    public void draw(Batch batch){
+        // Now goomba is dead we need to clean the crime scene
+        // set the time in Zero and validate if his alive or dead,
+        if (!destroyed || stateTime < 1)
+            super.draw(batch);
+    }
+
 
 
     @Override
@@ -76,7 +90,7 @@ public class Goombas extends Enemy {
                 MarioBros.OBJECT_BIT;
 
         fdef.shape = shape;  // define a shape
-        b2body.createFixture(fdef);
+        b2body.createFixture(fdef).setUserData(this);
 
 
         // Create the Head of Goomba
