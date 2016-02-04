@@ -1,3 +1,18 @@
+/*
+ * Copyright (C) 2014 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.example.android.sunshine.app;
 
 import android.content.Context;
@@ -23,21 +38,23 @@ public class Utility {
                 .equals(context.getString(R.string.pref_units_metric));
     }
 
-    static String formatTemperature(Context context,double temperature, boolean isMetric) {
-        double temp;
-        if ( !isMetric ) {
-            temp = 9*temperature/5+32;
-        } else {
-            temp = temperature;
+    public static String formatTemperature(Context context, double temperature) {
+        // Data stored in Celsius by default.  If user prefers to see in Fahrenheit, convert
+        // the values here.
+        String suffix = "\u00B0";
+        if (!isMetric(context)) {
+            temperature = (temperature * 1.8) + 32;
         }
-        return context.getString(R.string.format_temperature, temp);
+
+        // For presentation, assume the user doesn't care about tenths of a degree.
+        return String.format(context.getString(R.string.format_temperature), temperature);
     }
 
     static String formatDate(long dateInMilliseconds) {
         Date date = new Date(dateInMilliseconds);
         return DateFormat.getDateInstance().format(date);
     }
-///////////////////////////////////////
+
     // Format used for storing dates in the database.  ALso used for converting those strings
     // back into date objects for comparison/processing.
     public static final String DATE_FORMAT = "yyyyMMdd";
@@ -127,8 +144,7 @@ public class Utility {
         return monthDayString;
     }
 
-
-    public static String getFormattedWind(Context context,float windSpeed,float degrees) {
+    public static String getFormattedWind(Context context, float windSpeed, float degrees) {
         int windFormat;
         if (Utility.isMetric(context)) {
             windFormat = R.string.format_wind_kmh;
@@ -137,7 +153,9 @@ public class Utility {
             windSpeed = .621371192237334f * windSpeed;
         }
 
-
+        // From wind direction in degrees, determine compass direction as a string (e.g NW)
+        // You know what's fun, writing really long if/else statements with tons of possible
+        // conditions.  Seriously, try it!
         String direction = "Unknown";
         if (degrees >= 337.5 || degrees < 22.5) {
             direction = "N";
@@ -156,11 +174,9 @@ public class Utility {
         } else if (degrees >= 292.5 && degrees < 337.5) {
             direction = "NW";
         }
-
         return String.format(context.getString(windFormat), windSpeed, direction);
-
     }
-/////////////////////////////////////////////////////////////////
+
     /**
      * Helper method to provide the icon resource id according to the weather condition id returned
      * by the OpenWeatherMap call.
@@ -200,7 +216,7 @@ public class Utility {
      * Helper method to provide the art resource id according to the weather condition id returned
      * by the OpenWeatherMap call.
      * @param weatherId from OpenWeatherMap API response
-     * @return resource id for the corresponding image. -1 if no relation is found.
+     * @return resource id for the corresponding icon. -1 if no relation is found.
      */
     public static int getArtResourceForWeatherCondition(int weatherId) {
         // Based on weather code data found at:
@@ -230,8 +246,4 @@ public class Utility {
         }
         return -1;
     }
-
-
-
-
 }

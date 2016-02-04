@@ -84,20 +84,6 @@ public class TestProvider extends AndroidTestCase {
     }
 
     /*
-       This helper function deletes all records from both database tables using the database
-       functions only.  This is designed to be used to reset the state of the database until the
-       delete functionality is available in the ContentProvider.
-     */
-    public void deleteAllRecordsFromDB() {
-        WeatherDbHelper dbHelper = new WeatherDbHelper(mContext);
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-
-        db.delete(WeatherEntry.TABLE_NAME, null, null);
-        db.delete(LocationEntry.TABLE_NAME, null, null);
-        db.close();
-    }
-
-    /*
         Student: Refactor this function to use the deleteAllRecordsFromProvider functionality once
         you have implemented delete functionality there.
      */
@@ -411,7 +397,7 @@ public class TestProvider extends AndroidTestCase {
     //
     // Student: Uncomment this test after you have completed writing the delete functionality
     // in your provider.  It relies on insertions with testInsertReadProvider, so insert and
-     //query functionality must also be complete before this test can be used.
+    // query functionality must also be complete before this test can be used.
     public void testDeleteRecords() {
         testInsertReadProvider();
 
