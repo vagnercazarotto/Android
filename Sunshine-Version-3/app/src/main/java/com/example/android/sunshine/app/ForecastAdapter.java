@@ -108,11 +108,19 @@ public class ForecastAdapter extends CursorAdapter {
 
         // Read high temperature from cursor
         double high = cursor.getDouble(ForecastFragment.COL_WEATHER_MAX_TEMP);
+<<<<<<< HEAD
         viewHolder.highTempView.setText(Utility.formatTemperature(context, high));
 
         // Read low temperature from cursor
         double low = cursor.getDouble(ForecastFragment.COL_WEATHER_MIN_TEMP);
         viewHolder.lowTempView.setText(Utility.formatTemperature(context, low));
+=======
+        viewHolder.highTempView.setText(Utility.formatTemperature(context,high));
+
+        // Read low temperature from cursor
+        double low = cursor.getDouble(ForecastFragment.COL_WEATHER_MIN_TEMP);
+        viewHolder.lowTempView.setText(Utility.formatTemperature(context,low));
+>>>>>>> b363ef5c283891045b81fa6fd3a120b4f1198b65
     }
 
     public void setUseTodayLayout(boolean useTodayLayout) {

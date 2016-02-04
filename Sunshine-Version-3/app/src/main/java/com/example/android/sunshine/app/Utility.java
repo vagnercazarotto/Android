@@ -38,6 +38,7 @@ public class Utility {
                 .equals(context.getString(R.string.pref_units_metric));
     }
 
+<<<<<<< HEAD
     public static String formatTemperature(Context context, double temperature) {
         // Data stored in Celsius by default.  If user prefers to see in Fahrenheit, convert
         // the values here.
@@ -48,6 +49,13 @@ public class Utility {
 
         // For presentation, assume the user doesn't care about tenths of a degree.
         return String.format(context.getString(R.string.format_temperature), temperature);
+=======
+    public static String formatTemperature(Context context,double temperature) {
+        String suffix = "\u00B0";
+        if (!isMetric(context))
+            temperature = (temperature * 1.8) + 32;
+            return String.format(context.getString(R.string.format_temperature), temperature);
+>>>>>>> b363ef5c283891045b81fa6fd3a120b4f1198b65
     }
 
     static String formatDate(long dateInMilliseconds) {
