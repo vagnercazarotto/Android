@@ -36,8 +36,13 @@
                 android:value="com.example.android.sunshine.app.MainActivity" />
         </activity>
 
-
+        <!-- Declare a New service -->
         <service android:name=".services.SunshineService"/>
+
+        <!-- Declare a New Alarm -->
+        <receiver android:name=".services.SunshineService$AlarmReceiver"/>
+
+
 
 
         <!-- Our project needs know we're using Provider -->
