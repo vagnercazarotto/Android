@@ -2,46 +2,46 @@
 <items version="2" >
 
     <item
-        jar="/Users/james/android-sdk-macosx/extras/android/m2repository/com/android/support/support-annotations/22.2.0/support-annotations-22.2.0.jar"
+        jar="C:\Users\vagner\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\22.2.0\support-annotations-22.2.0.jar"
         jumboMode="false"
         revision="21.1.2"
         sha1="66b42a1f3eb7676070b7ef7f14b603483aecbee1">
-        <dex dex="/Users/james/Repos/MaterialDesign-Demos/ApplyPaletteDemo/app/build/intermediates/pre-dexed/debug/support-annotations-22.2.0-aceae00c37928321d6a726aff5b8cb21559b775e.jar" />
+        <dex dex="C:\Mobile\Android\DesignforAndroid\SimplePaperTransformations\app\build\intermediates\pre-dexed\debug\support-annotations-22.2.0-1e7fae792efdcf5e81c7a87ec862e92081987ad8.jar" />
     </item>
     <item
-        jar="/Users/james/Repos/MaterialDesign-Demos/ApplyPaletteDemo/app/build/intermediates/exploded-aar/com.android.support/design/22.2.0/jars/classes.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="fc63b820d54c8a27a3a614bdd93920e0076581c2">
-        <dex dex="/Users/james/Repos/MaterialDesign-Demos/ApplyPaletteDemo/app/build/intermediates/pre-dexed/debug/classes-79e5be04f2ac159eb55ea81b6878cf3e189cf63e.jar" />
-    </item>
-    <item
-        jar="/Users/james/Repos/MaterialDesign-Demos/ApplyPaletteDemo/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/22.2.0/jars/classes.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="5b37cf49773f7f17aca9830efd3053b0cac56728">
-        <dex dex="/Users/james/Repos/MaterialDesign-Demos/ApplyPaletteDemo/app/build/intermediates/pre-dexed/debug/classes-557d5b8969c5fae31684609fdfab62078e61ba07.jar" />
-    </item>
-    <item
-        jar="/Users/james/Repos/MaterialDesign-Demos/ApplyPaletteDemo/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.0/jars/classes.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="1ee588ff2c4daf7b97c1cbf922a6c7f027285c2f">
-        <dex dex="/Users/james/Repos/MaterialDesign-Demos/ApplyPaletteDemo/app/build/intermediates/pre-dexed/debug/classes-147bc4d454805ee2384a2c121d82fd13c15508cc.jar" />
-    </item>
-    <item
-        jar="/Users/james/Repos/MaterialDesign-Demos/ApplyPaletteDemo/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.0/jars/libs/internal_impl-22.2.0.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="57f2ab85c164ff1676ec64dee787981c046fab79">
-        <dex dex="/Users/james/Repos/MaterialDesign-Demos/ApplyPaletteDemo/app/build/intermediates/pre-dexed/debug/internal_impl-22.2.0-9afa9a58b0dab6e496e74ac766434ed320bec794.jar" />
-    </item>
-    <item
-        jar="/Users/james/Repos/MaterialDesign-Demos/ApplyPaletteDemo/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.0/jars/classes.jar"
+        jar="C:\Mobile\Android\DesignforAndroid\SimplePaperTransformations\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\22.2.0\jars\classes.jar"
         jumboMode="false"
         revision="21.1.2"
         sha1="73753982da6bde518f3a4c6b372749981d14d1a0">
-        <dex dex="/Users/james/Repos/MaterialDesign-Demos/ApplyPaletteDemo/app/build/intermediates/pre-dexed/debug/classes-8404696c5386c0de37bf289fa7d6fe7867591ee0.jar" />
+        <dex dex="C:\Mobile\Android\DesignforAndroid\SimplePaperTransformations\app\build\intermediates\pre-dexed\debug\classes-da82302a4d9349f0c1d0d98a666d108acb7b3afb.jar" />
+    </item>
+    <item
+        jar="C:\Mobile\Android\DesignforAndroid\SimplePaperTransformations\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\22.2.0\jars\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="5b37cf49773f7f17aca9830efd3053b0cac56728">
+        <dex dex="C:\Mobile\Android\DesignforAndroid\SimplePaperTransformations\app\build\intermediates\pre-dexed\debug\classes-2bc5cc036a003d0a6e785242b2c5598648850b57.jar" />
+    </item>
+    <item
+        jar="C:\Mobile\Android\DesignforAndroid\SimplePaperTransformations\app\build\intermediates\exploded-aar\com.android.support\design\22.2.0\jars\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="fc63b820d54c8a27a3a614bdd93920e0076581c2">
+        <dex dex="C:\Mobile\Android\DesignforAndroid\SimplePaperTransformations\app\build\intermediates\pre-dexed\debug\classes-335ce18c8d02c0530926df4b136c66fd00168a45.jar" />
+    </item>
+    <item
+        jar="C:\Mobile\Android\DesignforAndroid\SimplePaperTransformations\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.0\jars\libs\internal_impl-22.2.0.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="57f2ab85c164ff1676ec64dee787981c046fab79">
+        <dex dex="C:\Mobile\Android\DesignforAndroid\SimplePaperTransformations\app\build\intermediates\pre-dexed\debug\internal_impl-22.2.0-12d73022e0e107eb80a70acd073843e75bcb7ed8.jar" />
+    </item>
+    <item
+        jar="C:\Mobile\Android\DesignforAndroid\SimplePaperTransformations\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.0\jars\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="1ee588ff2c4daf7b97c1cbf922a6c7f027285c2f">
+        <dex dex="C:\Mobile\Android\DesignforAndroid\SimplePaperTransformations\app\build\intermediates\pre-dexed\debug\classes-f56a8f04dab58c45a49ae647cdea550194234b48.jar" />
     </item>
 
 </items>

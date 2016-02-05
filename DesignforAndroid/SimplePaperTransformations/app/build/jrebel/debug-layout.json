@@ -1,0 +1,69 @@
+{
+    "moduleRoot": "C:\\Mobile\\Android\\DesignforAndroid\\SimplePaperTransformations\\app",
+    "minSdkVersion": 15,
+    "targetSdkVersion": 22,
+    "bootClassPath": [
+        "C:\\Users\\vagner\\AppData\\Local\\Android\\sdk\\platforms\\android-22\\android.jar"
+    ],
+    "storeType": "jks",
+    "applicationVariant": "debug",
+    "multiDexEnabled": false,
+    "projectRoot": "C:\\Mobile\\Android\\DesignforAndroid\\SimplePaperTransformations",
+    "sdkDir": "C:\\Users\\vagner\\AppData\\Local\\Android\\sdk",
+    "keyAlias": "AndroidDebugKey",
+    "rebelPluginVersion": "0.8.0.76 2015-08-31T12:56:10+0000",
+    "androidManifest": [
+        "C:\\Mobile\\Android\\DesignforAndroid\\SimplePaperTransformations\\app\\src\\debug\\AndroidManifest.xml",
+        "C:\\Mobile\\Android\\DesignforAndroid\\SimplePaperTransformations\\app\\src\\main\\AndroidManifest.xml"
+    ],
+    "keyPassword": "android",
+    "mergedResources": "C:\\Mobile\\Android\\DesignforAndroid\\SimplePaperTransformations\\app\\build\\intermediates\\res\\debug",
+    "resourcePath": [
+        "C:\\Mobile\\Android\\DesignforAndroid\\SimplePaperTransformations\\app\\src\\debug\\res",
+        "C:\\Mobile\\Android\\DesignforAndroid\\SimplePaperTransformations\\app\\src\\main\\res"
+    ],
+    "androidPluginVersion": "1.2.3",
+    "type": "Gradle",
+    "storePassword": "android",
+    "assetPath": [
+        "C:\\Mobile\\Android\\DesignforAndroid\\SimplePaperTransformations\\app\\src\\debug\\assets",
+        "C:\\Mobile\\Android\\DesignforAndroid\\SimplePaperTransformations\\app\\src\\main\\assets"
+    ],
+    "rebelDataDir": "C:\\Mobile\\Android\\DesignforAndroid\\SimplePaperTransformations\\app\\build\\jrebel\\data\\debug",
+    "sourcePath": [
+        "C:\\Mobile\\Android\\DesignforAndroid\\SimplePaperTransformations\\app\\src\\debug\\resources",
+        "C:\\Mobile\\Android\\DesignforAndroid\\SimplePaperTransformations\\app\\src\\main\\resources"
+    ],
+    "explodedLibsResources": [
+        "C:\\Mobile\\Android\\DesignforAndroid\\SimplePaperTransformations\\app\\build\\generated\\res\\generated\\debug",
+        "C:\\Mobile\\Android\\DesignforAndroid\\SimplePaperTransformations\\app\\build\\generated\\res\\rs\\debug",
+        "C:\\Mobile\\Android\\DesignforAndroid\\SimplePaperTransformations\\app\\build\\intermediates\\exploded-aar\\com.android.support\\design\\22.2.0\\res",
+        "C:\\Mobile\\Android\\DesignforAndroid\\SimplePaperTransformations\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\22.2.0\\res",
+        "C:\\Mobile\\Android\\DesignforAndroid\\SimplePaperTransformations\\app\\build\\intermediates\\exploded-aar\\com.android.support\\recyclerview-v7\\22.2.0\\res",
+        "C:\\Mobile\\Android\\DesignforAndroid\\SimplePaperTransformations\\app\\build\\intermediates\\exploded-aar\\com.android.support\\support-v4\\22.2.0\\res"
+    ],
+    "storeFile": "C:\\Users\\vagner\\.android\\debug.keystore",
+    "resourcePackagePath": "C:\\Mobile\\Android\\DesignforAndroid\\SimplePaperTransformations\\app\\build\\intermediates\\resources\\resources-debug.ap_",
+    "compileSdkVersion": "android-22",
+    "buildSystemVersion": "2.2.1",
+    "layoutVersion": 7,
+    "applicationId": "com.example.android.scrolleventsdemo",
+    "originalApplicationId": "com.example.android.scrolleventsdemo",
+    "apk": "C:\\Mobile\\Android\\DesignforAndroid\\SimplePaperTransformations\\app\\build\\outputs\\apk\\app-debug.apk",
+    "buildToolsDir": "C:\\Users\\vagner\\AppData\\Local\\Android\\sdk\\build-tools\\21.1.2",
+    "generatedJavaSourcePath": [
+        "C:\\Mobile\\Android\\DesignforAndroid\\SimplePaperTransformations\\app\\build\\generated\\source\\aidl\\debug",
+        "C:\\Mobile\\Android\\DesignforAndroid\\SimplePaperTransformations\\app\\build\\generated\\source\\buildConfig\\debug",
+        "C:\\Mobile\\Android\\DesignforAndroid\\SimplePaperTransformations\\app\\build\\generated\\source\\rs\\debug",
+        "C:\\Mobile\\Android\\DesignforAndroid\\SimplePaperTransformations\\app\\build\\generated\\source\\r\\debug"
+    ],
+    "classPath": [
+        "C:\\Mobile\\Android\\DesignforAndroid\\SimplePaperTransformations\\app\\build\\intermediates\\classes\\debug",
+        "C:\\Mobile\\Android\\DesignforAndroid\\SimplePaperTransformations\\app\\build\\intermediates\\exploded-aar\\com.android.support\\support-v4\\22.2.0\\jars\\libs\\internal_impl-22.2.0.jar",
+        "C:\\Mobile\\Android\\DesignforAndroid\\SimplePaperTransformations\\app\\build\\intermediates\\exploded-aar\\com.android.support\\design\\22.2.0\\jars\\classes.jar",
+        "C:\\Users\\vagner\\AppData\\Local\\Android\\sdk\\extras\\android\\m2repository\\com\\android\\support\\support-annotations\\22.2.0\\support-annotations-22.2.0.jar",
+        "C:\\Mobile\\Android\\DesignforAndroid\\SimplePaperTransformations\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\22.2.0\\jars\\classes.jar",
+        "C:\\Mobile\\Android\\DesignforAndroid\\SimplePaperTransformations\\app\\build\\intermediates\\exploded-aar\\com.android.support\\recyclerview-v7\\22.2.0\\jars\\classes.jar",
+        "C:\\Mobile\\Android\\DesignforAndroid\\SimplePaperTransformations\\app\\build\\intermediates\\exploded-aar\\com.android.support\\support-v4\\22.2.0\\jars\\classes.jar"
+    ]
+}
