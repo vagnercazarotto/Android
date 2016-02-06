@@ -118,8 +118,13 @@ public class PlayScreen implements Screen{
 
         // Now update the Mario // renderer
         player.update(dt);
-        for(Enemy enemy:creator.getGoombas())
-                enemy.update(dt);
+        for(Enemy enemy:creator.getGoombas()){
+            enemy.update(dt);
+            // Summon the Enemy by proximity
+            if (enemy.getX() < player.getX() + 224/MarioBros.PPM)
+                enemy.b2body.setActive(true);
+        }
+
 
         // we need to pass a update into our hud
         hud.update(dt);

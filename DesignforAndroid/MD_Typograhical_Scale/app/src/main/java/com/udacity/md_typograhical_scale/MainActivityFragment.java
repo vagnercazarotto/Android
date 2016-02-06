@@ -22,7 +22,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.SearchView;
 import android.widget.TextView;
 
 import butterknife.ButterKnife;
@@ -63,6 +62,6 @@ public class MainActivityFragment extends Fragment {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        courgette = Typeface.createFromAsset(getActivity().getAssets(), "Courgette-Regular.ttf");
+        courgette = Typeface.createFromAsset(getActivity().getAssets(), "InknutAntiqua-Regular.ttf");
     }
 }

@@ -47,6 +47,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        /// Only time we call to a collapsing toll bar, verify widget.CollapsingToolbarLayout on activity main.xml
         ((CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar_layout)).setTitle(getString(R.string.app_name));
         RecyclerView rv = (RecyclerView) findViewById(R.id.recyclerview);
         rv.setLayoutManager(new LinearLayoutManager(this));

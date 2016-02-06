@@ -52,10 +52,10 @@
     "apk": "C:\\Mobile\\Android\\DesignforAndroid\\SimplePaperTransformations\\app\\build\\outputs\\apk\\app-debug.apk",
     "buildToolsDir": "C:\\Users\\vagner\\AppData\\Local\\Android\\sdk\\build-tools\\21.1.2",
     "generatedJavaSourcePath": [
-        "C:\\Mobile\\Android\\DesignforAndroid\\SimplePaperTransformations\\app\\build\\generated\\source\\aidl\\debug",
+        "C:\\Mobile\\Android\\DesignforAndroid\\SimplePaperTransformations\\app\\build\\generated\\source\\r\\debug",
         "C:\\Mobile\\Android\\DesignforAndroid\\SimplePaperTransformations\\app\\build\\generated\\source\\buildConfig\\debug",
         "C:\\Mobile\\Android\\DesignforAndroid\\SimplePaperTransformations\\app\\build\\generated\\source\\rs\\debug",
-        "C:\\Mobile\\Android\\DesignforAndroid\\SimplePaperTransformations\\app\\build\\generated\\source\\r\\debug"
+        "C:\\Mobile\\Android\\DesignforAndroid\\SimplePaperTransformations\\app\\build\\generated\\source\\aidl\\debug"
     ],
     "classPath": [
         "C:\\Mobile\\Android\\DesignforAndroid\\SimplePaperTransformations\\app\\build\\intermediates\\classes\\debug",

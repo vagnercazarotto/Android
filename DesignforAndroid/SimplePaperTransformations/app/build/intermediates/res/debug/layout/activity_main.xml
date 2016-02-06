@@ -18,6 +18,15 @@
             app:expandedTitleMarginStart="72dp"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layout_collapseMode="parallax"
+                    android:nestedScrollingEnabled="true"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/abc_edit_text_material" />
+
+
             <android.support.v7.widget.Toolbar
                 android:id="@+id/app_bar"
                 android:layout_width="match_parent"
