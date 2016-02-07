@@ -1,18 +1,28 @@
 package com.tkcode.recap;
 
+import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends ListActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        // don't create a view before the view is populated 
+        //setContentView(R.layout.activity_main);
         Log.i("Lifecycle","onCreate called");
+
+        // Declare a array
+        String[] countries = getResources().getStringArray(R.array.countries);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,R.layout.activity_main,R.id.listV ,countries);
+        this.setListAdapter(adapter);
+
+
+
     }
 
     protected void onStart(){
