@@ -15,6 +15,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <!-- Declare Activity two --> 
+        <activity
+            android:name=".ActivityTwo"
+            android:label="Act Two">
+        </activity>
+        
     </application>
 
 </manifest>

@@ -1,10 +1,10 @@
 package com.tkcode.recap;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -49,7 +49,12 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void onButtonTouch(View view){
-        TextView textView = (TextView) findViewById(R.id.textView);
-        textView.setText("You Touched in the Button");
+        startActivityTwo(view);
+    }
+
+    public void startActivityTwo(View view){
+        // Create a intent to activity two. java
+        Intent intent = new Intent(MainActivity.this,ActivityTwo.class);
+        startActivity(intent);
     }
 }
