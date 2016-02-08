@@ -561,5 +561,5 @@ public class SunshineSyncAdapter extends AbstractThreadedSyncAdapter {
     public static void initializeSyncAdapter(Context context) {
         getSyncAccount(context);
     }
-    
+
 }
