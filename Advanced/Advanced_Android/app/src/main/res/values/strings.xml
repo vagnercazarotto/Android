@@ -112,4 +112,8 @@
     <!-- String for empty database -->
     <string name="empty_forecast_list">No Weather Information Avaliable</string>
 
+    <!-- String for no network connection -->
+    <string name="empty_forecast_list_no_network">No weather information available. The network is not available to fetch weather data.</string>
+
+
 </resources>
