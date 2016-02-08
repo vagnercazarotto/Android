@@ -1,4 +1,4 @@
-package com.vagnercazarotto.mariobros.Sprites;
+package com.vagnercazarotto.mariobros.Sprites.Enemies;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;

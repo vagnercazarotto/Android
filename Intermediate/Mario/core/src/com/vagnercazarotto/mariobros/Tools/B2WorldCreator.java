@@ -13,7 +13,7 @@ import com.vagnercazarotto.mariobros.MarioBros;
 import com.vagnercazarotto.mariobros.Screens.PlayScreen;
 import com.vagnercazarotto.mariobros.Sprites.Brick;
 import com.vagnercazarotto.mariobros.Sprites.Coin;
-import com.vagnercazarotto.mariobros.Sprites.Goombas;
+import com.vagnercazarotto.mariobros.Sprites.Enemies.Goombas;
 
 
 /**

@@ -49,6 +49,7 @@ public class SettingsActivity extends PreferenceActivity
         // updated when the preference changes.
         bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_location_key)));
         bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_units_key)));
+        bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_art_pack_key)));
     }
 
     // Registers a shared preference change listener that gets notified when preferences change
@@ -137,6 +138,9 @@ public class SettingsActivity extends PreferenceActivity
         } else if (key.equals(getString(R.string.pref_location_status_key))){
             Preference locationPreference = findPreference(getString(R.string.pref_location_status_key));
             bindPreferenceSummaryToValue(locationPreference);
+        }else if (key.equals(getString(R.string.pref_art_pack_key))){
+            // art pack have changed. update lists of weather entries accordingly
+            getContentResolver().notifyChange(WeatherContract.WeatherEntry.CONTENT_URI, null);
         }
     }
 

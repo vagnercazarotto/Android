@@ -7,7 +7,7 @@ import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.vagnercazarotto.mariobros.MarioBros;
-import com.vagnercazarotto.mariobros.Sprites.Enemy;
+import com.vagnercazarotto.mariobros.Sprites.Enemies.Enemy;
 import com.vagnercazarotto.mariobros.Sprites.InteractijectveTileObject;
 
 /**

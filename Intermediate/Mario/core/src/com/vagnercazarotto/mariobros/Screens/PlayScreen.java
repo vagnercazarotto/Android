@@ -13,14 +13,20 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.vagnercazarotto.mariobros.MarioBros;
 import com.vagnercazarotto.mariobros.Scenes.Hud;
-import com.vagnercazarotto.mariobros.Sprites.Enemy;
+import com.vagnercazarotto.mariobros.Sprites.Enemies.Enemy;
+import com.vagnercazarotto.mariobros.Sprites.Items.Item;
+import com.vagnercazarotto.mariobros.Sprites.Items.ItemDef;
+import com.vagnercazarotto.mariobros.Sprites.Items.Mushroom;
 import com.vagnercazarotto.mariobros.Sprites.Mario;
 import com.vagnercazarotto.mariobros.Tools.B2WorldCreator;
 import com.vagnercazarotto.mariobros.Tools.WorldContactListener;
+
+import java.util.PriorityQueue;
 
 /**
  * Created by vagner on 01/02/2016.
@@ -51,29 +57,30 @@ public class PlayScreen implements Screen{
     private Mario player;
     private Music music;
 
+    //Items
+    private Array<Item> items;
+    private PriorityQueue<ItemDef> itemsToSpawn;
 
-
-    public PlayScreen(MarioBros game){
+    public PlayScreen(MarioBros game) {
         // Start Atlas
         atlas = new TextureAtlas("Mario_and_Enemies.pack");
-
 
         this.game = game;
         // create cam used to follow mario through world
         gamecam = new OrthographicCamera();
         // create a FitVIewPort to maintain virtual aspect radio
-        gamePort = new FitViewport(MarioBros.V_WIDTH / MarioBros.PPM ,MarioBros.V_HEIGHT / MarioBros.PPM  ,gamecam);
+        gamePort = new FitViewport(MarioBros.V_WIDTH / MarioBros.PPM, MarioBros.V_HEIGHT / MarioBros.PPM, gamecam);
         // create our game HUD for scores/timers/level info
         hud = new Hud(game.batch);
 
         // start rendering the map
         mapLoader = new TmxMapLoader();
         map = mapLoader.load("level1.tmx");
-        renderer = new OrthogonalTiledMapRenderer(map , 1/MarioBros.PPM );
-        gamecam.position.set(gamePort.getWorldWidth()/2,gamePort.getWorldHeight()/2,0);
+        renderer = new OrthogonalTiledMapRenderer(map, 1 / MarioBros.PPM);
+        gamecam.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight() / 2, 0);
 
         // If you maintain the Object in sleep mod you don't need to calculate collisions
-        world = new World(new Vector2(0,-10),true);
+        world = new World(new Vector2(0, -10), true);
         b2dr = new Box2DDebugRenderer();
 
         //Reorganize the code
@@ -84,14 +91,28 @@ public class PlayScreen implements Screen{
 
         world.setContactListener(new WorldContactListener());
 
-        music = MarioBros.manager.get("audio/music/mario_music.ogg",Music.class);
+        music = MarioBros.manager.get("audio/music/mario_music.ogg", Music.class);
         music.setLooping(true);
         music.play();
 
-
+        // initiate items
+        items = new Array<Item>();
+        itemsToSpawn = new PriorityQueue<ItemDef>();
 
     }
 
+    public void spawnItem(ItemDef itemDef){
+        itemsToSpawn.add(itemDef);
+    }
+
+    public void handleSpawingItems(){
+        if (!itemsToSpawn.isEmpty()){
+            ItemDef itemDef = itemsToSpawn.poll();
+            if (itemDef.type == Mushroom.class){
+                items.add(new Mushroom(this,itemDef.position.x,itemDef.position.y));
+            }
+        }
+    }
 
 
     public void handleInput(float dt){
@@ -112,6 +133,7 @@ public class PlayScreen implements Screen{
 
     public void update(float dt){
         handleInput(dt);
+        handleSpawingItems();
 
         // we need to define how many times we'll render the screen
         world.step(1 / 60f, 6, 2);
@@ -124,6 +146,9 @@ public class PlayScreen implements Screen{
             if (enemy.getX() < player.getX() + 224/MarioBros.PPM)
                 enemy.b2body.setActive(true);
         }
+
+        for (Item item:items)
+                item.update(dt);
 
 
         // we need to pass a update into our hud
@@ -172,6 +197,8 @@ public class PlayScreen implements Screen{
         player.draw(game.batch);
         for(Enemy enemy:creator.getGoombas())
             enemy.draw(game.batch);
+        for (Item item: items)
+            item.draw(game.batch);
         game.batch.end();
 
         // this will show the our camera we're see HUD

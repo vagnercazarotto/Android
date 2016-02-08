@@ -24,9 +24,11 @@ public abstract class InteractijectveTileObject{
     protected com.badlogic.gdx.math.Rectangle bounds;
     protected Body body;
     protected Fixture fixture;
+    protected PlayScreen playScreen;
 
 
     public InteractijectveTileObject(PlayScreen screen,Rectangle bounds){
+        this.playScreen = screen;
         this.world = screen.getWorld();
         this.map = screen.getMap();
         this.bounds = bounds;

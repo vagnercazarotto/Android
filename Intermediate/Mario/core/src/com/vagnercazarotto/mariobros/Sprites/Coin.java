@@ -4,9 +4,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.maps.tiled.TiledMapTileSet;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 import com.vagnercazarotto.mariobros.MarioBros;
 import com.vagnercazarotto.mariobros.Scenes.Hud;
 import com.vagnercazarotto.mariobros.Screens.PlayScreen;
+import com.vagnercazarotto.mariobros.Sprites.Items.ItemDef;
+import com.vagnercazarotto.mariobros.Sprites.Items.Mushroom;
 
 
 /**
@@ -35,6 +38,7 @@ public class Coin extends InteractijectveTileObject {
             MarioBros.manager.get("audio/sounds/bump.wav", Sound.class).play();
         else
             MarioBros.manager.get("audio/sounds/coin.wav",Sound.class).play();
+            playScreen.spawnItem(new ItemDef(new Vector2(body.getPosition().x,body.getPosition().y + 16 / MarioBros.PPM), Mushroom.class));
         getCell().setTile(tileSet.getTile(BLANK_COIN));
         Hud.addScore(100);
     }

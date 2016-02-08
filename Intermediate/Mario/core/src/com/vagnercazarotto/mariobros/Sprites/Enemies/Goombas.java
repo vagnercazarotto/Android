@@ -1,4 +1,4 @@
-package com.vagnercazarotto.mariobros.Sprites;
+package com.vagnercazarotto.mariobros.Sprites.Enemies;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -16,7 +16,7 @@ import com.vagnercazarotto.mariobros.Screens.PlayScreen;
 /**
  * Created by vagner on 02/02/2016.
  */
-public class Goombas extends Enemy {
+public class Goombas extends com.vagnercazarotto.mariobros.Sprites.Enemies.Enemy {
 
     // Define animation
     private float stateTime;
