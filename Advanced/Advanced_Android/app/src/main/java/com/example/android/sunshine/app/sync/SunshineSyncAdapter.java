@@ -72,12 +72,13 @@ public class SunshineSyncAdapter extends AbstractThreadedSyncAdapter {
     private static final int INDEX_SHORT_DESC = 3;
 
     @Retention(RetentionPolicy.SOURCE)
-    @IntDef({LOCATION_STATUS_OK,LOCATION_STATUS_SERVER_DOWN,LOCATION_STATUS_SERVER_INVALID,LOCATION_STATUS_UNKNOWN})
+    @IntDef({LOCATION_STATUS_OK,LOCATION_STATUS_SERVER_DOWN,LOCATION_STATUS_SERVER_INVALID,LOCATION_STATUS_UNKNOWN,LOCATION_STATUS_INVALID})
     public @interface LocationStatus{}
     public static final int LOCATION_STATUS_OK=0;
     public static final int LOCATION_STATUS_SERVER_DOWN = 1;
     public static final int LOCATION_STATUS_SERVER_INVALID = 2;
     public static final int LOCATION_STATUS_UNKNOWN = 3;
+    public static final int LOCATION_STATUS_INVALID = 4;
 
     // Ok no need to set a location status
     // This function should not be called from the UI thread because it uses commit to write to the shared preferences
@@ -226,9 +227,26 @@ public class SunshineSyncAdapter extends AbstractThreadedSyncAdapter {
         final String OWM_WEATHER = "weather";
         final String OWM_DESCRIPTION = "main";
         final String OWM_WEATHER_ID = "id";
+        final String OWN_MESSAGE_CODE = "cod";
 
         try {
             JSONObject forecastJson = new JSONObject(forecastJsonStr);
+            //// do we have an error?
+            if (forecastJson.has(OWN_MESSAGE_CODE)){
+                int errorCode = forecastJson.getInt(OWN_MESSAGE_CODE);
+
+                switch (errorCode){
+                    case HttpURLConnection.HTTP_OK:
+                        break;
+                    case HttpURLConnection.HTTP_NOT_FOUND:
+                        setLocationStatus(getContext(),LOCATION_STATUS_INVALID);
+                        return;
+                    default:
+                        setLocationStatus(getContext(),LOCATION_STATUS_SERVER_DOWN);
+                        return;
+                }
+            }
+
             JSONArray weatherArray = forecastJson.getJSONArray(OWM_LIST);
 
             JSONObject cityJson = forecastJson.getJSONObject(OWM_CITY);
