@@ -24,6 +24,13 @@ goomba
   orig: 49, 16
   offset: 0, 0
   index: -1
+mushroom
+  rotate: false
+  xy: 855, 301
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
 Items
   rotate: false
   xy: 419, 323
