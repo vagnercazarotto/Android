@@ -43,6 +43,8 @@ public class MarioBros extends Game {
 		manager.load("audio/sounds/bbrick.wav", Sound.class);
         manager.load("audio/sounds/think_i_do2.wav", Sound.class);
 		manager.load("audio/sounds/apollo_problem.wav", Sound.class);
+        manager.load("audio/sounds/powerup_spawn.wav", Sound.class);
+        manager.load("audio/sounds/powerup.wav", Sound.class);
 		manager.finishLoading();
 		setScreen(new PlayScreen(this)); // Start rendering, but you need to pass the this app
 	}

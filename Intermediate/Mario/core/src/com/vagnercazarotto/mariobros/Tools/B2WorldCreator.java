@@ -117,7 +117,7 @@ public class B2WorldCreator {
 
         // create Coins - Layer 4
         for(MapObject object: map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)){
-            com.badlogic.gdx.math.Rectangle rect = ((RectangleMapObject) object).getRectangle();
+            //com.badlogic.gdx.math.Rectangle rect = ((RectangleMapObject) object).getRectangle();
 
 //            bdef.type = BodyDef.BodyType.StaticBody;
 //            bdef.position.set((float)((rect.getX() + rect.getWidth() / 2)/ MarioBros.PPM ),(float)((rect.getY() + rect.getHeight()/ 2) / MarioBros.PPM));
@@ -133,15 +133,15 @@ public class B2WorldCreator {
 
 
 
-
-           new Coin(screen,rect);
+            // pass the object to summon only in a few bricks
+           new Coin(screen,object);
         }
 
 
 
         // create Bricks - Layer 5
         for(MapObject object: map.getLayers().get(5).getObjects().getByType(RectangleMapObject.class)){
-            com.badlogic.gdx.math.Rectangle rect = ((RectangleMapObject) object).getRectangle();
+            //com.badlogic.gdx.math.Rectangle rect = ((RectangleMapObject) object).getRectangle();
 //            bdef.type = BodyDef.BodyType.StaticBody;
 //            bdef.position.set((float)((rect.getX() + rect.getWidth() / 2)/ MarioBros.PPM ),(float)((rect.getY() + rect.getHeight()/ 2) / MarioBros.PPM));
 //
@@ -155,7 +155,7 @@ public class B2WorldCreator {
 //            body.createFixture(fdef);
 
 
-            new Brick(screen,rect);
+            new Brick(screen,object);
         }
 
 

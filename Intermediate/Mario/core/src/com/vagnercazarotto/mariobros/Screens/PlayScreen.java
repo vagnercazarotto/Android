@@ -26,7 +26,7 @@ import com.vagnercazarotto.mariobros.Sprites.Mario;
 import com.vagnercazarotto.mariobros.Tools.B2WorldCreator;
 import com.vagnercazarotto.mariobros.Tools.WorldContactListener;
 
-import java.util.PriorityQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * Created by vagner on 01/02/2016.
@@ -59,7 +59,7 @@ public class PlayScreen implements Screen{
 
     //Items
     private Array<Item> items;
-    private PriorityQueue<ItemDef> itemsToSpawn;
+    private LinkedBlockingQueue<ItemDef> itemsToSpawn;
 
     public PlayScreen(MarioBros game) {
         // Start Atlas
@@ -97,7 +97,7 @@ public class PlayScreen implements Screen{
 
         // initiate items
         items = new Array<Item>();
-        itemsToSpawn = new PriorityQueue<ItemDef>();
+        itemsToSpawn = new LinkedBlockingQueue<ItemDef>();
 
     }
 

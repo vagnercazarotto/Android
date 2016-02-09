@@ -1,9 +1,10 @@
 package com.vagnercazarotto.mariobros.Sprites;
 
+import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Filter;
@@ -25,13 +26,15 @@ public abstract class InteractijectveTileObject{
     protected Body body;
     protected Fixture fixture;
     protected PlayScreen playScreen;
+    protected MapObject object;
 
 
-    public InteractijectveTileObject(PlayScreen screen,Rectangle bounds){
+    public InteractijectveTileObject(PlayScreen screen,MapObject object){
+        this.object= object;
         this.playScreen = screen;
         this.world = screen.getWorld();
         this.map = screen.getMap();
-        this.bounds = bounds;
+        this.bounds = ((RectangleMapObject) object).getRectangle();
 
 
         BodyDef bdef = new BodyDef();

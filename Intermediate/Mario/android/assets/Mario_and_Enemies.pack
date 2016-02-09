@@ -17,6 +17,13 @@ little_mario
   orig: 221, 16
   offset: 0, 0
   index: -1
+big_mario
+  rotate: false
+  xy: 418, 285
+  size: 338, 16
+  orig: 338, 16
+  offset: 0, 0
+  index: -1
 goomba
   rotate: false
   xy: 645, 267

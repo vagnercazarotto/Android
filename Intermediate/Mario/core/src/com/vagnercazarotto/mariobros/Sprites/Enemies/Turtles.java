@@ -1,20 +1,34 @@
 package com.vagnercazarotto.mariobros.Sprites.Enemies;
 
-import com.badlogic.gdx.math.Rectangle;
 import com.vagnercazarotto.mariobros.Screens.PlayScreen;
-import com.vagnercazarotto.mariobros.Sprites.InteractijectveTileObject;
 
 /**
  * Created by vagner on 02/02/2016.
  */
-public class Turtles extends InteractijectveTileObject {
-    public Turtles(PlayScreen screen,Rectangle bounds){
+public class Turtles extends Enemy {
 
-        super(screen, bounds);
+
+    public Turtles(PlayScreen screen, float x, float y) {
+        super(screen, x, y);
     }
 
     @Override
-    public void onHeadHit() {
+    protected void defineEnemy() {
 
+    }
+
+    @Override
+    public void hitOnHead() {
+
+    }
+
+    @Override
+    public void update(float dt) {
+
+    }
+
+    @Override
+    public void reverseVelocity(boolean x, boolean y) {
+        super.reverseVelocity(x, y);
     }
 }
