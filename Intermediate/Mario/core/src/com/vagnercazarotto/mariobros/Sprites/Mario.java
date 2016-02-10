@@ -137,8 +137,6 @@ public class Mario extends Sprite {
         fdef.shape = head;
         fdef.isSensor = true; // Define sensor , if is true it only work as sensor
         b2body.createFixture(fdef).setUserData("head"); // Define a title for future consults (is this the mario head?)
-
-
     }
 
     // New method to fix the texture in Mario
