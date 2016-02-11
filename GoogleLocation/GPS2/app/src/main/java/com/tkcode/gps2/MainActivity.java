@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     public void onLocationChanged(Location location) {
             Log.i(TAG + "Location changed", location.toString());
             mLatitudeText.setText(Double.toString(location.getLatitude()));
-            mLongitudeText.setText(Double.toString(location.getLatitude()));
+            mLongitudeText.setText(Double.toString(location.getLongitude()));
     }
 
 }
