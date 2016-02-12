@@ -15,6 +15,7 @@
     <string name="tilting">Tilting</string>
     <string name="unknown">Unknown activity</string>
     <string name="walking">Walking</string>
+    <string name="google_app_id">id</string>
     <string name="unidentifiable_activity">Unidentifiable activity: %1$d</string>
     <string name="not_connected">GoogleApiClient not yet connected. Try again.</string>
 </resources>
