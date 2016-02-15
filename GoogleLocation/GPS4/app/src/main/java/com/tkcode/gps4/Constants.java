@@ -24,7 +24,7 @@ public final class Constants {
     //set an expiration time for a geofence. After this amount of time Location Services stops tracking the geofence.
     public static final long GEOFENCE_EXPIRATION_IN_HOURS = 2;
     public static final long GEOFENCE_EXPIRATION_IN_MILLISECONDS = GEOFENCE_EXPIRATION_IN_HOURS * 60 * 60 * 1000;
-    public static final float GEOFENCE_RADIUS_IN_METERS = 15;
+    public static final float GEOFENCE_RADIUS_IN_METERS = 500;
 
 
 
@@ -40,6 +40,8 @@ public final class Constants {
         NEWCASTLE_AREA_LANDMARKS.put("BEER_SHOP", new LatLng(54.9756159,-1.6535447));
 
         NEWCASTLE_AREA_LANDMARKS.put("HOME",new LatLng(54.9746701,-1.6539804));
+
+        NEWCASTLE_AREA_LANDMARKS.put("TEMP",new LatLng(54.972095,-1.6073736));
 
     }
 

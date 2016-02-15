@@ -25,9 +25,15 @@ import java.util.List;
 public class GeofenceTransitionsIntentService extends IntentService {
     protected static final String TAG = "GFSERVICE:";
 
-    public GeofenceTransitionsIntentService(String name) {
+    public GeofenceTransitionsIntentService() {
         // use the TAG to name the worker thread.
         super(TAG);
+    }
+
+    @Override
+    public void onCreate()
+    {
+        super.onCreate();
     }
 
     @Override

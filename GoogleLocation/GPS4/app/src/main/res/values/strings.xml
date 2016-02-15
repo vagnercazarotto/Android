@@ -23,6 +23,8 @@
     <string name="unknown_geofence_error">
         Unknown error: the Geofence service is not available now
     </string>
+    <string name="google_app_id">AIzaSyA5FBg2CK6mvtKtOdofhXPlPtJezuMcvWs</string>
+
     <string name="geofence_transition_invalid_type">
         Geofence transition error: invalid transition type %1$d
     </string>
