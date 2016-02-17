@@ -26,7 +26,8 @@ public class MainActivity extends AppCompatActivity implements OnStreetViewPanor
 
     @Override
     public void onStreetViewPanoramaReady(StreetViewPanorama streetViewPanorama) {
-        streetViewPanorama.setPosition(new LatLng(36.0579667,-112.1430996));
+        streetViewPanorama.setPosition(new LatLng(36.400546,-112.108668));
+        streetViewPanorama.setStreetNamesEnabled(false);
         StreetViewPanoramaCamera camera = new StreetViewPanoramaCamera.Builder().bearing(180).build();
         streetViewPanorama.animateTo(camera,1000);
     }
