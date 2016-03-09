@@ -19,7 +19,7 @@ public class MainActivity extends Activity {
 
         // A normal List Adapter
         String[] foods = {"Bacon","Ham","Tuna","Candy","Meatball","Potato","Bacon","Ham","Tuna","Candy","Meatball","Potato"};
-        ListAdapter listAdapter = new ArrayAdapter<String>(this,R.layout.support_simple_spinner_dropdown_item,foods);
+        ListAdapter listAdapter = new CustomAdapter(this,foods);
         ListView listView = (ListView) findViewById(R.id.listaItem);
         listView.setAdapter(listAdapter);
 
