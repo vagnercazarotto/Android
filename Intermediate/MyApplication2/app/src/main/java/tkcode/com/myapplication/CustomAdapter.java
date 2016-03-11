@@ -1,6 +1,7 @@
 package tkcode.com.myapplication;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +29,8 @@ class CustomAdapter extends ArrayAdapter<String>{
         ImageView buckImage = (ImageView) view.findViewById(R.id.imageView);
 
         buckyText.setText(simgleFoodItem);
+        buckyText.setTextColor(Color.parseColor("#EED818"));
+        //buckImage.setColorFilter(0x88);
         buckImage.setImageResource(R.drawable.vag);
 
         return view;
