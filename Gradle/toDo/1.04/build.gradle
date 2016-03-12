@@ -1,0 +1,68 @@
+task groovy << {}
+
+def foo = "One million dollars"
+
+def myClosure = {
+	println "Hello from the clousure"
+	println "The value of foo is $foo"
+}
+
+myClosure()
+
+def bar = myClosure
+def baz = bar
+
+baz()
+
+
+println "///////////////"
+
+def doubleIt = {x -> x + x}
+
+def applyTwice(func,arg){
+	func(func(arg))
+}
+
+def fooo = 5
+def variable = 6
+def fooDoubleTwice = applyTwice(doubleIt,fooo)
+
+println "Apply doubleIt twice to $fooo equals $fooDoubleTwice"
+
+variable = doubleIt(variable)
+
+println  "$variable"
+
+println "///////////////"
+
+
+def myList = ["Gradle","Groovy","Android"]
+
+def printItem = {item -> println "List item: $item"}
+
+// execute for each in list
+myList.each(printItem)
+
+println "///////////////"
+
+/// do the same thing with a diferent sintax
+
+def myList2 = ["Gradle2","Groovy2","Android2"]
+
+// execute for each in list
+myList.each{println "Compact way to execute each item in a list: $it"}
+
+
+println "///////////////"
+
+// Classes are basicaly Java Class
+class GroovyGreeter {
+	String Greeting = "Default greeting!"
+	def printGreeting(){println "Greeting: $greeting"}
+}
+
+
+def myGroovyGreeter = new GroovyGreeter()
+myGroovyGreeter.printGreeting()
+myGroovyGreeter.greeting = "My custom greeting"
+myGroovyGreeter.printGreeting()
