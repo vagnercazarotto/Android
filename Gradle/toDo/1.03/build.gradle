@@ -1,0 +1,64 @@
+
+// Initial task with Gradle 
+task groovy << {}
+
+
+// basic of Gradle
+println "Hello Groovy!"
+
+class JavaGreeter {
+	public static void sayHello(){
+		System.out.println("Hello Java");
+	}
+}
+
+JavaGreeter greeter = new JavaGreeter()
+greeter.sayHello()
+
+def foo = 6.5
+println "foo has value $foo"
+println "some 5 + 6 = ${5 + 6}"
+println "foo is of type: ${foo.class} and value: $foo"
+foo = "a string"
+println "foo is now of type: ${foo.class} and has value: $foo"
+
+
+
+// now let's see how to declare functions 
+def doubleIt(n){
+	n+n
+	// note that, we don't need to return nothing 
+}
+
+def apple = 5
+println "doubleIt($apple) = ${doubleIt(apple)}"
+
+apple = "Apple"
+println  "doubleIt($apple) = ${doubleIt(apple)}"
+
+
+// the basic of functions
+
+def noArgs() {
+    println "Called the no args function"
+}
+
+def oneArg(x) {
+    println "Called the 1 arg function with $x"
+    x
+}
+
+def twoArgs(x, y) {
+    println "Called the 2 arg function with $x and $y"
+    x + y
+}
+
+oneArg 500 //  No parentheses!
+twoArgs 200, 300
+noArgs()
+
+//noArgs >> Doesn't work because we need to specify what we want to pass
+//twoArgs oneArg 500, 200 >> Also doesn't work as it's ambiguous
+twoArgs oneArg(500), 200 // Fixed the ambiguity
+
+
