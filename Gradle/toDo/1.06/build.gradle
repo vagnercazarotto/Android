@@ -1,0 +1,35 @@
+// How to declare tasks
+project.task("myTask01")
+task("myTask02")
+task "myTask03"
+task myTask04
+
+// Descriptions
+myTask04.description = "This is what's shown in the task list"
+myTask04.group = "This is the heading for this task in the task list,"
+
+// to do list 
+myTask04.doLast {println "Do this last"}
+myTask04.doFirst {println "Do this first"}
+myTask04.leftShift {println "Do this even more last"}
+myTask04 << {println "Do this last of all"}
+
+// We can also passa a configuration closure
+task myTask05 {
+    description "Description here"
+    group "Some group"
+    doLast{
+        println "here's the action"
+    }
+}
+
+// another way
+task myTask06 {
+    description("Description")
+    group = "Some Group"
+}
+
+
+task myTask07(description: "Another description") << {
+    println "Doing something"
+}
