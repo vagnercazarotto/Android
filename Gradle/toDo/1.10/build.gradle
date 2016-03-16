@@ -1,0 +1,54 @@
+// Simple copy task
+task copyTask(type: Copy)
+
+task copyImages(type: Copy) {
+    from 'images'
+    into 'build'
+}
+
+task copyJpegs(type: Copy) {
+    from 'images'
+    include '*.jpg'
+    into 'buildJpg'
+}
+
+/////////////////////////////
+// A custom build
+task copyImageFolders(type: Copy){
+
+    from("images"){
+        include "*.jpg"
+        into "jpeg"
+        }
+
+    from ("images"){
+        include "*.gif"
+        into "gif"
+    }
+    
+    into "customBuild"
+}
+
+//////////////////
+task zipImages (type: Zip){
+    baseName = "images"
+    destinationDir = file("build")
+    from "images"
+}
+
+// we can so also a custom Zip
+task zipImagesFolders (type: Zip){
+    baseName = "images"
+    destinationDir = file("customZip")
+
+    from ("images"){
+        include "*.jpg"
+        into "jpeg"
+    }
+
+    from ("images"){
+        include "*.gif"
+        into "gif"
+    }
+
+}
