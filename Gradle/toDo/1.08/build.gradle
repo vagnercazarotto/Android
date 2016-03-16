@@ -1,0 +1,71 @@
+// Declare a tasks
+task putOnSocks{
+    doLast{
+        println "Putting on Socks."
+    }
+}
+
+task putOnShoes {
+    dependsOn "putOnSocks"
+    doLast{
+        println "Putting on Shoes."
+    }
+}
+
+// to invoke "gradle -q putOnShoes" , so when you call the first task
+// the first one will invoke the dependencies 
+////////////////////////////////////////////
+
+// Another Example
+task brushYourTeeth {
+    doLast {
+        println "Brushie Brushie Brushie."
+    }
+}
+
+task eatBreakfast {
+    // for utilize this function update your gradle
+    finalizedBy "brushYourTeeth"
+    doLast{
+        println "Om nom nom breakfast!"
+    }
+}
+
+////////////////////////
+//  gradle -q putOnFragrance takeShower
+task takeShower {
+    doLast {
+        println "Taking a shower."
+    }
+}
+
+task putOnFragrance {
+    shouldRunAfter "takeShower"
+    doLast{
+        println "Smellin' fresh!"
+    }
+}
+
+
+///////////////////////////////////
+task getReady {
+    // Remember that when assigning a collection to a property, we need the
+    // equals sign
+    dependsOn = ["takeShower", "eatBreakfast", "putOnShoes"]
+}
+
+///////////////////////////////////
+// Let's put in another `mustRunAfter` relationship.
+putOnShoes.mustRunAfter takeShower
+
+////////////////////////////////////
+// One more advanced thing we can do is look at all the tasks in the project and
+// decide which ones we want to depend on. Let's make a task called `getEquipped`
+// that depends on every task that starts with "putOn".
+
+task getEquipped {
+    dependsOn tasks.matching{ task -> task.name.startsWith("putOn")}
+    doLast {
+        println "All geared up!"
+    }
+}
