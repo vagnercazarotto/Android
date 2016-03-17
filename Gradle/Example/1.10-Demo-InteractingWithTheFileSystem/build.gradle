@@ -45,8 +45,7 @@ task copyJpegs(type: Copy) {
 
 We can also configure a single Copy task to copy from multiple sources.
 CopySpecs can be hierarchical, which is particularly useful when we want to
-include certain files in a subfolder or exclude files from another.
-
+include certain cd 
 Let's configure a Copy task which copies all JPEGs into one folder and GIFs
 into another. We define two child CopySpecs, one  to include only JPEG files
 and the other to include GIFs. We also specify the folder we want to copy

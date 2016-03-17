@@ -1,0 +1,42 @@
+//     1. Create a task named "copyWeb". This task should perform the following:
+//     a) Copy files from "src/web" to a folder "build/web".
+//     b) Copy all .txt files from "src/docs" to folder "build/web/help".
+task copyWeb(type : Copy) {
+	from "src/web"
+ 	from ("src/docs"){
+ 		include "*.txt"
+ 		into "help"
+ 	}
+ 	into "build/web"
+}
+
+////////////////////////////////
+// 2. Create a task named "bundleWeb". This task should perform the following:
+//   a) Create a zip file located in the "build" folder named "web.zip".
+//   b) Include all the files copied by the "copyWeb" task except the
+//   "images" directory.
+
+task bundleWeb (type : Zip, dependsOn : copyWeb ){
+	baseName = "web"
+	destinationDir = file ("build")
+
+	from "build/web"
+	exclude "images/**"
+}
+
+///////////////////////////
+//    3. Create a task named "unpackBundle". This task should perform the following:
+//        a) Expand the zip file created by the "bundleWeb" task.
+//        b) Copy the contents to a folder "build/exploded".
+
+task unpackBundle (type : Copy , dependsOn: bundleWeb){
+	from zipTree("build/web.zip")
+	into "build/exploded"
+}
+
+//////////////////////////////////
+//    4. Create a task named "deleteHelp". This task should perform the following:
+//       a) Delete the "help" folder created by the "copyWeb" task.
+task deleteHelp (type: Delete , dependsOn: copyWeb ){
+		delete "build/web/help"
+}
