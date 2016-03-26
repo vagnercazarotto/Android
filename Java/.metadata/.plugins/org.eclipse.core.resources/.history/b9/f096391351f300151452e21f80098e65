@@ -1,0 +1,16 @@
+package PApplet;
+
+public class main {
+
+	public static void main(String[] args) {
+		System.out.println("Hello");
+		
+	}
+
+}
+
+
+public class MyPApplet extends PApplet{
+
+	
+} 

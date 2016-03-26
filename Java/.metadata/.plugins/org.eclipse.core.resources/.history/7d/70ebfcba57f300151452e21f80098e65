@@ -1,0 +1,15 @@
+package Applet;
+
+import processing.core.PApplet;
+import processing.core.PImage;
+
+public class MyApplet extends PApplet {
+	String url = "http://im.rediff.com/news/2015/dec/24tpoty20.jpg";
+	private PImage backgroundImg;
+	
+	public void draw(){
+		backgroundImg = loadImage(url,"jpg");
+		image(backgroundImg,0,0);
+	}
+	
+}
