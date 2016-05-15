@@ -1,4 +1,25 @@
 *.class
+*.eps
+*.aux
+*.jar
+latex/ods.pdf
+*.toc
+*-tmp.tex
+*.log
+.nfs*
+*.swp
+*.bak
+*~
+ods-java.tgz
+ods-python.tgz
+ods-cpp.tgz
+.cproject
+.project
+.classpath
+.settings
+bin/
+Debug
+*.sw?
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
