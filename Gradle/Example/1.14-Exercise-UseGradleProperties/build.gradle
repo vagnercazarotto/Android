@@ -21,3 +21,11 @@ task bundleWeb(type: Zip) {
 
     from 'src/web'
 }
+
+
+
+// or 
+
+ext {
+	webOutputDir = "web"
+}
