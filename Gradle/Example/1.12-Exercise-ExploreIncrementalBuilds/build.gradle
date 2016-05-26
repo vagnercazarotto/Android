@@ -13,7 +13,7 @@ Exercises:
 5. Delete the "build" directory.
 6. Run the "copySources" task again and note it is no longer UP-TO-DATE.
 7. Run the "bundleSources" task. Note that the "copySources" task is
-still UP-TO-DATE.
+still UP-graTO-DATE.
 8. Run the "bundleSources" task again and note it is now UP-TO-DATE.
 9. Delete the "build/sources.zip" file.
 10. Run the "bundleSources" task and note it is no longer UP-TO-DATE.
