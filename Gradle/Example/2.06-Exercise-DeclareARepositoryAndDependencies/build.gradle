@@ -30,3 +30,19 @@ apply plugin: 'java'
 task printDependencies << {
     configurations.compile.each { println it.name }
 }
+
+
+//1. Configure Maven Central as a repository
+
+repositories{
+	mavenCentral()
+}
+
+//2. Add a dependency to the 'compile' configuration for the latest version
+//   of commons-io.
+
+//3. Add a file dependency that includes all the jars in the `libs` directory.
+dependencies{
+	compile	 'commons-io:commons-io:2.4'
+	compile fileTree(dir: 'libs' , include: '*.jar')
+}
