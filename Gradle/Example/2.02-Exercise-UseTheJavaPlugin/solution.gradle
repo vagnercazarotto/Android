@@ -6,4 +6,10 @@ Solution:
 
 apply plugin: 'java' // 1. Apply the Java plugin to the project
 
-//2. Simply run `gradle jar`
+//2. Simply run `gradle jar`gralde 
+
+
+task execute(type:JavaExec){
+	main = "com.udacity.gradle.Person"
+	classpath = sourceSets.main.runtimeClasspath
+}

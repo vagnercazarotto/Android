@@ -18,7 +18,7 @@ Now if we run
 We find a wealth of capabilities that Gradle can handle for us! There are four
 main tasks we'll use most often: assemble, check, build, and clean.
 
-Assemble creates the output we're interested in. This is usually a JAR, but
+Assemble creates the output we're interested in. This is usually a JAR, buttasks
 can also be more interesting artifacts. Check runs any tests we've set up.
 Build depends on both assemble and check. Finally, clean deletes all the build
 output.
