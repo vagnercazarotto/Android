@@ -18,8 +18,8 @@ public class PaidEcho extends Echo {
 
         return collection;
     }
-
-    public static <T> Collection<T> echo(T o, int count) {
-        return echo(o, count, false);
-    }
+//
+//    public static <T> Collection<T> echo(T o, int count) {
+//        return echo(o, count, false);
+//    }
 }
