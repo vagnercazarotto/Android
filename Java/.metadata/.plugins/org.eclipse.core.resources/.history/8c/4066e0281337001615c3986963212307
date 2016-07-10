@@ -1,0 +1,32 @@
+package DataStructure;
+
+import java.util.Calendar;
+
+public class main {
+
+	public static void main(String[] args) {
+
+		Integer number = null;
+		Calendar today = Calendar.getInstance();
+		Integer hour = today.get(Calendar.HOUR_OF_DAY);
+		// Integer minute = today.get(Calendar.MINUTE);
+		Integer minute = 55;
+		String numberAsString = String.valueOf(hour).toString() + String.valueOf(minute).toString();
+		int finalHour = Integer.parseInt(numberAsString);
+		// Log.e("TAG TIME HOUR ::: ", String.valueOf(hour).toString());
+		// Log.e("TAG TIME MINUTE ::: ", String.valueOf(minute).toString());
+		// Log.e("TAG TIME TEMP ::: ", String.valueOf(finalHour).toString());
+
+		if (minute < 10) {
+			String finalTemp = String.valueOf(hour).toString() + String.valueOf(0).toString()
+					+ String.valueOf(minute).toString();
+			finalHour = Integer.parseInt(finalTemp);
+			// Log.e("TAG TIME MMINUTE TEMP ::: ",
+			// String.valueOf(finalHour).toString());
+		}
+
+		System.out.println(finalHour);
+
+	}
+
+}

@@ -1,0 +1,35 @@
+package DataStructure;
+
+public class main {
+
+	public static void main(String[] args) {
+
+		Integer timeFromSQL = 1550;
+		Integer timeNow = 1404;
+
+		Integer totalMinutes = null;
+		Integer hours = null;
+		Integer minutes = null;
+		hours = (timeFromSQL - timeNow) / 100;
+		System.out.println(hours);
+		hours = Math.abs(hours);
+		if (hours > 0) {
+			minutes = (Math.abs(timeFromSQL - timeNow) -100 );
+			System.out.println("MINUTES::" + minutes);
+			if (minutes > 60) {
+				minutes = minutes - 40;
+			}
+			totalMinutes = (hours * 60) + Math.abs(minutes);
+		} else {
+			minutes = Math.abs(timeFromSQL - timeNow);
+			if (minutes > 60) {
+				minutes = minutes - 40;
+			}
+			totalMinutes = Math.abs(minutes);
+		}
+
+		System.out.println(totalMinutes);
+
+	}
+
+}
