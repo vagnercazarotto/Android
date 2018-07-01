@@ -12,56 +12,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="HelloWorld.kt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/HelloWorld.kt">
+      <file leaf-file-name="Colections.kt" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/Colections.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="15">
-              <caret line="1" column="5" selection-start-line="1" selection-start-column="5" selection-end-line="1" selection-end-column="23" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Variables.kt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Variables.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="21" column="30" selection-start-line="21" selection-start-column="30" selection-end-line="21" selection-end-column="30" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Strings.kt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Strings.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="312">
-              <caret line="38" column="33" selection-start-line="38" selection-start-column="33" selection-end-line="38" selection-end-column="33" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Numbers.kt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Numbers.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="75">
-              <caret line="5" column="1" lean-forward="true" selection-start-line="5" selection-start-column="1" selection-end-line="5" selection-end-column="1" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Functions.kt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Functions.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="21" column="18" selection-start-line="21" selection-start-column="18" selection-end-line="21" selection-end-column="18" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ConditionalLogic.kt" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/ConditionalLogic.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="8" column="13" lean-forward="true" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+            <state relative-caret-position="297">
+              <caret line="34" column="4" selection-start-line="34" selection-start-column="4" selection-end-line="34" selection-end-column="4" />
             </state>
           </provider>
         </entry>
@@ -84,11 +39,12 @@
         <option value="$PROJECT_DIR$/src/Numbers.kt" />
         <option value="$PROJECT_DIR$/src/Functions.kt" />
         <option value="$PROJECT_DIR$/src/ConditionalLogic.kt" />
+        <option value="$PROJECT_DIR$/src/Colections.kt" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-1361" />
+    <option name="x" value="-1355" />
     <option name="y" value="23" />
     <option name="width" value="1346" />
     <option name="height" value="705" />
@@ -131,7 +87,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Kotlin.ConditionalLogicKt">
+  <component name="RunManager" selected="Kotlin.ColectionsKt">
     <configuration default="true" type="Application" factoryName="Application">
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
     </configuration>
@@ -150,6 +106,16 @@
         <value defaultName="singleModule" />
       </option>
       <patterns />
+    </configuration>
+    <configuration name="ColectionsKt" type="JetRunConfigurationType" factoryName="Kotlin" temporary="true" nameIsGenerated="true">
+      <module name="kotlin Foundation" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="MAIN_CLASS_NAME" value="ColectionsKt" />
+      <option name="WORKING_DIRECTORY" />
     </configuration>
     <configuration name="ConditionalLogicKt" type="JetRunConfigurationType" factoryName="Kotlin" temporary="true" nameIsGenerated="true">
       <module name="kotlin Foundation" />
@@ -191,16 +157,6 @@
       <option name="MAIN_CLASS_NAME" value="StringsKt" />
       <option name="WORKING_DIRECTORY" />
     </configuration>
-    <configuration name="VariablesKt" type="JetRunConfigurationType" factoryName="Kotlin" temporary="true" nameIsGenerated="true">
-      <module name="kotlin Foundation" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="MAIN_CLASS_NAME" value="VariablesKt" />
-      <option name="WORKING_DIRECTORY" />
-    </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
@@ -224,19 +180,19 @@
       <listeners />
     </configuration>
     <list>
-      <item itemvalue="Kotlin.VariablesKt" />
       <item itemvalue="Kotlin.StringsKt" />
       <item itemvalue="Kotlin.NumbersKt" />
       <item itemvalue="Kotlin.FunctionsKt" />
       <item itemvalue="Kotlin.ConditionalLogicKt" />
+      <item itemvalue="Kotlin.ColectionsKt" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Kotlin.ColectionsKt" />
         <item itemvalue="Kotlin.ConditionalLogicKt" />
         <item itemvalue="Kotlin.FunctionsKt" />
         <item itemvalue="Kotlin.NumbersKt" />
         <item itemvalue="Kotlin.StringsKt" />
-        <item itemvalue="Kotlin.VariablesKt" />
       </list>
     </recent_temporary>
   </component>
@@ -254,7 +210,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1356" y="23" width="1346" height="705" extended-state="0" />
+    <frame x="-1355" y="23" width="1346" height="705" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
@@ -347,8 +303,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ConditionalLogic.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="13" lean-forward="true" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+        <state relative-caret-position="225">
+          <caret line="15" column="1" lean-forward="true" selection-start-line="15" selection-start-column="1" selection-end-line="15" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Colections.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="297">
+          <caret line="34" column="4" selection-start-line="34" selection-start-column="4" selection-end-line="34" selection-end-column="4" />
         </state>
       </provider>
     </entry>
