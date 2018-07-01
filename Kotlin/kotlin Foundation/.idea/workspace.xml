@@ -12,20 +12,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Colections.kt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Colections.kt">
+      <file leaf-file-name="Nullability.kt" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/Nullability.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="262">
-              <caret line="31" column="4" selection-start-line="31" selection-start-column="4" selection-end-line="31" selection-end-column="118" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Loops.kt" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/Loops.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="9" column="45" selection-start-line="9" selection-start-column="45" selection-end-line="9" selection-end-column="45" />
+            <state relative-caret-position="162">
+              <caret line="28" lean-forward="true" selection-start-line="28" selection-end-line="28" />
             </state>
           </provider>
         </entry>
@@ -50,6 +41,7 @@
         <option value="$PROJECT_DIR$/src/ConditionalLogic.kt" />
         <option value="$PROJECT_DIR$/src/Colections.kt" />
         <option value="$PROJECT_DIR$/src/Loops.kt" />
+        <option value="$PROJECT_DIR$/src/Nullability.kt" />
       </list>
     </option>
   </component>
@@ -97,7 +89,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Kotlin.LoopsKt">
+  <component name="RunManager" selected="Kotlin.NullabilityKt">
     <configuration default="true" type="Application" factoryName="Application">
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
     </configuration>
@@ -157,14 +149,14 @@
       <option name="MAIN_CLASS_NAME" value="LoopsKt" />
       <option name="WORKING_DIRECTORY" />
     </configuration>
-    <configuration name="NumbersKt" type="JetRunConfigurationType" factoryName="Kotlin" temporary="true" nameIsGenerated="true">
+    <configuration name="NullabilityKt" type="JetRunConfigurationType" factoryName="Kotlin" temporary="true" nameIsGenerated="true">
       <module name="kotlin Foundation" />
       <option name="VM_PARAMETERS" />
       <option name="PROGRAM_PARAMETERS" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
       <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="MAIN_CLASS_NAME" value="NumbersKt" />
+      <option name="MAIN_CLASS_NAME" value="NullabilityKt" />
       <option name="WORKING_DIRECTORY" />
     </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
@@ -190,19 +182,19 @@
       <listeners />
     </configuration>
     <list>
-      <item itemvalue="Kotlin.NumbersKt" />
       <item itemvalue="Kotlin.FunctionsKt" />
       <item itemvalue="Kotlin.ConditionalLogicKt" />
       <item itemvalue="Kotlin.ColectionsKt" />
       <item itemvalue="Kotlin.LoopsKt" />
+      <item itemvalue="Kotlin.NullabilityKt" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Kotlin.NullabilityKt" />
         <item itemvalue="Kotlin.LoopsKt" />
         <item itemvalue="Kotlin.ColectionsKt" />
         <item itemvalue="Kotlin.ConditionalLogicKt" />
         <item itemvalue="Kotlin.FunctionsKt" />
-        <item itemvalue="Kotlin.NumbersKt" />
       </list>
     </recent_temporary>
   </component>
@@ -318,6 +310,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/Loops.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="12" column="14" lean-forward="true" selection-start-line="12" selection-start-column="14" selection-end-line="12" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/Colections.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="262">
@@ -325,10 +324,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Loops.kt">
+    <entry file="file://$PROJECT_DIR$/src/Nullability.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="45" selection-start-line="9" selection-start-column="45" selection-end-line="9" selection-end-column="45" />
+        <state relative-caret-position="162">
+          <caret line="28" lean-forward="true" selection-start-line="28" selection-end-line="28" />
         </state>
       </provider>
     </entry>
