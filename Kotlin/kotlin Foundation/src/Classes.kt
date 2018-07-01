@@ -72,6 +72,6 @@ fun main(args: Array<String>) {
 
     val truck = Truck("Ford", "F-150", 10000)
     truck.brake()
-    truck.tow()
+    truck.tow() 
 
 }
