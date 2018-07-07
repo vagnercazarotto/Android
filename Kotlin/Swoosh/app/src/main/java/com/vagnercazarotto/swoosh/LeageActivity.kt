@@ -3,7 +3,7 @@ package com.vagnercazarotto.swoosh
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 
-class LeageActivity : AppCompatActivity() {
+class LeageActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
