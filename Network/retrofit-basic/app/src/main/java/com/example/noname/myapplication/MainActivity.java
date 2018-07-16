@@ -16,9 +16,6 @@ import static com.example.noname.myapplication.RetroFitClienteInstance.*;
 public class MainActivity extends AppCompatActivity {
 
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,8 +45,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void generateDataList(Response<List<RetroPhoto>> response) {
         Log.d("TAG :: ", String.valueOf(response.body().getClass()));
-
-
 
         for (RetroPhoto i : response.body()) {
             Log.d("TAG :: ", i.getTitle());
