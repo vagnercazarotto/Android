@@ -36,5 +36,5 @@ public class NewWordActivity extends AppCompatActivity{
         });
     }
 
-    
+
 }
