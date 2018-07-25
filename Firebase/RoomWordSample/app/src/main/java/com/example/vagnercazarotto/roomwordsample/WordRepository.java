@@ -21,7 +21,7 @@ public class WordRepository {
     }
 
 
-    LiveData<List<Word>> getmAllWords(){
+    LiveData<List<Word>> getAllWords(){
         return mAllWords;
     }
 
