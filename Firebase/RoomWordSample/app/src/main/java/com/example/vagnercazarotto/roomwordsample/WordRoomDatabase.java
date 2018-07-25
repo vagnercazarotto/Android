@@ -1,9 +1,12 @@
 package com.example.vagnercazarotto.roomwordsample;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Database;
 import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
+
+import java.util.List;
 
 @Database(entities = {Word.class}, version = 1)
 public abstract class WordRoomDatabase extends RoomDatabase {
@@ -28,9 +31,5 @@ public abstract class WordRoomDatabase extends RoomDatabase {
         }
         return INSTANCE;
     }
-
-
-
-
 
 }
