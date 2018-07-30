@@ -44,43 +44,13 @@ public class GreenAdapter extends RecyclerView.Adapter<GreenAdapter.NumberViewHo
 
     /*
      * The number of ViewHolders that have been created. Typically, you can figure out how many
-     * there should be by determining how many list items fit on your screen at once and add 2 to 4
-     * to that number. That isn't the exact formula, but will give you an idea of how many
+     * there should be by determining how many list items fit on your screen at onced 2 to 4
+     * to that number. That isn't the ex and adact formula, but will give you an idea of how many
      * ViewHolders have been created to display any given RecyclerView.
      *
      * Here's some ASCII art to hopefully help you understand:
      *
-     *    ViewHolders on screen:
-     *
-     *        *-----------------------------*
-     *        |         ViewHolder index: 0 |
-     *        *-----------------------------*
-     *        |         ViewHolder index: 1 |
-     *        *-----------------------------*
-     *        |         ViewHolder index: 2 |
-     *        *-----------------------------*
-     *        |         ViewHolder index: 3 |
-     *        *-----------------------------*
-     *        |         ViewHolder index: 4 |
-     *        *-----------------------------*
-     *        |         ViewHolder index: 5 |
-     *        *-----------------------------*
-     *        |         ViewHolder index: 6 |
-     *        *-----------------------------*
-     *        |         ViewHolder index: 7 |
-     *        *-----------------------------*
-     *
-     *    Extra ViewHolders (off screen)
-     *
-     *        *-----------------------------*
-     *        |         ViewHolder index: 8 |
-     *        *-----------------------------*
-     *        |         ViewHolder index: 9 |
-     *        *-----------------------------*
-     *        |         ViewHolder index: 10|
-     *        *-----------------------------*
-     *        |         ViewHolder index: 11|
-     *        *-----------------------------*
+
      *
      *    Total number of ViewHolders = 11
      */
