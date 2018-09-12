@@ -10,10 +10,10 @@ import javax.swing.JFrame;
 
 import demo.model.Model;
 
-public class View extends JFrame {
+public class View extends JFrame implements ActionListener {
 	
 	private Model model;
-	private JButton helloButton;
+	private JButton helloButton; 
 	private JButton goodbyeButton;
 	
 	public View(Model view) {
@@ -34,12 +34,23 @@ public class View extends JFrame {
 		
 		add(helloButton, gc);
 		
+		helloButton.addActionListener(this);
 		
 		
 		setSize(600,500);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
 	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		System.out.println("Hello there!!");
+	}
+	
+	
+	
+	
 	
 	
 	
