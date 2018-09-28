@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/picture_contact"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:scaleType="fitXY" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/text_contact_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_weight="1"
+            tools:text="Andrea P." />
+
+        <!--<android.support.v7.widget.AppCompatImageView-->
+        <!--android:id="@+id/text_payx"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="center_vertical"-->
+        <!--android:background="@drawable/background_contact_yap"-->
+        <!--android:padding="@dimen/smallest_margin"-->
+        <!--android:visibility="gone"-->
+        <!--app:srcCompat="@drawable/ic_logo_small"-->
+        <!--tools:visibility="visible" />-->
+
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/text_contact_name_isPayX"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:gravity="end"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_weight="1"
+            android:textColor="@color/colorAccent"
+            tools:text="Andrea" />
+
+
+    </LinearLayout>
+
+
+
+</android.support.constraint.ConstraintLayout>
