@@ -16,11 +16,23 @@ public class MainActivity extends IntroActivity {
         addSlide(new FragmentSlide.Builder()
             .background(android.R.color.white)
             .fragment(R.layout.intro_01)
+            .canGoBackward(false)
             .build());
 
         addSlide(new FragmentSlide.Builder()
                 .background(android.R.color.white)
                 .fragment(R.layout.intro_02)
+                .build());
+
+        addSlide(new FragmentSlide.Builder()
+                .background(android.R.color.white)
+                .fragment(R.layout.intro_03)
+                .build());
+
+        addSlide(new FragmentSlide.Builder()
+                .background(android.R.color.white)
+                .fragment(R.layout.intro_04)
+                .canGoForward(false)
                 .build());
 
 
