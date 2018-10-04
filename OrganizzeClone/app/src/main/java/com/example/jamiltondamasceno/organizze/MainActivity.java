@@ -32,33 +32,13 @@ public class MainActivity extends IntroActivity {
         addSlide(new FragmentSlide.Builder()
                 .background(android.R.color.white)
                 .fragment(R.layout.intro_04)
-                .canGoForward(false)
                 .build());
 
-
-//        setButtonBackVisible(false);
-//        setButtonNextVisible(false);
-//
-//        addSlide(new SimpleSlide.Builder()
-//                .title("My Title")
-//                .description("My description..")
-//                .image(R.drawable.um)
-//                .background(android.R.color.holo_orange_light)
-//                .build());
-//
-//        addSlide(new SimpleSlide.Builder()
-//                .title("My Title2")
-//                .description("My description..2")
-//                .image(R.drawable.dois)
-//                .background(android.R.color.holo_orange_light)
-//                .build());
-//
-//        addSlide(new SimpleSlide.Builder()
-//                .title("My Title3")
-//                .description("My description..3")
-//                .image(R.drawable.tres)
-//                .background(android.R.color.holo_orange_light)
-//                .build());
+        addSlide(new FragmentSlide.Builder()
+                .background(android.R.color.white)
+                .fragment(R.layout.intro_cadastro)
+                .canGoForward(false)
+                .build());
 
 
     }
