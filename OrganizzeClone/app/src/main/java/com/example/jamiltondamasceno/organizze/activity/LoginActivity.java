@@ -16,6 +16,10 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthInvalidUserException;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -68,7 +72,21 @@ public class LoginActivity extends AppCompatActivity {
                 if (task.isSuccessful()){
                     Toast.makeText(LoginActivity.this, "Login Successful.", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(LoginActivity.this, "Erro ao fazer loguin.", Toast.LENGTH_SHORT).show();
+
+                    Log.e("CAD",task.getException().toString());
+                    String excecao = "";
+                    try {
+                        throw task.getException();
+                    } catch(FirebaseAuthInvalidUserException e) {
+                        excecao = "Usuario não cadastrado..";
+                    } catch(FirebaseAuthInvalidCredentialsException e){
+                        excecao = "Usuario ou Senha invalida..";
+                    } catch (Exception e) {
+                        excecao = "Erro diverso + " + e.getMessage();
+                        e.printStackTrace();
+                    }
+
+                    Toast.makeText(LoginActivity.this, excecao, Toast.LENGTH_SHORT).show();
                 }
             }
         });
