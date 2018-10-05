@@ -83,7 +83,7 @@ public class CadastroActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
-                            Toast.makeText(CadastroActivity.this, "Cadastro OK!!", Toast.LENGTH_SHORT).show();
+                            finish();
                         } else {
                             Log.e("CAD",task.getException().toString());
                             String excecao = "";
