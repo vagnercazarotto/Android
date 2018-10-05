@@ -1,10 +1,15 @@
 package com.example.jamiltondamasceno.organizze;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
+import com.example.jamiltondamasceno.organizze.activity.CadastroActivity;
+import com.example.jamiltondamasceno.organizze.activity.LoginActivity;
 import com.heinrichreimersoftware.materialintro.app.IntroActivity;
 import com.heinrichreimersoftware.materialintro.slide.FragmentSlide;
-import com.heinrichreimersoftware.materialintro.slide.SimpleSlide;
+import com.example.jamiltondamasceno.organizze.R;
+
 
 public class MainActivity extends IntroActivity {
 
@@ -40,6 +45,15 @@ public class MainActivity extends IntroActivity {
                 .canGoForward(false)
                 .build());
 
-
     }
+
+    public void btnEntrar(View view){
+        startActivity(new Intent(this, LoginActivity.class));
+    }
+
+    public void btnCadastrar(View view){
+        startActivity(new Intent(this, CadastroActivity.class));
+    }
+
+
 }
