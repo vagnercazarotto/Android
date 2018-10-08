@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -22,12 +23,41 @@
 
     <include layout="@layout/content_principal" />
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
+    <com.github.clans.fab.FloatingActionMenu
+        android:id="@+id/menu"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="end|bottom"
+        android:layout_margin="10dp"
+        app:menu_colorNormal="@color/colorAccent"
+        app:menu_colorPressed="@color/colorAccent"
+        app:menu_icon="@drawable/ic_add_alarm_white_24dp">
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/id_despesa"
+            android:src="@drawable/ic_add_alarm_white_24dp"
+            fab:fab_label="Despesa"
+            android:onClick="adicionarDespesa"
+            fab:fab_colorNormal="@color/colorPrimaryDespesa"
+            android:layout_width="wrap_content"
+            fab:fab_size="mini"
+            android:layout_height="wrap_content">
+
+        </com.github.clans.fab.FloatingActionButton>
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/id_despesa2"
+            android:src="@drawable/ic_add_alarm_white_24dp"
+            fab:fab_label="Receita"
+            android:onClick="adicionarReceita"
+            fab:fab_colorNormal="@color/colorPrimaryReceita"
+            android:layout_width="wrap_content"
+            fab:fab_size="mini"
+            android:layout_height="wrap_content">
+
+        </com.github.clans.fab.FloatingActionButton>
+
+    </com.github.clans.fab.FloatingActionMenu>
+
 
 </android.support.design.widget.CoordinatorLayout>

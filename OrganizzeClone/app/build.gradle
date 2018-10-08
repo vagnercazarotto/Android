@@ -34,7 +34,9 @@ dependencies {
     implementation 'com.google.firebase:firebase-core:11.6.2'
     implementation 'com.google.firebase:firebase-database:11.6.2'
     implementation 'com.google.firebase:firebase-auth:11.6.2'
-    compile 'com.heinrichreimersoftware:material-intro:1.6.2'
+    implementation 'com.heinrichreimersoftware:material-intro:1.6.2'
+    implementation 'com.github.clans:fab:1.6.4'
+
 
 }
 
