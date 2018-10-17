@@ -3,6 +3,8 @@ package com.example.jamiltondamasceno.organizze.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -11,8 +13,10 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.jamiltondamasceno.organizze.R;
+import com.example.jamiltondamasceno.organizze.adapter.AdapterMovimentacao;
 import com.example.jamiltondamasceno.organizze.config.ConfigFirebase;
 import com.example.jamiltondamasceno.organizze.helper.Base64Custom;
+import com.example.jamiltondamasceno.organizze.model.Movimentacao;
 import com.example.jamiltondamasceno.organizze.model.Usuario;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -24,6 +28,8 @@ import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnMonthChangedListener;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.MatchResult;
 
 public class PrincipalActivity extends AppCompatActivity {
@@ -37,6 +43,9 @@ public class PrincipalActivity extends AppCompatActivity {
     private Double resumoUsuario = 0.0;
     private DatabaseReference usuarioRef;
     private ValueEventListener valueEventListenerUsuario;
+    private RecyclerView recyclerView;
+    private AdapterMovimentacao adapterMovimentacao;
+    private List<Movimentacao> movimentacaos = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +59,16 @@ public class PrincipalActivity extends AppCompatActivity {
         textoSaldo = findViewById(R.id.textSaldo);
         textoSaudacao = findViewById(R.id.textSaudacao);
         calendarView = findViewById(R.id.calendarView);
+        recyclerView = findViewById(R.id.recyclerMovimentos);
+
+        //config the adapter
+        adapterMovimentacao = new AdapterMovimentacao(movimentacaos,this);
+
+        //config the Recycler
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setAdapter(adapterMovimentacao);
 
         configuraCalendarView();
     }
