@@ -46,8 +46,9 @@ public class PrincipalActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private AdapterMovimentacao adapterMovimentacao;
     private List<Movimentacao> movimentacaos = new ArrayList<>();
-    private DatabaseReference movimentacaoRef = ConfigFirebase.getFirebase();
+    private DatabaseReference movimentacaoRef;
     private String mesAnoSelecionado;
+    private ValueEventListener valueEventListenerMovimentacoes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,12 +88,18 @@ public class PrincipalActivity extends AppCompatActivity {
         calendarView.setTitleMonths(meses);
 
         CalendarDay dataAtual = calendarView.getCurrentDate();
-        mesAnoSelecionado = String.valueOf(dataAtual.getMonth() + "" +  dataAtual.getYear());
+        String mesSelecionado = String.format("%02d",(dataAtual.getMonth() + 1));
+        mesAnoSelecionado = String.valueOf( mesSelecionado + "" +  dataAtual.getYear());
 
         calendarView.setOnMonthChangedListener(new OnMonthChangedListener() {
             @Override
             public void onMonthChanged(MaterialCalendarView widget, CalendarDay date) {
-                mesAnoSelecionado = String.valueOf(date.getMonth() + "" +  date.getYear());
+                String mesSelecionado = String.format("%02d",(date.getMonth() + 1));
+                mesAnoSelecionado = String.valueOf(mesSelecionado + "" +  date.getYear());
+                Log.i("MES", "mes: " + mesAnoSelecionado);
+
+                movimentacaoRef.removeEventListener(valueEventListenerMovimentacoes);
+                recuperarMovimentacaoes();
             }
         });
     }
@@ -133,11 +140,34 @@ public class PrincipalActivity extends AppCompatActivity {
     public void recuperarMovimentacaoes(){
         String emailUsuario = firebaseAuth.getCurrentUser().getEmail();
         String idUsuario = Base64Custom.codificarBase64(emailUsuario);
-        movimentacaoRef.child("movimentacao")
+        movimentacaoRef = firebaseRef.child("movimentacao")
             .child(idUsuario)
             .child(mesAnoSelecionado);
 
         Log.i("MES", "mes: " + mesAnoSelecionado);
+
+        // add a listener
+        valueEventListenerMovimentacoes = movimentacaoRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                movimentacaos.clear();
+
+                for (DataSnapshot dados: dataSnapshot.getChildren()) {
+                    Log.i("dados",dados.toString());
+
+                    Movimentacao movimentacao = dados.getValue(Movimentacao.class);
+                    movimentacaos.add(movimentacao);
+
+                }
+
+                adapterMovimentacao.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
 
@@ -175,5 +205,6 @@ public class PrincipalActivity extends AppCompatActivity {
         // resume event listener when the app is closed
         Log.i("Evento","Evento foi removido");
         usuarioRef.removeEventListener(valueEventListenerUsuario);
+        movimentacaoRef.removeEventListener(valueEventListenerMovimentacoes);
     }
 }
