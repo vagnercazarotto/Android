@@ -1,7 +1,9 @@
 package com.example.jamiltondamasceno.organizze.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.jamiltondamasceno.organizze.R;
 import com.example.jamiltondamasceno.organizze.adapter.AdapterMovimentacao;
@@ -31,7 +34,6 @@ import com.prolificinteractive.materialcalendarview.OnMonthChangedListener;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.MatchResult;
 
 public class PrincipalActivity extends AppCompatActivity {
 
@@ -46,7 +48,8 @@ public class PrincipalActivity extends AppCompatActivity {
     private ValueEventListener valueEventListenerUsuario;
     private RecyclerView recyclerView;
     private AdapterMovimentacao adapterMovimentacao;
-    private List<Movimentacao> movimentacaos = new ArrayList<>();
+    private List<Movimentacao> movimentacoes = new ArrayList<>();
+    private Movimentacao movimentacao;
     private DatabaseReference movimentacaoRef;
     private String mesAnoSelecionado;
     private ValueEventListener valueEventListenerMovimentacoes;
@@ -66,7 +69,7 @@ public class PrincipalActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerMovimentos);
 
         //config the adapter
-        adapterMovimentacao = new AdapterMovimentacao(movimentacaos,this);
+        adapterMovimentacao = new AdapterMovimentacao(movimentacoes,this);
 
         //config the Recycler
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
@@ -96,11 +99,48 @@ public class PrincipalActivity extends AppCompatActivity {
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
                 Log.i("swipe","item moved");
+                excluirMovimentacao(viewHolder);
             }
         };
 
         new ItemTouchHelper(itemTouch).attachToRecyclerView(recyclerView);
 
+    }
+
+    public void excluirMovimentacao(final RecyclerView.ViewHolder viewHolder){
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+
+        alertDialog.setTitle("Excluir Movimentacao da conta");
+        alertDialog.setMessage("Voce tem certeza que deseja realmente excluir?");
+        alertDialog.setCancelable(false);
+
+        alertDialog.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                int position = viewHolder.getAdapterPosition();
+                movimentacao = movimentacoes.get(position);
+
+                String emailUsuario = firebaseAuth.getCurrentUser().getEmail();
+                String idUsuario = Base64Custom.codificarBase64(emailUsuario);
+                movimentacaoRef = firebaseRef.child("movimentacao")
+                        .child(idUsuario)
+                        .child(mesAnoSelecionado);
+
+                movimentacaoRef.child(movimentacao.getKey()).removeValue();
+                adapterMovimentacao.notifyItemRemoved(position);
+            }
+        });
+
+        alertDialog.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Toast.makeText(PrincipalActivity.this, "Cancelado", Toast.LENGTH_SHORT).show();
+                adapterMovimentacao.notifyDataSetChanged();
+            }
+        });
+
+        AlertDialog alert = alertDialog.create();
+        alert.show();
     }
 
 
@@ -179,13 +219,14 @@ public class PrincipalActivity extends AppCompatActivity {
         valueEventListenerMovimentacoes = movimentacaoRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                movimentacaos.clear();
+                movimentacoes.clear();
 
                 for (DataSnapshot dados: dataSnapshot.getChildren()) {
                     Log.i("dados",dados.toString());
 
                     Movimentacao movimentacao = dados.getValue(Movimentacao.class);
-                    movimentacaos.add(movimentacao);
+                    movimentacao.setKey(dados.getKey());
+                    movimentacoes.add(movimentacao);
 
                 }
 
