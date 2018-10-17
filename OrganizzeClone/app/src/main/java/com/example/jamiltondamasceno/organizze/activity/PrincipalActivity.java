@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -34,6 +35,8 @@ public class PrincipalActivity extends AppCompatActivity {
     private Double despesaTotal = 0.0;
     private Double receitaTotal = 0.0;
     private Double resumoUsuario = 0.0;
+    private DatabaseReference usuarioRef;
+    private ValueEventListener valueEventListenerUsuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,10 +50,14 @@ public class PrincipalActivity extends AppCompatActivity {
         textoSaldo = findViewById(R.id.textSaldo);
         textoSaudacao = findViewById(R.id.textSaudacao);
         calendarView = findViewById(R.id.calendarView);
-        
-        configuraCalendarView();
-        recuperaResumo();
 
+        configuraCalendarView();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        recuperaResumo();
     }
 
     private void configuraCalendarView() {
@@ -69,9 +76,10 @@ public class PrincipalActivity extends AppCompatActivity {
 
         String emailUsuario = firebaseAuth.getCurrentUser().getEmail();
         String idUsuario = Base64Custom.codificarBase64(emailUsuario);
-        DatabaseReference usuarioRef = firebaseRef.child("usuarios").child(idUsuario);
+        usuarioRef = firebaseRef.child("usuarios").child(idUsuario);
 
-        usuarioRef.addValueEventListener(new ValueEventListener() {
+        Log.i("Evento","Evento foi Adicionado");
+        valueEventListenerUsuario = usuarioRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Usuario usuario = dataSnapshot.getValue(Usuario.class);
@@ -124,6 +132,11 @@ public class PrincipalActivity extends AppCompatActivity {
     }
 
 
-
-
+    @Override
+    protected void onStop() {
+        super.onStop();
+        // resume event listener when the app is closed
+        Log.i("Evento","Evento foi removido");
+        usuarioRef.removeEventListener(valueEventListenerUsuario);
+    }
 }
