@@ -60,7 +60,7 @@ public class LoginActivity extends AppCompatActivity {
                             } catch (FirebaseAuthUserCollisionException e) {
                                 excesao = "Esta conta ja existe..";
                             } catch (FirebaseAuthInvalidCredentialsException e) {
-                                excesao = "Por favor digite um e-mail valido!!";
+                                excesao = "E-mail ou senha invalidos!!";
                             } catch (Exception e) {
                                 excesao = "Erro ao cadastrar usuario: " + e.getMessage();
                                 e.printStackTrace();
@@ -74,7 +74,7 @@ public class LoginActivity extends AppCompatActivity {
     public void validarAutenticacaoUsuario(View view) {
 
         String email = campoEmail.getText().toString();
-        String senha = campoEmail.getText().toString();
+        String senha = campoSenha.getText().toString();
 
 
         if (!email.isEmpty()) {
