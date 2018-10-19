@@ -2,6 +2,7 @@ package com.example.utente.whatsapp.model;
 
 import com.example.utente.whatsapp.config.ConfiguracaoFirebase;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.Exclude;
 
 public class Usuario {
 
@@ -16,10 +17,10 @@ public class Usuario {
     public void salvar() {
         DatabaseReference firebaseRef = ConfiguracaoFirebase.getFirebaseDatabase();
         DatabaseReference usuario = firebaseRef.child("usuarios").child(getId());
-
         usuario.setValue(this);
     }
 
+    @Exclude
     public String getId() {
         return id;
     }
@@ -44,6 +45,7 @@ public class Usuario {
         this.email = email;
     }
 
+    @Exclude
     public String getSenha() {
         return senha;
     }
