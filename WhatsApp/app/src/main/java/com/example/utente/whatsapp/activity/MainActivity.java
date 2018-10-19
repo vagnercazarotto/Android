@@ -1,5 +1,6 @@
 package com.example.utente.whatsapp.activity;
 
+import android.content.Intent;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -37,9 +38,9 @@ public class MainActivity extends AppCompatActivity {
         //config the tabs
         FragmentPagerItemAdapter adapter = new FragmentPagerItemAdapter(
                 getSupportFragmentManager(), FragmentPagerItems.with(this)
-                        .add("Conversas",ConversasFragment.class)
-                        .add("Contatos",ContatosFragment.class)
-                        .create()
+                .add("Conversas", ConversasFragment.class)
+                .add("Contatos", ContatosFragment.class)
+                .create()
         );
 
         ViewPager viewPager = findViewById(R.id.viewpager);
@@ -69,6 +70,9 @@ public class MainActivity extends AppCompatActivity {
                 deslogarUsuario();
                 finish();
                 break;
+            case R.id.menuConfiguracoes:
+                abrirConfiguracoes();
+                break;
         }
 
         return super.onOptionsItemSelected(item);
@@ -81,7 +85,13 @@ public class MainActivity extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
 
+
+
+    public void abrirConfiguracoes(){
+        Intent intent = new Intent(MainActivity.this, ConfiguracoesActivity.class);
+        startActivity(intent);
     }
 
 }
