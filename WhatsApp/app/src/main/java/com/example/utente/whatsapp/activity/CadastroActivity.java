@@ -4,12 +4,14 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.ContextThemeWrapper;
 import android.view.View;
 import android.widget.Toast;
 
 import com.example.utente.whatsapp.R;
 import com.example.utente.whatsapp.config.ConfiguracaoFirebase;
+import com.example.utente.whatsapp.helper.Base64Custom;
 import com.example.utente.whatsapp.model.Usuario;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -36,7 +38,7 @@ public class CadastroActivity extends AppCompatActivity {
 
     }
 
-    public void cadastrarUsuario(Usuario usuario) {
+    public void cadastrarUsuario(final Usuario usuario) {
         auth = ConfiguracaoFirebase.getFirebaseAuth();
         auth.createUserWithEmailAndPassword(usuario.getEmail(), usuario.getSenha())
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -46,6 +48,17 @@ public class CadastroActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             Toast.makeText(CadastroActivity.this, "Sucesso ao cadastrar Usuario !", Toast.LENGTH_SHORT).show();
                             finish();
+
+                            try {
+
+                                String identificadorUsuario = Base64Custom.codificarBase64(usuario.getEmail());
+                                usuario.setId(identificadorUsuario);
+                                usuario.salvar();
+
+                            } catch (Exception e) {
+
+                            }
+
                         } else {
                             String excesao = "";
                             try {
