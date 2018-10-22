@@ -17,19 +17,17 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.utente.whatsapp.R;
 import com.example.utente.whatsapp.config.ConfiguracaoFirebase;
-import com.example.utente.whatsapp.helper.Base64Custom;
 import com.example.utente.whatsapp.helper.Permissao;
 import com.example.utente.whatsapp.helper.UsuarioFirebase;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -68,6 +66,16 @@ public class ConfiguracoesActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        // recovery data from user
+        FirebaseUser user = UsuarioFirebase.getUsuarioAtual();
+        Uri url = user.getPhotoUrl();
+        if(url != null) {
+            Glide.with(ConfiguracoesActivity.this).load(url).into(circleImageViewPerfil);
+        } else {
+            circleImageViewPerfil.setImageResource(R.drawable.padrao);
+        }
+
 
         imageButtonCamera.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -136,6 +144,9 @@ public class ConfiguracoesActivity extends AppCompatActivity {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             Toast.makeText(ConfiguracoesActivity.this, "Sucesso ao fazer Upload..", Toast.LENGTH_SHORT).show();
+
+                            Uri firebaseUrl = taskSnapshot.getDownloadUrl();
+                            atualizarFotoUsuario(firebaseUrl);
                         }
                     });
                 }
@@ -143,6 +154,10 @@ public class ConfiguracoesActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
+    }
+
+    private void atualizarFotoUsuario(Uri firebaseUrl) {
+        UsuarioFirebase.atualizarFotoUsuario(firebaseUrl);
     }
 
     @Override

@@ -47,6 +47,7 @@ public class CadastroActivity extends AppCompatActivity {
 
                         if (task.isSuccessful()) {
                             Toast.makeText(CadastroActivity.this, "Sucesso ao cadastrar Usuario !", Toast.LENGTH_SHORT).show();
+
                             finish();
 
                             try {
