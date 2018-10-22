@@ -15,9 +15,22 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.example.utente.whatsapp.R;
+import com.example.utente.whatsapp.config.ConfiguracaoFirebase;
+import com.example.utente.whatsapp.helper.Base64Custom;
 import com.example.utente.whatsapp.helper.Permissao;
+import com.example.utente.whatsapp.helper.UsuarioFirebase;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -31,6 +44,8 @@ public class ConfiguracoesActivity extends AppCompatActivity {
     private static final int SELECAO_CAMERA = 100;
     private static final int SELECAO_GALERIA = 200;
     private CircleImageView circleImageViewPerfil;
+    private StorageReference storageReference;
+    private String identificadorUsuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +55,10 @@ public class ConfiguracoesActivity extends AppCompatActivity {
         imageButtonCamera = findViewById(R.id.imageButtonCamera);
         imageButtonGaleria = findViewById(R.id.imageButtonGaleria);
         circleImageViewPerfil = findViewById(R.id.circleImageViewPerfil);
+
+        // base configs
+        storageReference = ConfiguracaoFirebase.getFirebaseStorage();
+        identificadorUsuario = UsuarioFirebase.getIdentificadorUsuario();
 
         //validade the permissions
         Permissao.validarPermissoes(permissoesNecessarias, this, 1);
@@ -94,6 +113,31 @@ public class ConfiguracoesActivity extends AppCompatActivity {
                 }
                 if(imagem != null) {
                     circleImageViewPerfil.setImageBitmap(imagem);
+
+                    // recover the data for the img in firebase
+                    ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                    imagem.compress(Bitmap.CompressFormat.JPEG,70, byteArrayOutputStream);
+                    byte[] dadosImagem = byteArrayOutputStream.toByteArray();
+
+                    // save the image in the firebase storage
+                    StorageReference imageRef = storageReference
+                            .child("imagens")
+                            .child("perfil")
+//                            .child(identificadorUsuario)
+                            .child(identificadorUsuario + ".jpeg");
+
+                    UploadTask uploadTask = imageRef.putBytes(dadosImagem);
+                    uploadTask.addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(ConfiguracoesActivity.this, "Erro ao fazer Upload..", Toast.LENGTH_SHORT).show();
+                        }
+                    }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            Toast.makeText(ConfiguracoesActivity.this, "Sucesso ao fazer Upload..", Toast.LENGTH_SHORT).show();
+                        }
+                    });
                 }
             } catch (Exception e) {
                 e.printStackTrace();
