@@ -16,6 +16,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -23,6 +24,7 @@ import com.example.utente.whatsapp.R;
 import com.example.utente.whatsapp.config.ConfiguracaoFirebase;
 import com.example.utente.whatsapp.helper.Permissao;
 import com.example.utente.whatsapp.helper.UsuarioFirebase;
+import com.example.utente.whatsapp.model.Usuario;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseUser;
@@ -46,6 +48,9 @@ public class ConfiguracoesActivity extends AppCompatActivity {
     private StorageReference storageReference;
     private String identificadorUsuario;
     private EditText editPerfilNome;
+    private ImageView imagemAtualizarNome;
+    private Usuario usuarioLogado;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,10 +61,12 @@ public class ConfiguracoesActivity extends AppCompatActivity {
         imageButtonGaleria = findViewById(R.id.imageButtonGaleria);
         circleImageViewPerfil = findViewById(R.id.circleImageViewPerfil);
         editPerfilNome = findViewById(R.id.editNomeUsuario);
+        imagemAtualizarNome = findViewById(R.id.imgAtualizarNome);
 
         // base configs
         storageReference = ConfiguracaoFirebase.getFirebaseStorage();
         identificadorUsuario = UsuarioFirebase.getIdentificadorUsuario();
+        usuarioLogado = UsuarioFirebase.getDadosUsuariosLogado();
 
         //validade the permissions
         Permissao.validarPermissoes(permissoesNecessarias, this, 1);
@@ -72,7 +79,7 @@ public class ConfiguracoesActivity extends AppCompatActivity {
 
         // recovery data from user
         FirebaseUser user = UsuarioFirebase.getUsuarioAtual();
-        Uri url = user.getPhotoUrl();
+        final Uri url = user.getPhotoUrl();
         if(url != null) {
             Glide.with(ConfiguracoesActivity.this).load(url).into(circleImageViewPerfil);
         } else {
@@ -102,6 +109,21 @@ public class ConfiguracoesActivity extends AppCompatActivity {
                 Intent i = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 if (i.resolveActivity(getPackageManager()) != null) {
                     startActivityForResult(i, SELECAO_GALERIA);
+                }
+            }
+        });
+
+        imagemAtualizarNome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String nome = editPerfilNome.getText().toString();
+                boolean retorno = UsuarioFirebase.atualizarNomeUsuario(nome);
+                if(retorno) {
+
+                    usuarioLogado.setNome(nome);
+                    usuarioLogado.atualizar();
+
+                    Toast.makeText(ConfiguracoesActivity.this, "Nome Atualizado com sucesso", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -164,7 +186,13 @@ public class ConfiguracoesActivity extends AppCompatActivity {
     }
 
     private void atualizarFotoUsuario(Uri firebaseUrl) {
-        UsuarioFirebase.atualizarFotoUsuario(firebaseUrl);
+        boolean retorno =  UsuarioFirebase.atualizarFotoUsuario(firebaseUrl);
+        if(retorno) {
+            usuarioLogado.setFoto(firebaseUrl.toString());
+            usuarioLogado.atualizar();
+            Toast.makeText(ConfiguracoesActivity.this, "Sua foto foi alterada!", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     @Override
