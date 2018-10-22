@@ -14,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -44,6 +45,7 @@ public class ConfiguracoesActivity extends AppCompatActivity {
     private CircleImageView circleImageViewPerfil;
     private StorageReference storageReference;
     private String identificadorUsuario;
+    private EditText editPerfilNome;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +55,7 @@ public class ConfiguracoesActivity extends AppCompatActivity {
         imageButtonCamera = findViewById(R.id.imageButtonCamera);
         imageButtonGaleria = findViewById(R.id.imageButtonGaleria);
         circleImageViewPerfil = findViewById(R.id.circleImageViewPerfil);
+        editPerfilNome = findViewById(R.id.editNomeUsuario);
 
         // base configs
         storageReference = ConfiguracaoFirebase.getFirebaseStorage();
@@ -75,6 +78,10 @@ public class ConfiguracoesActivity extends AppCompatActivity {
         } else {
             circleImageViewPerfil.setImageResource(R.drawable.padrao);
         }
+
+        editPerfilNome.setText(user.getDisplayName());
+
+
 
 
         imageButtonCamera.setOnClickListener(new View.OnClickListener() {

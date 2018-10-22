@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.example.utente.whatsapp.R;
 import com.example.utente.whatsapp.config.ConfiguracaoFirebase;
 import com.example.utente.whatsapp.helper.Base64Custom;
+import com.example.utente.whatsapp.helper.UsuarioFirebase;
 import com.example.utente.whatsapp.model.Usuario;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -47,7 +48,7 @@ public class CadastroActivity extends AppCompatActivity {
 
                         if (task.isSuccessful()) {
                             Toast.makeText(CadastroActivity.this, "Sucesso ao cadastrar Usuario !", Toast.LENGTH_SHORT).show();
-
+                            UsuarioFirebase.atualizarNomeUsuario(usuario.getNome());
                             finish();
 
                             try {
