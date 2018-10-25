@@ -19,6 +19,9 @@ import com.example.utente.whatsapp.helper.Base64Custom;
 import com.example.utente.whatsapp.helper.UsuarioFirebase;
 import com.example.utente.whatsapp.model.Mensagem;
 import com.example.utente.whatsapp.model.Usuario;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 
 import java.util.ArrayList;
@@ -40,6 +43,9 @@ public class ChatActivity extends AppCompatActivity {
     private RecyclerView recyclerViewMensagem;
     private MensagensAdapter mensagensAdapter;
     private List<Mensagem> mensagens = new ArrayList<>();
+    private DatabaseReference database;
+    private DatabaseReference mensagensRef;
+    private ChildEventListener childEventListenerMensagens;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,12 +87,16 @@ public class ChatActivity extends AppCompatActivity {
         idUsuarioDestinatario = Base64Custom.codificarBase64(usuarioDestinatario.getEmail());
 
         // config the adapter
-        mensagensAdapter = new MensagensAdapter(mensagens,getApplicationContext());
+        mensagensAdapter = new MensagensAdapter(mensagens, getApplicationContext());
 
         //config the recyclerview
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerViewMensagem.setLayoutManager(layoutManager);
         recyclerViewMensagem.setAdapter(mensagensAdapter);
+
+        // database
+        database = ConfiguracaoFirebase.getFirebaseDatabase();
+        mensagensRef = database.child("mensagens").child(idUsuarioRemetente).child(idUsuarioDestinatario);
 
 
     }
@@ -115,6 +125,49 @@ public class ChatActivity extends AppCompatActivity {
         mensagemRef.child(idRemetente).child(idDestinatario).push().setValue(msg);
 
         editMensagem.setText("");
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        recuperarMensagens();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mensagensRef.removeEventListener(childEventListenerMensagens);
+    }
+
+    private void recuperarMensagens() {
+        childEventListenerMensagens = mensagensRef.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                Mensagem mensagem = dataSnapshot.getValue(Mensagem.class);
+                mensagens.add(mensagem);
+                mensagensAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
 
