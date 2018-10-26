@@ -80,7 +80,7 @@
         android:layout_marginLeft="24dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="24dp"
-        android:text="Esse nao e seu nome de usuario nem sua senha. Esse nome ficara visivel para seus usuarios.."
+        android:text="Esse nao e seu nome de usuarioExibicao nem sua senha. Esse nome ficara visivel para seus usuarios.."
         android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

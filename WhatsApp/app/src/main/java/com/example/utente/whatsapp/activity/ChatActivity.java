@@ -23,6 +23,7 @@ import com.example.utente.whatsapp.adapter.MensagensAdapter;
 import com.example.utente.whatsapp.config.ConfiguracaoFirebase;
 import com.example.utente.whatsapp.helper.Base64Custom;
 import com.example.utente.whatsapp.helper.UsuarioFirebase;
+import com.example.utente.whatsapp.model.Conversa;
 import com.example.utente.whatsapp.model.Mensagem;
 import com.example.utente.whatsapp.model.Usuario;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -172,8 +173,8 @@ public class ChatActivity extends AppCompatActivity {
                             mensagem.setImagem(downloadUrl);
 
                             // save for both person
-                            salvarMensagem(idUsuarioDestinatario, idUsuarioRemetente,mensagem);
-                            salvarMensagem(idUsuarioRemetente,idUsuarioDestinatario, mensagem);
+                            salvarMensagem(idUsuarioDestinatario, idUsuarioRemetente, mensagem);
+                            salvarMensagem(idUsuarioRemetente, idUsuarioDestinatario, mensagem);
 
                             Toast.makeText(ChatActivity.this, "Sucesso ao fazer upload da imagem", Toast.LENGTH_SHORT).show();
 
@@ -191,6 +192,7 @@ public class ChatActivity extends AppCompatActivity {
     public void enviarMensagem(View view) {
 
         String textoMensagem = editMensagem.getText().toString();
+
         if (!textoMensagem.isEmpty()) {
             Mensagem mensagem = new Mensagem();
             mensagem.setIdUsuario(idUsuarioRemetente);
@@ -198,9 +200,23 @@ public class ChatActivity extends AppCompatActivity {
 
             salvarMensagem(idUsuarioRemetente, idUsuarioDestinatario, mensagem);
             salvarMensagem(idUsuarioDestinatario, idUsuarioRemetente, mensagem);
+
+            // TODO salvar conversa
+            salvarConversa(mensagem);
         } else {
             Toast.makeText(ChatActivity.this, "Digite uma mensagem para enviar!", Toast.LENGTH_SHORT).show();
         }
+
+    }
+
+    private void salvarConversa(Mensagem mensagem) {
+
+        Conversa conversaRemetente = new Conversa();
+        conversaRemetente.setIdRemetent(idUsuarioRemetente);
+        conversaRemetente.setIdDestinatario(idUsuarioDestinatario);
+        conversaRemetente.setUltimaMensagem(mensagem.getMensagem());
+        conversaRemetente.setUsuarioExibicao(usuarioDestinatario);
+        conversaRemetente.salvar();
 
     }
 
