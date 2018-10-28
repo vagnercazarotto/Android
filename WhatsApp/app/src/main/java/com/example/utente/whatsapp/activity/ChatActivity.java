@@ -99,10 +99,12 @@ public class ChatActivity extends AppCompatActivity {
             } else {
                 circleImageViewFoto.setImageResource(R.drawable.padrao);
             }
+
+            //recover data from destinatary
+            idUsuarioDestinatario = Base64Custom.codificarBase64(usuarioDestinatario.getEmail());
         }
 
-        //recover data from destinatary
-        idUsuarioDestinatario = Base64Custom.codificarBase64(usuarioDestinatario.getEmail());
+
 
         // config the adapter
         mensagensAdapter = new MensagensAdapter(mensagens, getApplicationContext());
@@ -110,6 +112,7 @@ public class ChatActivity extends AppCompatActivity {
         //config the recyclerview
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerViewMensagem.setLayoutManager(layoutManager);
+        recyclerViewMensagem.setHasFixedSize( true );
         recyclerViewMensagem.setAdapter(mensagensAdapter);
 
         // database
