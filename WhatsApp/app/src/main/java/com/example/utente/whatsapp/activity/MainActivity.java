@@ -5,6 +5,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -14,6 +15,7 @@ import com.example.utente.whatsapp.R;
 import com.example.utente.whatsapp.config.ConfiguracaoFirebase;
 import com.example.utente.whatsapp.fragment.ContatosFragment;
 import com.example.utente.whatsapp.fragment.ConversasFragment;
+import com.example.utente.whatsapp.model.Conversa;
 import com.google.firebase.auth.FirebaseAuth;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
@@ -32,13 +34,12 @@ public class MainActivity extends AppCompatActivity {
 
         auth = ConfiguracaoFirebase.getFirebaseAuth();
 
-        searchView = findViewById(R.id.materialSearchPrincipal);
         Toolbar toolbar = findViewById(R.id.toolbarPrincipal);
         toolbar.setTitle("WhatsApp");
         setSupportActionBar(toolbar);
 
         //config the tabs
-        FragmentPagerItemAdapter adapter = new FragmentPagerItemAdapter(
+        final FragmentPagerItemAdapter adapter = new FragmentPagerItemAdapter(
                 getSupportFragmentManager(), FragmentPagerItems.with(this)
                 .add("Conversas", ConversasFragment.class)
                 .add("Contatos", ContatosFragment.class)
@@ -51,8 +52,30 @@ public class MainActivity extends AppCompatActivity {
         SmartTabLayout viewPagerTab = findViewById(R.id.viewPagerTab);
         viewPagerTab.setViewPager(viewPager);
 
+        // config search view
+        searchView = findViewById(R.id.materialSearchPrincipal);
+        searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                Log.d("evento", "onQueryTextSubmit");
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                Log.d("evento", "onQueryTextChange");
+
+                ConversasFragment fragment = (ConversasFragment) adapter.getPage(0);
+                if(!newText.isEmpty() && newText != null){
+                    fragment.pesquisarConversas(newText);
+                }
+
+                return true;
+            }
+        });
 
     }
+
 
 
     @Override
