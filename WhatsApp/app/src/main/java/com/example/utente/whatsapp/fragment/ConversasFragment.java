@@ -95,9 +95,31 @@ public class ConversasFragment extends Fragment {
         return view;
     }
 
+    public void recarregarConversas(){
+        adapter = new ConversasAdapter(listaConversas, getActivity());
+        recyclerViewConversas.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+    }
+
+
 
     public void pesquisarConversas(String texto){
         Log.d("pesquisa", texto);
+
+        List<Conversa> listConversaBusca = new ArrayList<>();
+        for (Conversa conversa : listaConversas) {
+
+            String nome = conversa.getUsuarioExibicao().getNome().toLowerCase();
+            String ultimaMensagem = conversa.getUltimaMensagem().toLowerCase();
+
+            if(nome.contains(texto) || ultimaMensagem.contains(texto)) {
+                listConversaBusca.add(conversa);
+            }
+
+            adapter = new ConversasAdapter(listConversaBusca, getActivity());
+            recyclerViewConversas.setAdapter(adapter);
+            adapter.notifyDataSetChanged();
+        }
     }
 
 
