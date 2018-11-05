@@ -1,0 +1,68 @@
+package com.example.utente.whatsapp.adapter;
+
+import android.content.Context;
+import android.net.Uri;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+import com.example.utente.whatsapp.R;
+import com.example.utente.whatsapp.model.Usuario;
+
+import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
+
+public class GrupoSelecionadoAdapter extends RecyclerView.Adapter<GrupoSelecionadoAdapter.MyViewHolder> {
+
+    private List<Usuario> contatosSelecionados;
+    private Context context;
+
+    public GrupoSelecionadoAdapter(List<Usuario> listaContatos, Context context) {
+        this.contatosSelecionados = listaContatos;
+        this.context = context;
+    }
+
+    @Override
+    public GrupoSelecionadoAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View itemList = LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_grupo_selecionado, parent, false);
+        return new GrupoSelecionadoAdapter.MyViewHolder(itemList);
+    }
+
+    @Override
+    public void onBindViewHolder(GrupoSelecionadoAdapter.MyViewHolder holder, int position) {
+
+        Usuario usuario = contatosSelecionados.get(position);
+
+        holder.nome.setText(usuario.getNome());
+
+        if (usuario.getFoto() != null) {
+            Uri uri = Uri.parse(usuario.getFoto());
+            Glide.with(context).load(uri).into(holder.foto);
+        } else {
+            holder.foto.setImageResource(R.drawable.padrao);
+        }
+
+    }
+
+    @Override
+    public int getItemCount() {
+        return contatosSelecionados.size();
+    }
+
+
+    public class MyViewHolder extends RecyclerView.ViewHolder {
+
+        CircleImageView foto;
+        TextView nome;
+
+        public MyViewHolder(View itemView) {
+            super(itemView);
+            foto = itemView.findViewById(R.id.imageViewFotoMembroSelecionado);
+            nome = itemView.findViewById(R.id.textNomeMembroSelecionado);
+        }
+    }
+}
