@@ -1,5 +1,6 @@
 package com.example.utente.whatsapp.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -23,6 +24,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,6 +39,7 @@ public class GrupoActivity extends AppCompatActivity {
     private DatabaseReference databaseReference;
     private FirebaseUser usuarioAtual;
     private Toolbar toolbar;
+    private FloatingActionButton fabAvancarCadastro;
 
 
     @Override
@@ -47,18 +50,12 @@ public class GrupoActivity extends AppCompatActivity {
         toolbar.setTitle("Novo grupo");
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         recyclerMembros = findViewById(R.id.recyclerMembros);
         recyclerMenbrosSelecionados = findViewById(R.id.recyclerMenbrosSelecionados);
+        fabAvancarCadastro = findViewById(R.id.fabAvancarCadastro);
+
         databaseReference = ConfiguracaoFirebase.getFirebaseDatabase().child("usuarios");
         usuarioAtual = UsuarioFirebase.getUsuarioAtual();
 
@@ -139,6 +136,16 @@ public class GrupoActivity extends AppCompatActivity {
                             }
                         }
                 ));
+        // config float action button
+        fabAvancarCadastro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(GrupoActivity.this, CadastroGrupoActivity.class);
+                intent.putExtra("membros",(Serializable) listaMembrosSelecionados);
+                startActivity(intent);
+            }
+        });
+
     }
 
 
