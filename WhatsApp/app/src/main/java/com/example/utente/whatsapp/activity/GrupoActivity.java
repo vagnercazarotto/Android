@@ -36,12 +36,15 @@ public class GrupoActivity extends AppCompatActivity {
     private ValueEventListener valueEventListenerMembros;
     private DatabaseReference databaseReference;
     private FirebaseUser usuarioAtual;
+    private Toolbar toolbar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_grupo);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitle("Novo grupo");
         setSupportActionBar(toolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -81,9 +84,11 @@ public class GrupoActivity extends AppCompatActivity {
                                 //add in the new list
                                 listaMembrosSelecionados.add(usuarioSelecionado);
                                 grupoSelecionadoAdapter.notifyDataSetChanged();
+
+                                atualizarMembrosToolbar();
                             }
 
-                            
+
                             @Override
                             public void onLongItemClick(View view, int position) {
 
@@ -105,6 +110,35 @@ public class GrupoActivity extends AppCompatActivity {
         recyclerMenbrosSelecionados.setHasFixedSize(true);
         recyclerMenbrosSelecionados.setAdapter(grupoSelecionadoAdapter);
 
+        recyclerMenbrosSelecionados.addOnItemTouchListener(
+                new RecyclerItemClickListener(
+                        getApplicationContext(),
+                        recyclerMenbrosSelecionados,
+                        new RecyclerItemClickListener.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(View view, int position) {
+                                Usuario usuarioSelecionado = listaMembrosSelecionados.get(position);
+                                //remove from the list
+                                listaMembrosSelecionados.remove(usuarioSelecionado);
+                                grupoSelecionadoAdapter.notifyDataSetChanged();
+                                //add on the new list
+                                listaMembros.add(usuarioSelecionado);
+                                contatosAdapter.notifyDataSetChanged();
+
+                                atualizarMembrosToolbar();
+                            }
+
+                            @Override
+                            public void onLongItemClick(View view, int position) {
+
+                            }
+
+                            @Override
+                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                            }
+                        }
+                ));
     }
 
 
@@ -120,6 +154,7 @@ public class GrupoActivity extends AppCompatActivity {
                     }
                 }
                 contatosAdapter.notifyDataSetChanged();
+                atualizarMembrosToolbar();
             }
 
             @Override
@@ -129,6 +164,11 @@ public class GrupoActivity extends AppCompatActivity {
         });
     }
 
+    public void atualizarMembrosToolbar(){
+        int totalSelecionados = listaMembrosSelecionados.size();
+        int total = listaMembros.size() + totalSelecionados;
+        toolbar.setSubtitle(totalSelecionados+ " de " + total +" selecionados.");
+    }
 
     @Override
     protected void onStart() {
