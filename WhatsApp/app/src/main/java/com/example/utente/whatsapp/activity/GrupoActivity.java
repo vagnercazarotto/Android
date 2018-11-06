@@ -83,6 +83,7 @@ public class GrupoActivity extends AppCompatActivity {
                                 grupoSelecionadoAdapter.notifyDataSetChanged();
                             }
 
+                            
                             @Override
                             public void onLongItemClick(View view, int position) {
 
