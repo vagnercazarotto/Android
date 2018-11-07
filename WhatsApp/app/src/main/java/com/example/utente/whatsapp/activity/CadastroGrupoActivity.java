@@ -17,7 +17,6 @@ import java.util.List;
 public class CadastroGrupoActivity extends AppCompatActivity {
 
     private List<Usuario> listaMembrosSelecionados = new ArrayList<>();
-    private TextView textTotalMembros;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,8 +25,7 @@ public class CadastroGrupoActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        // initial config
-        textTotalMembros = findViewById(R.id.textTotal);
+
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -45,7 +43,6 @@ public class CadastroGrupoActivity extends AppCompatActivity {
             listaMembrosSelecionados.addAll(membros);
         }
 
-        textTotalMembros.setText(listaMembrosSelecionados.size());
 
 
 

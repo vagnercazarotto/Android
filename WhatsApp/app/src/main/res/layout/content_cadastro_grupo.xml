@@ -8,11 +8,4 @@
     tools:context=".activity.CadastroGrupoActivity"
     tools:showIn="@layout/activity_cadastro_grupo">
 
-    <TextView
-        android:id="@+id/textTotal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        tools:layout_editor_absoluteX="162dp"
-        tools:layout_editor_absoluteY="199dp" />
 </android.support.constraint.ConstraintLayout>
