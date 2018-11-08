@@ -4,6 +4,7 @@ import android.provider.ContactsContract;
 
 import com.bumptech.glide.request.target.DrawableImageViewTarget;
 import com.example.utente.whatsapp.config.ConfiguracaoFirebase;
+import com.example.utente.whatsapp.helper.Base64Custom;
 import com.google.firebase.database.DatabaseReference;
 
 import java.io.Serializable;
@@ -54,5 +55,28 @@ public class Grupo implements Serializable {
 
     public void setMembros(List<Usuario> membros) {
         this.membros = membros;
+    }
+
+    public void salvar() {
+        DatabaseReference databaseReference = ConfiguracaoFirebase.getFirebaseDatabase();
+        DatabaseReference grupoReference = databaseReference.child("grupos");
+
+        grupoReference.child(getId()).setValue(this);
+
+        //should save the chat for every person
+        for (Usuario membro: getMembros()) {
+
+            String idRemetente = Base64Custom.codificarBase64(membro.getEmail());
+            String idDestinatario = getId();
+
+            Conversa conversa = new Conversa();
+            conversa.setIdRemetent(idRemetente);
+            conversa.setIdDestinatario(idDestinatario);
+            conversa.setUltimaMensagem("");
+            conversa.setIsGroup("true");
+            conversa.setGrupo(this);
+
+            conversa.salvar();
+        }
     }
 }
