@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.utente.whatsapp.R;
 import com.example.utente.whatsapp.model.Conversa;
+import com.example.utente.whatsapp.model.Grupo;
 import com.example.utente.whatsapp.model.Usuario;
 
 import java.util.List;
@@ -29,7 +30,7 @@ public class ConversasAdapter extends RecyclerView.Adapter<ConversasAdapter.MyVi
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_contatos,parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_contatos, parent, false);
         return new MyViewHolder(view);
     }
 
@@ -38,15 +39,30 @@ public class ConversasAdapter extends RecyclerView.Adapter<ConversasAdapter.MyVi
         Conversa conversa = conversas.get(position);
         holder.ultimaMensagem.setText(conversa.getUltimaMensagem());
 
-        Usuario usuario = conversa.getUsuarioExibicao();
-        holder.nome.setText(usuario.getNome());
+        if (conversa.getIsGroup().equals("true")) {
 
-        if(usuario.getFoto() != null) {
-            Uri uri = Uri.parse(usuario.getFoto());
-            Glide.with(context).load(uri).into(holder.foto);
+            Grupo grupo = conversa.getGrupo();
+            holder.nome.setText(grupo.getNome());
+
+            if (grupo.getFoto() != null) {
+                Uri uri = Uri.parse(grupo.getFoto());
+                Glide.with(context).load(uri).into(holder.foto);
+            } else {
+                holder.foto.setImageResource(R.drawable.padrao);
+            }
+
         } else {
-            holder.foto.setImageResource(R.drawable.padrao);
+            Usuario usuario = conversa.getUsuarioExibicao();
+            holder.nome.setText(usuario.getNome());
+
+            if (usuario.getFoto() != null) {
+                Uri uri = Uri.parse(usuario.getFoto());
+                Glide.with(context).load(uri).into(holder.foto);
+            } else {
+                holder.foto.setImageResource(R.drawable.padrao);
+            }
         }
+
     }
 
     @Override
@@ -54,7 +70,7 @@ public class ConversasAdapter extends RecyclerView.Adapter<ConversasAdapter.MyVi
         return conversas.size();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder{
+    public class MyViewHolder extends RecyclerView.ViewHolder {
 
         CircleImageView foto;
         TextView nome, ultimaMensagem;

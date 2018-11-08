@@ -24,6 +24,7 @@ import com.example.utente.whatsapp.config.ConfiguracaoFirebase;
 import com.example.utente.whatsapp.helper.Base64Custom;
 import com.example.utente.whatsapp.helper.UsuarioFirebase;
 import com.example.utente.whatsapp.model.Conversa;
+import com.example.utente.whatsapp.model.Grupo;
 import com.example.utente.whatsapp.model.Mensagem;
 import com.example.utente.whatsapp.model.Usuario;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -61,6 +62,7 @@ public class ChatActivity extends AppCompatActivity {
     private StorageReference storageReference;
     private DatabaseReference mensagensRef;
     private ChildEventListener childEventListenerMensagens;
+    private Grupo grupo;
 
     private static final int SELECAO_CAMERA = 100;
 
@@ -87,21 +89,40 @@ public class ChatActivity extends AppCompatActivity {
         //recover the user destinatary user data
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
-            usuarioDestinatario = (Usuario) bundle.getSerializable("chatContato");
-            textViewNome.setText(usuarioDestinatario.getNome());
+            if(bundle.containsKey("chatGrupo")) {
+                grupo = (Grupo) bundle.getSerializable("chatGrupo");
+                idUsuarioDestinatario = grupo.getId();
 
-            String foto = usuarioDestinatario.getFoto();
-            if (foto != null) {
-                Uri url = Uri.parse(usuarioDestinatario.getFoto());
-                Glide.with(ChatActivity.this)
-                        .load(url)
-                        .into(circleImageViewFoto);
-            } else {
-                circleImageViewFoto.setImageResource(R.drawable.padrao);
+                textViewNome.setText(grupo.getNome());
+
+                String foto = grupo.getFoto();
+                if (foto != null) {
+                    Uri url = Uri.parse(foto);
+                    Glide.with(ChatActivity.this)
+                            .load(url)
+                            .into(circleImageViewFoto);
+                } else {
+                    circleImageViewFoto.setImageResource(R.drawable.padrao);
+                }
+
+            }else {
+                usuarioDestinatario = (Usuario) bundle.getSerializable("chatContato");
+                textViewNome.setText(usuarioDestinatario.getNome());
+
+                String foto = usuarioDestinatario.getFoto();
+                if (foto != null) {
+                    Uri url = Uri.parse(usuarioDestinatario.getFoto());
+                    Glide.with(ChatActivity.this)
+                            .load(url)
+                            .into(circleImageViewFoto);
+                } else {
+                    circleImageViewFoto.setImageResource(R.drawable.padrao);
+                }
+
+                //recover data from destinatary
+                idUsuarioDestinatario = Base64Custom.codificarBase64(usuarioDestinatario.getEmail());
             }
 
-            //recover data from destinatary
-            idUsuarioDestinatario = Base64Custom.codificarBase64(usuarioDestinatario.getEmail());
         }
 
 
