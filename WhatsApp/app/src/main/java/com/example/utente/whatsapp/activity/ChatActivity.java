@@ -49,6 +49,7 @@ public class ChatActivity extends AppCompatActivity {
     private TextView textViewNome;
     private CircleImageView circleImageViewFoto;
     private Usuario usuarioDestinatario;
+    private Usuario usuarioRemetente;
     private EditText editMensagem;
     private ImageView imageCamera;
 
@@ -86,6 +87,7 @@ public class ChatActivity extends AppCompatActivity {
 
         // recover data from sender
         idUsuarioRemetente = UsuarioFirebase.getIdentificadorUsuario();
+        usuarioRemetente = UsuarioFirebase.getDadosUsuariosLogado();
 
         //recover the user destinatary user data
         Bundle bundle = getIntent().getExtras();
@@ -228,7 +230,6 @@ public class ChatActivity extends AppCompatActivity {
                 salvarMensagem(idUsuarioDestinatario, idUsuarioRemetente, mensagem);
 
                 salvarConversa(idUsuarioRemetente,idUsuarioDestinatario, usuarioDestinatario , mensagem, false);
-                Usuario usuarioRemetente = UsuarioFirebase.getDadosUsuariosLogado();
                 salvarConversa(idUsuarioDestinatario,idUsuarioRemetente, usuarioRemetente , mensagem, false);
             } else {
 
@@ -239,7 +240,7 @@ public class ChatActivity extends AppCompatActivity {
                     Mensagem mensagem = new Mensagem();
                     mensagem.setIdUsuario(idUsuarioLogadoGrupo);
                     mensagem.setMensagem(textoMensagem);
-                    mensagem.setNome(membro.getNome());
+                    mensagem.setNome(usuarioRemetente.getNome());
 
                     salvarMensagem(idRemetenteGrupo, idUsuarioDestinatario, mensagem);
                     salvarConversa(idRemetenteGrupo,idUsuarioRemetente, usuarioDestinatario , mensagem, true);
