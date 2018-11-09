@@ -239,6 +239,7 @@ public class ChatActivity extends AppCompatActivity {
                     Mensagem mensagem = new Mensagem();
                     mensagem.setIdUsuario(idUsuarioLogadoGrupo);
                     mensagem.setMensagem(textoMensagem);
+                    mensagem.setNome(membro.getNome());
 
                     salvarMensagem(idRemetenteGrupo, idUsuarioDestinatario, mensagem);
                     salvarConversa(idRemetenteGrupo,idUsuarioRemetente, usuarioDestinatario , mensagem, true);

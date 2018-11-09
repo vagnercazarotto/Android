@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -14,6 +15,13 @@
         android:backgroundTint="@android:color/white"
         android:orientation="vertical">
 
+        <TextView
+            android:id="@+id/textNomeExibicao"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:textSize="14sp" />
+
         <ImageView
             android:id="@+id/imageMensagemFoto"
             android:layout_width="wrap_content"
@@ -24,8 +32,8 @@
             android:id="@+id/textoMensagemTexto"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            tools:text="Ola tudo bem?" />
 
     </LinearLayout>
 
