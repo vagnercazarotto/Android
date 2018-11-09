@@ -26,6 +26,10 @@ public class ContatosAdapter extends RecyclerView.Adapter<ContatosAdapter.MyView
         this.context = context;
     }
 
+    public List<Usuario> getContatos(){
+        return this.contatos;
+    }
+
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemList = LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_contatos, parent, false);

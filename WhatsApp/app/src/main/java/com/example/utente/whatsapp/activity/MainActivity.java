@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.ViewParent;
 
 import com.example.utente.whatsapp.R;
+import com.example.utente.whatsapp.adapter.ContatosAdapter;
 import com.example.utente.whatsapp.config.ConfiguracaoFirebase;
 import com.example.utente.whatsapp.fragment.ContatosFragment;
 import com.example.utente.whatsapp.fragment.ConversasFragment;
@@ -46,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
                 .create()
         );
 
-        ViewPager viewPager = findViewById(R.id.viewpager);
+        final ViewPager viewPager = findViewById(R.id.viewpager);
         viewPager.setAdapter(adapter);
 
         SmartTabLayout viewPagerTab = findViewById(R.id.viewPagerTab);
@@ -70,7 +71,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-
         // Listener for the text box
         searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
             @Override
@@ -83,17 +83,35 @@ public class MainActivity extends AppCompatActivity {
             public boolean onQueryTextChange(String newText) {
                 Log.d("evento", "onQueryTextChange");
 
-                ConversasFragment fragment = (ConversasFragment) adapter.getPage(0);
-                if(!newText.isEmpty() && newText != null){
-                    fragment.pesquisarConversas(newText.toLowerCase());
+                switch (viewPager.getCurrentItem()) {
+                    case 0:
+                        ConversasFragment conversasFragment = (ConversasFragment) adapter.getPage(0);
+
+                        if (!newText.isEmpty() && newText != null) {
+                            conversasFragment.pesquisarConversas(newText.toLowerCase());
+                        } else {
+                            conversasFragment.recarregarConversas();
+                        }
+
+                        break;
+                    case 1:
+
+                        ContatosFragment contatosFragment = (ContatosFragment) adapter.getPage(1);
+
+                        if (!newText.isEmpty() && newText != null) {
+                            contatosFragment.pesquisarContatos(newText.toLowerCase());
+                        } else {
+                            contatosFragment.recarregarContatos();
+                        }
+                        break;
                 }
+
 
                 return true;
             }
         });
 
     }
-
 
 
     @Override
@@ -135,8 +153,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
-    public void abrirConfiguracoes(){
+    public void abrirConfiguracoes() {
         Intent intent = new Intent(MainActivity.this, ConfiguracoesActivity.class);
         startActivity(intent);
     }

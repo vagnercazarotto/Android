@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,17 +15,21 @@ import com.example.utente.whatsapp.R;
 import com.example.utente.whatsapp.activity.ChatActivity;
 import com.example.utente.whatsapp.activity.GrupoActivity;
 import com.example.utente.whatsapp.adapter.ContatosAdapter;
+import com.example.utente.whatsapp.adapter.ConversasAdapter;
 import com.example.utente.whatsapp.config.ConfiguracaoFirebase;
 import com.example.utente.whatsapp.helper.RecyclerItemClickListener;
 import com.example.utente.whatsapp.helper.UsuarioFirebase;
+import com.example.utente.whatsapp.model.Conversa;
 import com.example.utente.whatsapp.model.Usuario;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -73,12 +78,14 @@ public class ContatosFragment extends Fragment {
                             @Override
                             public void onItemClick(View view, int position) {
 
-                                Usuario usuarioSelecionado = listaContatos.get(position);
+                                List<Usuario> listaUsuariosAtualizada = adapter.getContatos();
+
+                                Usuario usuarioSelecionado = listaUsuariosAtualizada.get(position);
                                 boolean cabecalho = usuarioSelecionado.getEmail().isEmpty();
 
                                 if (cabecalho) {
                                     Intent intent = new Intent(getActivity(), GrupoActivity.class);
-                                    startActivity( intent );
+                                    startActivity(intent);
 
                                 } else {
                                     Intent intent = new Intent(getActivity(), ChatActivity.class);
@@ -139,6 +146,30 @@ public class ContatosFragment extends Fragment {
 
             }
         });
+    }
+
+
+    public void pesquisarContatos(String texto) {
+        Log.d("pesquisa", texto);
+
+        List<Usuario> listContatosBusca = new ArrayList<>();
+        for (Usuario usuario : listaContatos) {
+            String nome = usuario.getNome();
+            if (nome.contains(texto)) {
+                listContatosBusca.add(usuario);
+            }
+        }
+
+        adapter = new ContatosAdapter(listContatosBusca, getActivity());
+        recyclerViewListaContatos.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+    }
+
+
+    public void recarregarContatos() {
+        adapter = new ContatosAdapter(listaContatos, getActivity());
+        recyclerViewListaContatos.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
     }
 
 }
