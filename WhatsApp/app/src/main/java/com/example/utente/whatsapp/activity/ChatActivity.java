@@ -11,6 +11,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -89,7 +90,7 @@ public class ChatActivity extends AppCompatActivity {
         //recover the user destinatary user data
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
-            if(bundle.containsKey("chatGrupo")) {
+            if (bundle.containsKey("chatGrupo")) {
                 grupo = (Grupo) bundle.getSerializable("chatGrupo");
                 idUsuarioDestinatario = grupo.getId();
 
@@ -105,7 +106,7 @@ public class ChatActivity extends AppCompatActivity {
                     circleImageViewFoto.setImageResource(R.drawable.padrao);
                 }
 
-            }else {
+            } else {
                 usuarioDestinatario = (Usuario) bundle.getSerializable("chatContato");
                 textViewNome.setText(usuarioDestinatario.getNome());
 
@@ -126,14 +127,13 @@ public class ChatActivity extends AppCompatActivity {
         }
 
 
-
         // config the adapter
         mensagensAdapter = new MensagensAdapter(mensagens, getApplicationContext());
 
         //config the recyclerview
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerViewMensagem.setLayoutManager(layoutManager);
-        recyclerViewMensagem.setHasFixedSize( true );
+        recyclerViewMensagem.setHasFixedSize(true);
         recyclerViewMensagem.setAdapter(mensagensAdapter);
 
         // database
@@ -218,30 +218,54 @@ public class ChatActivity extends AppCompatActivity {
         String textoMensagem = editMensagem.getText().toString();
 
         if (!textoMensagem.isEmpty()) {
-            Mensagem mensagem = new Mensagem();
-            mensagem.setIdUsuario(idUsuarioRemetente);
-            mensagem.setMensagem(textoMensagem);
 
-            salvarMensagem(idUsuarioRemetente, idUsuarioDestinatario, mensagem);
-            salvarMensagem(idUsuarioDestinatario, idUsuarioRemetente, mensagem);
+            if (usuarioDestinatario != null) {
+                Mensagem mensagem = new Mensagem();
+                mensagem.setIdUsuario(idUsuarioRemetente);
+                mensagem.setMensagem(textoMensagem);
 
-            // TODO salvar conversa
-            salvarConversa(mensagem);
+                salvarMensagem(idUsuarioRemetente, idUsuarioDestinatario, mensagem);
+                salvarMensagem(idUsuarioDestinatario, idUsuarioRemetente, mensagem);
+
+                salvarConversa(mensagem, false);
+            } else {
+
+                for (Usuario membro : grupo.getMembros()) {
+                    String idRemetenteGrupo = Base64Custom.codificarBase64(membro.getEmail());
+                    String idUsuarioLogadoGrupo = UsuarioFirebase.getIdentificadorUsuario();
+
+                    Mensagem mensagem = new Mensagem();
+                    mensagem.setIdUsuario(idUsuarioLogadoGrupo);
+                    mensagem.setMensagem(textoMensagem);
+
+                    salvarMensagem(idRemetenteGrupo, idUsuarioDestinatario, mensagem);
+
+                    salvarConversa(mensagem, true);
+                }
+
+            }
         } else {
             Toast.makeText(ChatActivity.this, "Digite uma mensagem para enviar!", Toast.LENGTH_SHORT).show();
         }
 
     }
 
-    private void salvarConversa(Mensagem mensagem) {
+    private void salvarConversa(Mensagem mensagem, boolean isGroup) {
 
         Conversa conversaRemetente = new Conversa();
         conversaRemetente.setIdRemetent(idUsuarioRemetente);
         conversaRemetente.setIdDestinatario(idUsuarioDestinatario);
         conversaRemetente.setUltimaMensagem(mensagem.getMensagem());
         conversaRemetente.setUsuarioExibicao(usuarioDestinatario);
-        conversaRemetente.salvar();
 
+        if (isGroup) {
+            conversaRemetente.setIsGroup("true");
+            conversaRemetente.setGrupo(grupo);
+        } else {
+            conversaRemetente.setIsGroup("false");
+        }
+
+        conversaRemetente.salvar();
     }
 
 
