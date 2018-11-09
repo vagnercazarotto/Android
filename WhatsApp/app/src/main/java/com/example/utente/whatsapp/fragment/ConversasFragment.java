@@ -69,14 +69,15 @@ public class ConversasFragment extends Fragment {
             @Override
             public void onItemClick(View view, int position) {
 
-                Conversa conversaSelecionada = listaConversas.get(position);
+                List<Conversa> listaConversaAtualizada = adapter.getConversas();
+                Conversa conversaSelecionada = listaConversaAtualizada.get(position);
 
-                if(conversaSelecionada.getIsGroup().equals("true")) {
-                    Intent intent = new Intent(getActivity(),ChatActivity.class);
+                if (conversaSelecionada.getIsGroup().equals("true")) {
+                    Intent intent = new Intent(getActivity(), ChatActivity.class);
                     intent.putExtra("chatGrupo", conversaSelecionada.getGrupo());
                     startActivity(intent);
                 } else {
-                    Intent intent = new Intent(getActivity(),ChatActivity.class);
+                    Intent intent = new Intent(getActivity(), ChatActivity.class);
                     intent.putExtra("chatContato", conversaSelecionada.getUsuarioExibicao());
                     startActivity(intent);
                 }
@@ -101,25 +102,35 @@ public class ConversasFragment extends Fragment {
         return view;
     }
 
-    public void recarregarConversas(){
+    public void recarregarConversas() {
         adapter = new ConversasAdapter(listaConversas, getActivity());
         recyclerViewConversas.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }
 
 
-
-    public void pesquisarConversas(String texto){
+    public void pesquisarConversas(String texto) {
         Log.d("pesquisa", texto);
 
         List<Conversa> listConversaBusca = new ArrayList<>();
         for (Conversa conversa : listaConversas) {
 
-            String nome = conversa.getUsuarioExibicao().getNome().toLowerCase();
-            String ultimaMensagem = conversa.getUltimaMensagem().toLowerCase();
+            if (conversa.getUsuarioExibicao() != null) {
+                String nome = conversa.getUsuarioExibicao().getNome().toLowerCase();
+                String ultimaMensagem = conversa.getUltimaMensagem().toLowerCase();
 
-            if(nome.contains(texto) || ultimaMensagem.contains(texto)) {
-                listConversaBusca.add(conversa);
+                if (nome.contains(texto) || ultimaMensagem.contains(texto)) {
+                    listConversaBusca.add(conversa);
+                }
+
+            } else {
+                String nome = conversa.getGrupo().getNome();
+                String ultimaMensagem = conversa.getUltimaMensagem().toLowerCase();
+
+                if (nome.contains(texto) || ultimaMensagem.contains(texto)) {
+                    listConversaBusca.add(conversa);
+                }
+
             }
 
             adapter = new ConversasAdapter(listConversaBusca, getActivity());

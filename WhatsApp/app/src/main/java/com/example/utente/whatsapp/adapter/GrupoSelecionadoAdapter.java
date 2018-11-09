@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.utente.whatsapp.R;
+import com.example.utente.whatsapp.model.Conversa;
 import com.example.utente.whatsapp.model.Usuario;
 
 import java.util.List;
@@ -25,6 +26,7 @@ public class GrupoSelecionadoAdapter extends RecyclerView.Adapter<GrupoSeleciona
         this.contatosSelecionados = listaContatos;
         this.context = context;
     }
+
 
     @Override
     public GrupoSelecionadoAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
