@@ -227,7 +227,9 @@ public class ChatActivity extends AppCompatActivity {
                 salvarMensagem(idUsuarioRemetente, idUsuarioDestinatario, mensagem);
                 salvarMensagem(idUsuarioDestinatario, idUsuarioRemetente, mensagem);
 
-                salvarConversa(mensagem, false);
+                salvarConversa(idUsuarioRemetente,idUsuarioDestinatario, usuarioDestinatario , mensagem, false);
+                Usuario usuarioRemetente = UsuarioFirebase.getDadosUsuariosLogado();
+                salvarConversa(idUsuarioDestinatario,idUsuarioRemetente, usuarioRemetente , mensagem, false);
             } else {
 
                 for (Usuario membro : grupo.getMembros()) {
@@ -239,8 +241,7 @@ public class ChatActivity extends AppCompatActivity {
                     mensagem.setMensagem(textoMensagem);
 
                     salvarMensagem(idRemetenteGrupo, idUsuarioDestinatario, mensagem);
-
-                    salvarConversa(mensagem, true);
+                    salvarConversa(idRemetenteGrupo,idUsuarioRemetente, usuarioDestinatario , mensagem, true);
                 }
 
             }
@@ -250,18 +251,19 @@ public class ChatActivity extends AppCompatActivity {
 
     }
 
-    private void salvarConversa(Mensagem mensagem, boolean isGroup) {
+    private void salvarConversa(String idRemetente, String idDestinatario,Usuario usuarioExibicao, Mensagem mensagem, boolean isGroup) {
 
         Conversa conversaRemetente = new Conversa();
-        conversaRemetente.setIdRemetent(idUsuarioRemetente);
-        conversaRemetente.setIdDestinatario(idUsuarioDestinatario);
+        conversaRemetente.setIdRemetent(idRemetente);
+        conversaRemetente.setIdDestinatario(idDestinatario);
         conversaRemetente.setUltimaMensagem(mensagem.getMensagem());
-        conversaRemetente.setUsuarioExibicao(usuarioDestinatario);
+
 
         if (isGroup) {
             conversaRemetente.setIsGroup("true");
             conversaRemetente.setGrupo(grupo);
         } else {
+            conversaRemetente.setUsuarioExibicao(usuarioExibicao);
             conversaRemetente.setIsGroup("false");
         }
 
