@@ -48,7 +48,6 @@ public class CadastroGrupoActivity extends AppCompatActivity {
     private EditText editNomeGrupo;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,7 +74,6 @@ public class CadastroGrupoActivity extends AppCompatActivity {
                 }
             }
         });
-
 
 
         //recover the list of members
@@ -126,39 +124,39 @@ public class CadastroGrupoActivity extends AppCompatActivity {
                 imagem = MediaStore.Images.Media.getBitmap(getContentResolver(), localImagemSelecionada);
                 if (imagem != null) {
                     imageGrupo.setImageBitmap(imagem);
+
+
+                    // recover the data for the img in firebase
+                    ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                    imagem.compress(Bitmap.CompressFormat.JPEG, 70, byteArrayOutputStream);
+                    byte[] dadosImagem = byteArrayOutputStream.toByteArray();
+
+
+                    // save the image in the firebase storage
+                    StorageReference imageRef = storageReference
+                            .child("imagens")
+                            .child("perfil")
+                            .child(grupo.getId() + ".jpeg");
+
+                    UploadTask uploadTask = imageRef.putBytes(dadosImagem);
+                    uploadTask.addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(CadastroGrupoActivity.this, "Erro ao fazer Upload..", Toast.LENGTH_SHORT).show();
+                        }
+                    }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            Toast.makeText(CadastroGrupoActivity.this, "Sucesso ao fazer Upload..", Toast.LENGTH_SHORT).show();
+
+                            String firebaseUrl = taskSnapshot.getDownloadUrl().toString();
+                            grupo.setFoto(firebaseUrl);
+
+                        }
+                    });
+
+
                 }
-
-                // recover the data for the img in firebase
-                ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-                imagem.compress(Bitmap.CompressFormat.JPEG,70, byteArrayOutputStream);
-                byte[] dadosImagem = byteArrayOutputStream.toByteArray();
-
-
-                // save the image in the firebase storage
-                StorageReference imageRef = storageReference
-                        .child("imagens")
-                        .child("perfil")
-                        .child(grupo.getId() + ".jpeg");
-
-                UploadTask uploadTask = imageRef.putBytes(dadosImagem);
-                uploadTask.addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(CadastroGrupoActivity.this, "Erro ao fazer Upload..", Toast.LENGTH_SHORT).show();
-                    }
-                }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        Toast.makeText(CadastroGrupoActivity.this, "Sucesso ao fazer Upload..", Toast.LENGTH_SHORT).show();
-
-                        String firebaseUrl = taskSnapshot.getDownloadUrl().toString();
-                        grupo.setFoto(firebaseUrl);
-
-                    }
-                });
-
-
-
 
             } catch (Exception e) {
                 e.printStackTrace();
