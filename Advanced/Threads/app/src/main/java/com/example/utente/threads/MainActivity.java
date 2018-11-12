@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
 //        MyThread thread = new MyThread();
 //        thread.run();
 //
-        pararExecucao = true;
+        pararExecucao = false;
         MyRunnable myRunnable = new MyRunnable();
         new Thread( myRunnable).start();
     }
