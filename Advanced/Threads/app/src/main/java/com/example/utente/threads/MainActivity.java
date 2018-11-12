@@ -14,20 +14,45 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void startThread(View view){
-        for(int i = 0; i <= 15; i++){
-            Log.d("Thread", "contador:  " +i);
-
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
+//        MyThread thread = new MyThread();
+//        thread.run();
+//
+        MyRunnable myRunnable = new MyRunnable();
+        new Thread( myRunnable).run();
     }
 
     public void finishThread(View view){ }
 
+    class MyThread extends Thread{
+        @Override
+        public void run() {
+            for(int i = 0; i <= 15; i++){
+                Log.d("Thread", "contador:  " +i);
 
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+
+    class MyRunnable implements Runnable{
+        @Override
+        public void run() {
+            for(int i = 0; i <= 15; i++){
+                Log.d("Thread", "contador:  " +i);
+
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
 
 
 }
