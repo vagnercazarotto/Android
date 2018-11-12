@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
                 MyTask myTask = new MyTask();
                 String url = "https://blockchain.info/ticker";
                 String urlCEP = "https://viacep.com.br/ws/01001000/json";
-                myTask.execute(urlCEP);
+                myTask.execute(url);
             }
         });
 
@@ -70,22 +70,26 @@ public class MainActivity extends AppCompatActivity {
             String bairro = null;
             String localidade = null;
             String uf = null;
+            String valorReal = null;
 
             try {
+//                JSONObject jsonObject = new JSONObject(resultado);
+//                logradouro = jsonObject.getString("logradouro");
+//                cep = jsonObject.getString("cep");
+//                complemento = jsonObject.getString("complemento");
+//                bairro = jsonObject.getString("bairro");
+//                localidade = jsonObject.getString("localidade");
+//                uf = jsonObject.getString("uf");
+
                 JSONObject jsonObject = new JSONObject(resultado);
-                logradouro = jsonObject.getString("logradouro");
-                cep = jsonObject.getString("cep");
-                complemento = jsonObject.getString("complemento");
-                bairro = jsonObject.getString("bairro");
-                localidade = jsonObject.getString("localidade");
-                uf = jsonObject.getString("uf");
+                valorReal = jsonObject.getString("BRL");
 
             } catch (JSONException e) {
                 e.printStackTrace();
             }
 
-
-            textoResultado.setText(logradouro + " / " + cep + " / " + complemento + " / " + bairro + " / " + localidade + " / " + uf);
+            textoResultado.setText(valorReal);
+//            textoResultado.setText(logradouro + " / " + cep + " / " + complemento + " / " + bairro + " / " + localidade + " / " + uf);
     }
 
         @Override
