@@ -8,8 +8,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -62,18 +65,31 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(String... strings) {
             String stringURL = strings[0];
+            InputStream inputStream = null;
+            InputStreamReader inputStreamReader = null;
+            StringBuffer buffer = null;
 
             try {
                 URL url = new URL(stringURL);
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
-                InputStream inputStream = connection.getInputStream();
+                inputStream = connection.getInputStream();
+                inputStreamReader = new InputStreamReader(inputStream);
+
+                BufferedReader reader = new BufferedReader(inputStreamReader);
+                String linha = "";
+                buffer = new StringBuffer();
+                while ((linha = reader.readLine()) != null){
+                    buffer.append(linha);
+                }
+
+
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            return null;
+            return buffer.toString();
         }
     }
 
