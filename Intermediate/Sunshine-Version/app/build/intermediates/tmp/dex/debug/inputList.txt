@@ -1,5 +1,0 @@
-C:\Mobile\Android\Sunshine-Version\app\build\intermediates\classes\debug
-C:\Mobile\Android\Sunshine-Version\app\build\intermediates\pre-dexed\debug\support-annotations-21.0.2-4dfb708fab2b051d63cf7700db9b983d6b89e2c3.jar
-C:\Mobile\Android\Sunshine-Version\app\build\intermediates\pre-dexed\debug\internal_impl-21.0.2-5c1d323f79aab4f2fc3acedf5630aa4d6110d6c5.jar
-C:\Mobile\Android\Sunshine-Version\app\build\intermediates\pre-dexed\debug\classes-a19cbdbbdc20f3054888f95b3c84ff8ff5733c2a.jar
-C:\Mobile\Android\Sunshine-Version\app\build\intermediates\pre-dexed\debug\classes-de823f9cb99575f5d12c6307be3bf5aa2fcbaed0.jar
