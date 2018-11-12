@@ -4,13 +4,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
+
+    private Button botaoIniciar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        botaoIniciar = findViewById(R.id.buttonIniciar);
     }
 
     public void startThread(View view){
@@ -44,7 +49,8 @@ public class MainActivity extends AppCompatActivity {
         public void run() {
             for(int i = 0; i <= 15; i++){
                 Log.d("Thread", "contador:  " +i);
-
+                botaoIniciar.setText("contador:  " +i);
+                
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
