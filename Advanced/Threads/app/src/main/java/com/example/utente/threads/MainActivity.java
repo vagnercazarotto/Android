@@ -12,6 +12,7 @@ public class MainActivity extends AppCompatActivity {
     private Button botaoIniciar;
     private int numero;
     private Handler handler = new Handler();
+    private boolean pararExecucao = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,11 +26,14 @@ public class MainActivity extends AppCompatActivity {
 //        MyThread thread = new MyThread();
 //        thread.run();
 //
+        pararExecucao = true;
         MyRunnable myRunnable = new MyRunnable();
         new Thread( myRunnable).start();
     }
 
-    public void finishThread(View view){ }
+    public void finishThread(View view){
+        pararExecucao = true;
+    }
 
     class MyThread extends Thread{
         @Override
@@ -55,21 +59,25 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("Thread", "contador:  " + numero);
 
 
-//                // so the work in the UI thread
-//                runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        botaoIniciar.setText("contador:  " + numero);
-//                    }
-//                });
+                if(pararExecucao) {
+                    return;
+                }
 
-
-                handler.post(new Runnable() {
+                // so the work in the UI thread
+                runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         botaoIniciar.setText("contador:  " + numero);
                     }
                 });
+
+
+//                handler.post(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        botaoIniciar.setText("contador:  " + numero);
+//                    }
+//                });
 
 
                 try {
