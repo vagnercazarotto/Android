@@ -1,5 +1,6 @@
 package com.example.utente.threads;
 
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,6 +11,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Button botaoIniciar;
     private int numero;
+    private Handler handler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,12 +50,21 @@ public class MainActivity extends AppCompatActivity {
     class MyRunnable implements Runnable{
         @Override
         public void run() {
+
             for(numero = 0; numero <= 15; numero++){
                 Log.d("Thread", "contador:  " + numero);
 
 
-                // so the work in the UI thread
-                runOnUiThread(new Runnable() {
+//                // so the work in the UI thread
+//                runOnUiThread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        botaoIniciar.setText("contador:  " + numero);
+//                    }
+//                });
+
+
+                handler.post(new Runnable() {
                     @Override
                     public void run() {
                         botaoIniciar.setText("contador:  " + numero);
