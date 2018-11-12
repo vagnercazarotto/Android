@@ -9,6 +9,7 @@ import android.widget.Button;
 public class MainActivity extends AppCompatActivity {
 
     private Button botaoIniciar;
+    private int numero;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
 //        thread.run();
 //
         MyRunnable myRunnable = new MyRunnable();
-        new Thread( myRunnable).run();
+        new Thread( myRunnable).start();
     }
 
     public void finishThread(View view){ }
@@ -47,10 +48,19 @@ public class MainActivity extends AppCompatActivity {
     class MyRunnable implements Runnable{
         @Override
         public void run() {
-            for(int i = 0; i <= 15; i++){
-                Log.d("Thread", "contador:  " +i);
-                botaoIniciar.setText("contador:  " +i);
-                
+            for(numero = 0; numero <= 15; numero++){
+                Log.d("Thread", "contador:  " + numero);
+
+
+                // so the work in the UI thread
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        botaoIniciar.setText("contador:  " + numero);
+                    }
+                });
+
+
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
