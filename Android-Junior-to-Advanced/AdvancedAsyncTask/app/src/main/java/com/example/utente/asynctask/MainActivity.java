@@ -2,11 +2,15 @@ package com.example.utente.asynctask;
 
 
 import android.os.AsyncTask;
+import android.provider.CalendarContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.example.utente.asynctask.api.CEPService;
+import com.example.utente.asynctask.model.CEP;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -20,10 +24,17 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 public class MainActivity extends AppCompatActivity {
 
     private Button botaoRecuperar;
     private TextView textoResultado;
+    private Retrofit retrofit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,9 +44,18 @@ public class MainActivity extends AppCompatActivity {
         botaoRecuperar = findViewById(R.id.buttonAsync);
         textoResultado = findViewById(R.id.textView);
 
+        retrofit = new Retrofit.Builder()
+                .baseUrl("https://viacep.com.br/ws/")
+                .addConverterFactory(GsonConverterFactory.create()).build();
+
         botaoRecuperar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
+                recuperarCEPRetrofit();
+
+
 //                MyTask myTask = new MyTask();
 //                String url = "https://blockchain.info/ticker";
 //                String urlCEP = "https://viacep.com.br/ws/01001000/json";
@@ -44,16 +64,30 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+    }
 
+    private void recuperarCEPRetrofit() {
+        CEPService cepService = retrofit.create(CEPService.class);
+        Call<CEP> cepCall = cepService.recuperarCEP();
 
+        cepCall.enqueue(new Callback<CEP>() {
+            @Override
+            public void onResponse(Call<CEP> call, Response<CEP> response) {
+                if(response.isSuccessful()){
+                    CEP cep = response.body();
+                    textoResultado.setText(cep.getLogradouro() + " / " + cep.getBairro());
+                }
+            }
 
+            @Override
+            public void onFailure(Call<CEP> call, Throwable t) {
 
+            }
+        });
     }
 
 
-
-
-    class MyTask extends AsyncTask<String,Void,String>{
+    class MyTask extends AsyncTask<String, Void, String> {
 
         @Override
         protected void onPreExecute() {
@@ -90,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
 
             textoResultado.setText(valorReal);
 //            textoResultado.setText(logradouro + " / " + cep + " / " + complemento + " / " + bairro + " / " + localidade + " / " + uf);
-    }
+        }
 
         @Override
         protected String doInBackground(String... strings) {
@@ -109,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
                 BufferedReader reader = new BufferedReader(inputStreamReader);
                 String linha = "";
                 buffer = new StringBuffer();
-                while ((linha = reader.readLine()) != null){
+                while ((linha = reader.readLine()) != null) {
                     buffer.append(linha);
                 }
 
@@ -122,7 +156,6 @@ public class MainActivity extends AppCompatActivity {
             return buffer.toString();
         }
     }
-
 
 
 }
