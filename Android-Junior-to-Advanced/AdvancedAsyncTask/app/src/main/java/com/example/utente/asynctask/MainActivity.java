@@ -3,14 +3,18 @@ package com.example.utente.asynctask;
 
 import android.os.AsyncTask;
 import android.provider.CalendarContract;
+import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.utente.asynctask.api.CEPService;
+import com.example.utente.asynctask.api.DataService;
 import com.example.utente.asynctask.model.CEP;
+import com.example.utente.asynctask.model.Foto;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -23,6 +27,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -35,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     private Button botaoRecuperar;
     private TextView textoResultado;
     private Retrofit retrofit;
+    private List<Foto> listaFotos = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +52,8 @@ public class MainActivity extends AppCompatActivity {
         textoResultado = findViewById(R.id.textView);
 
         retrofit = new Retrofit.Builder()
-                .baseUrl("https://viacep.com.br/ws/")
+//                .baseUrl("https://viacep.com.br/ws/")
+                .baseUrl("https://jsonplaceholder.typicode.com/")
                 .addConverterFactory(GsonConverterFactory.create()).build();
 
         botaoRecuperar.setOnClickListener(new View.OnClickListener() {
@@ -53,7 +61,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 
 
-                recuperarCEPRetrofit();
+                //recuperarCEPRetrofit();
+                recuperarListaRetrofit();
 
 
 //                MyTask myTask = new MyTask();
@@ -66,9 +75,35 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private void recuperarListaRetrofit(){
+        DataService service = retrofit.create(DataService.class);
+        Call<List<Foto>> call = service.recuperarFotos();
+
+        call.enqueue(new Callback<List<Foto>>() {
+            @Override
+            public void onResponse(Call<List<Foto>> call, Response<List<Foto>> response) {
+                if(response.isSuccessful()){
+                    listaFotos = response.body();
+
+                    for(int i=0; i<listaFotos.size(); i++){
+                        Foto foto = listaFotos.get(i);
+                        Log.d("resultado", "resultado: " + foto.getTitle());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Foto>> call, Throwable t) {
+
+            }
+        });
+    }
+
+
+
     private void recuperarCEPRetrofit() {
         CEPService cepService = retrofit.create(CEPService.class);
-        Call<CEP> cepCall = cepService.recuperarCEP();
+        Call<CEP> cepCall = cepService.recuperarCEP("01001000");
 
         cepCall.enqueue(new Callback<CEP>() {
             @Override
