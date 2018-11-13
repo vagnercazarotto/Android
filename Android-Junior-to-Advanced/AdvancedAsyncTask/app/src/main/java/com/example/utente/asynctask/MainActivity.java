@@ -36,10 +36,10 @@ public class MainActivity extends AppCompatActivity {
         botaoRecuperar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MyTask myTask = new MyTask();
-                String url = "https://blockchain.info/ticker";
-                String urlCEP = "https://viacep.com.br/ws/01001000/json";
-                myTask.execute(url);
+//                MyTask myTask = new MyTask();
+//                String url = "https://blockchain.info/ticker";
+//                String urlCEP = "https://viacep.com.br/ws/01001000/json";
+//                myTask.execute(url);
             }
         });
 
