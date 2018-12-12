@@ -19,23 +19,5 @@ import static org.junit.Assert.*;
  */
 public class HelloWithTestsIT {
 
-    @Rule
-    public final StandardOutputStreamLog out = new StandardOutputStreamLog();
 
-    @Test
-    public void doesItSayHelloTest() {
-        String[] args = {"1"};
-        HelloApp.main(args);
-
-        assertThat(out.getLog(), is(equalTo(Hello.HELLO + "\r\n")));
-    }
-
-    @Test
-    public void doesItSayHelloTest3() {
-        String[] args = {"3"};
-        HelloApp.main(args);
-
-        String thrice = Hello.HELLO + "\r\n" + Hello.HELLO + "\r\n" + Hello.HELLO + "\r\n";
-        assertThat(out.getLog(), is(equalTo(thrice)));
-    }
 }
