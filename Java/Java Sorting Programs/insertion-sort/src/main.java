@@ -3,13 +3,15 @@ public class main {
 
 	public static void main(String[] args) {
         int[] arr1 = {9,14,3,2,43,11,58,22};    
-        System.out.println("Before Insertion Sort");    
+        System.out.println("Before Insertion Sort");   
+        
         for(int i:arr1){    
             System.out.print(i+" ");    
         }    
         System.out.println();    
             
-        insertionSort(arr1);//sorting array using insertion sort    
+        insertionSort(arr1);
+        //sorting array using insertion sort    
            
         System.out.println("After Insertion Sort");    
         for(int i:arr1){    
@@ -20,6 +22,9 @@ public class main {
 	
 	
 	public static void insertionSort(int array[]) { 
+		/**
+		 * Insertion is good for small elements only because it requires more time for sorting large number of elements.
+		 */
 		int n = array.length;
 		for(int j = 1; j < n ; j ++) { 
 			int key = array[j];
