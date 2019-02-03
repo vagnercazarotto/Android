@@ -2,7 +2,7 @@
 public class main {
 
 	public static void main(String[] args) {
-		/**
+		/**	
 		 * In case of binary search, array elements must be in ascending order. 
 		 * If you have unsorted array, you can sort the array using Arrays.sort(arr) method.
 		 */
