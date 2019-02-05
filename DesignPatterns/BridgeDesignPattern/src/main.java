@@ -4,14 +4,40 @@
 public class main {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-        // Let's print the classloader name of current class.   
-        //Application/System classloader will load this class  
-        Class c= main.class;  
-        System.out.println(c.getClassLoader());  
-        //If we print the classloader name of String, it will print null because it is an  
-        //in-built class which is found in rt.jar, so it is loaded by Bootstrap classloader  
-        System.out.println(String.class.getClassLoader()); 
+
+		
+		/**
+		 * • You want to avoid a permanent binding between an abstraction and its implementation. This might be the case, for example,
+		 * when the implementation must be selected or switched at run-time.
+		 * • Both the abstractions and their implementations should be extensible by sub-classing. In this case, the Bridge pattern lets you
+		 * combine the different abstractions and implementations and extend them independently.
+		 * • Changes in the implementation of an abstraction should have no impact on clients; that is, their code should not have to be recompiled.
+         * • You want to share an implementation among multiple objects (perhaps using reference counting), and this fact should be hidden from the client.
+		 */
+		
+		Product product = new CentralLocking("Central Locking System");
+		Product product2 = new GearLocking("Gear Locking System");
+		Car car = new BigWheel(product , "BigWheel xz model");
+		car.produceProduct();
+		car.assemble();
+		car.printDetails();
+		System.out.println();
+		car = new BigWheel(product2 , "BigWheel xz model");
+		car.produceProduct();
+		car.assemble();
+		car.printDetails();
+		car = new Motoren(product, "Motoren lm model");
+		car.produceProduct();
+		car.assemble();
+		car.printDetails();
+		System.out.println();
+		car = new Motoren(product2, "Motoren lm model");
+		car.produceProduct();
+		car.assemble();
+		car.printDetails();
+		
+		
+		
 	}
 
 }
